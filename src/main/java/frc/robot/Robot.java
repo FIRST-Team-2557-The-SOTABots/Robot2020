@@ -8,8 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveSub;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +24,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,8 +32,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    DriveSub.driveTrain.setSafetyEnabled(false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    DriveSub.dsL.set(Value.kForward);
     m_robotContainer = new RobotContainer();
   }
 
@@ -96,12 +102,21 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+
+    SmartDashboard.putNumber("Current Gear", RobotContainer.driveSub.getCurrentGear());
+    SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
+    SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
+    SmartDashboard.putNumber("FtPerSecondOfRobot", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) * (DriveSub.wheelDiameter * Math.PI) / 60);
+    SmartDashboard.putNumber("EncoderVelocity", DriveSub.encoder.getVelocity());
+    SmartDashboard.putBoolean("Exceeded RPM limit gear one", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) > DriveSub.limitRotSpdGear1 ? true : false);
   }
 
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+
+
   }
 
   /**

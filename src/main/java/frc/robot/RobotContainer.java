@@ -7,60 +7,87 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.AimCommand;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.PIDFlywheel;
+import frc.robot.commands.TurretFeeder;
 import frc.robot.subsystems.DriveSub;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.FlywheelSub;
+import frc.robot.subsystems.HoodSub;
+import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.LidarSub;
+import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-/**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  // The robot's subsystems
   public static final DriveSub driveSub = new DriveSub();
+  public static final TurretSub turretSub = new TurretSub();
+  public static final HoodSub hoodSub = new HoodSub();
+  public static final FlywheelSub flywheelSub = new FlywheelSub();
+  public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
+  public static final IntakeSub intakeSub = new IntakeSub();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // Joysticks and Buttons
+  public static Joystick driver = new Joystick(0);
+  public static JoystickButton da = new JoystickButton(driver, 1);
+  public static JoystickButton db = new JoystickButton(driver, 2);
+  public static JoystickButton dx = new JoystickButton(driver, 3); 
+  public static JoystickButton dy = new JoystickButton(driver, 4);
+	public static JoystickButton dbumperLeft = new JoystickButton(driver, 5);
+  public static JoystickButton dbumperRight = new JoystickButton(driver, 6);
+  public static JoystickButton dback = new JoystickButton(driver, 7);
+  public static JoystickButton dstart = new JoystickButton(driver, 8);
+  public static JoystickButton dterribleLeft = new JoystickButton(driver, 9);
+  public static JoystickButton dterribleRight = new JoystickButton(driver, 10);
 
-  public static final Joystick stick = new Joystick(0);
+  public static Joystick manipulator = new Joystick(1);
+	public static JoystickButton ma = new JoystickButton(manipulator, 1);
+  public static JoystickButton mb = new JoystickButton(manipulator, 2);
+  public static JoystickButton mx = new JoystickButton(manipulator, 3);
+  public static JoystickButton my = new JoystickButton(manipulator, 4);
+  public static JoystickButton mbumperLeft = new JoystickButton(manipulator, 5);
+  public static JoystickButton mbumperRight = new JoystickButton(manipulator, 6);
+  public static JoystickButton mback = new JoystickButton(manipulator, 7);
+  public static JoystickButton mstart = new JoystickButton(manipulator, 8);
+  public static JoystickButton mterribleLeft = new JoystickButton(manipulator, 9);
+  public static JoystickButton mterribleRight = new JoystickButton(manipulator, 10);
 
-  /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
-   */
+  public static AHRS navX = new AHRS(SPI.Port.kMXP);
+
+
   public RobotContainer() {
-    // Configure the button bindings
-
+    driveSub.setDefaultCommand(new DriveCommand());
     configureButtonBindings();
 
-    
-
   }
 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() {
-    
+
+    da.whenPressed(() -> driveSub.shift(), driveSub);
+
+    mb.whileHeld(
+      new AimCommand()
+    );
+
+    mx.whileHeld(
+      new ParallelCommandGroup(
+        new TurretFeeder(),
+        new PIDFlywheel()
+      )
+    );
+
 
   }
 
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }

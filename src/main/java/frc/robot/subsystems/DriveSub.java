@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -16,71 +18,62 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSub extends SubsystemBase {
-  private static final int gearWhenForward = 1;
-  private static final int gearWhenReverse = 2;
-  private static final double ratioGear1 = 0;
-  private static final double ratioGear2 = 0;
-  private static final double eTicksPerRev = 0;
-  public static final double limitRotSpdGear1 = 0;
+  public static final int gearWhenForward = 1;
+  public static final int gearWhenReverse = 2;
+  public static final double ratioGear1 = 18.86;
+  public static final double ratioGear2 = 6;
+  public static final double eTicksPerRev = 42; //ticks of 
 
-  private static final DoubleSolenoid ds = new DoubleSolenoid(0, 1);
-  private static final WPI_TalonSRX l1 = new WPI_TalonSRX(0);
-  private static final WPI_TalonSRX l2 = new WPI_TalonSRX(1);
-  private static final WPI_TalonSRX r1 = new WPI_TalonSRX(2);
-  private static final WPI_TalonSRX r2 = new WPI_TalonSRX(3);
-  private static final SpeedControllerGroup l = new SpeedControllerGroup(l1, l2);
-  private static final SpeedControllerGroup r = new SpeedControllerGroup(r1, r2);
+  public static final double wheelDiameter = 0.1524; //in meters
+
+  public static final double limitMeterPerSecGear1 = 1.8288; //in meters per second
+  public static final double limitRotSpdGear1 = 
+    (limitMeterPerSecGear1 / (wheelDiameter * Math.PI)) /* M/s  /  M/rot  = rot/s */   * 60; // rotations per minute
+
+  public static final DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
+  // public static final DoubleSolenoid dsR = new DoubleSolenoid(0, 2);
+  public static final CANSparkMax l1 = new CANSparkMax(10, MotorType.kBrushless);
+  public static final CANSparkMax l2 = new CANSparkMax(11, MotorType.kBrushless);
+  public static final CANSparkMax r1 = new CANSparkMax(12, MotorType.kBrushless);
+  public static final CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);
+  public static final SpeedControllerGroup l = new SpeedControllerGroup(l1, l2);
+  public static final SpeedControllerGroup r = new SpeedControllerGroup(r1, r2);
   public static final DifferentialDrive driveTrain = new DifferentialDrive(l, r);
-  
-  
 
-  /**
-   * Creates a new DriveSub.
-   */
+  public static final CANEncoder encoder = l1.getEncoder();
+
   public DriveSub() {
-
-    
-    
-
   }
 
-  public static void drive(double fwd, double rot){
+  public void drive(double fwd, double rot){
     driveTrain.arcadeDrive(fwd, rot);
   }
 
-  public static void shift() {
-    if (ds.get() == Value.kForward) {
-      ds.set(Value.kReverse);
-    } else if(ds.get() == Value.kReverse) {
-      ds.set(Value.kForward);
+  public void shift() {
+    if (dsL.get() == Value.kForward) {
+      dsL.set(Value.kReverse);
+    } else if(dsL.get() == Value.kReverse) {
+      dsL.set(Value.kForward);
     }
-    
   }
 
-  public static int getCurrentGear() {
-    if (ds.get() == Value.kForward) {
+  public int getCurrentGear() {
+    if (dsL.get() == Value.kForward) {
       return gearWhenForward;
-    } else if(ds.get() == Value.kReverse) {
+    } else {
       return gearWhenReverse;
     }
-    return 0;
-    
   }
 
-  // returns rotation speed of wheel in rotations per 100ms
-  public static double getRotationSpeed (double currentGear) {
+  // returns rotation speed of wheel in rotations per minute
+  public double getRotationSpeed(double currentGear) {
     if (currentGear == 1) {
-      return l1.getSensorCollection().getQuadratureVelocity()/eTicksPerRev * ratioGear1;
-    } else if (currentGear == 2) {
-      return l1.getSensorCollection().getQuadratureVelocity()/eTicksPerRev * ratioGear2;
+      return encoder.getVelocity() / (ratioGear1);
+    } else{
+      return encoder.getVelocity() / (ratioGear2) ;
     }
-    return 0;
+
   }
-
-
-
-
-
 
   @Override
   public void periodic() {
