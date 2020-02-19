@@ -29,11 +29,11 @@ public class DriveCommand extends CommandBase {
     
     RobotContainer.driveSub.drive(RobotContainer.driver.getRawAxis(1), 0.6 * RobotContainer.driver.getRawAxis(4));
 
-    if (RobotContainer.driveSub.getCurrentGear() == 1 && Math.abs(RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear())) > DriveSub.limitRotSpdGear1) {
-      RobotContainer.driveSub.shift();
-    } else if (RobotContainer.driveSub.getCurrentGear() == 2 && Math.abs(RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear())) < DriveSub.limitRotSpdGear1) {
-      RobotContainer.driveSub.shift();
-    }
+    // if (RobotContainer.driveSub.getCurrentGear() == 1 && Math.abs(RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear())) > DriveSub.limitRotSpdGear1) {
+    //   RobotContainer.driveSub.shift();
+    // } else if (RobotContainer.driveSub.getCurrentGear() == 2 && Math.abs(RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear())) < DriveSub.limitRotSpdGear1) {
+    //   RobotContainer.driveSub.shift();
+    // }
   }
 
   // Called once the command ends or is interrupted.

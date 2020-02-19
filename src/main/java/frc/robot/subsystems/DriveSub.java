@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -14,6 +15,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.SPI;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -26,6 +29,8 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSub extends SubsystemBase {
+
+  public static AHRS navX = new AHRS(SPI.Port.kMXP);
 
   DifferentialDriveOdometry m_odometry;
   private double gyroReversed = 1;
@@ -42,7 +47,7 @@ public class DriveSub extends SubsystemBase {
 
   public static final double wheelDiameter = 0.1524; //in meters
 
-  public static final CANEncoder encoder = RobotContainer.l1.getEncoder();
+  // public static final CANEncoder encoder = RobotContainer.l1.getEncoder();
 
 
   public DriveSub() {
@@ -64,7 +69,7 @@ public class DriveSub extends SubsystemBase {
   }
 
   public double getTurnRate(){
-    return gyroReversed*RobotContainer.navX.getRate();
+    return gyroReversed*navX.getRate();
   }
 
   public void teleDrive(){
@@ -137,16 +142,16 @@ public class DriveSub extends SubsystemBase {
 
 
   public Rotation2d getAngle(){
-    return Rotation2d.fromDegrees(gyroReversed*RobotContainer.navX.getAngle());
+    return Rotation2d.fromDegrees(gyroReversed*navX.getAngle());
   }
 
   //robot's heading in degrees from -180 to 180
   public double getHeading(){
-    return Math.IEEEremainder(gyroReversed*RobotContainer.navX.getAngle(), 360) ;
+    return Math.IEEEremainder(gyroReversed*navX.getAngle(), 360);
   }
 
   public void zeroHeading(){
-    RobotContainer.navX.reset();
+    navX.reset();
   }
 
   public void resetEncoders(){
@@ -198,13 +203,13 @@ public class DriveSub extends SubsystemBase {
   }
 
   // returns rotation speed of wheel in rotations per minute
-  public double getRotationSpeed(double currentGear) {
-    if (currentGear == 1) {
-      return encoder.getVelocity() / (ratioGear1);
-    } else{
-      return encoder.getVelocity() / (ratioGear2) ;
-    }
+  // public double getRotationSpeed(double currentGear) {
+  //   if (currentGear == 1) {
+  //     return encoder.getVelocity() / (ratioGear1);
+  //   } else{
+  //     return encoder.getVelocity() / (ratioGear2) ;
+  //   }
 
-  }
+  // }
 
 }
