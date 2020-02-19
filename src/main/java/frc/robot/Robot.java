@@ -38,13 +38,13 @@ public class Robot extends TimedRobot {
     RobotContainer.dsL.set(Value.kForward);
     m_robotContainer = new RobotContainer();
 
-    RobotContainer.flywheelSub.flywheelMotor.enableCurrentLimit(true);
-    RobotContainer.flywheelSub.flywheelMotor.configPeakCurrentDuration(0,0);
-    RobotContainer.flywheelSub.flywheelMotor.configPeakCurrentLimit(10,0);
+    RobotContainer.flywheelMotor.enableCurrentLimit(true);
+    RobotContainer.flywheelMotor.configPeakCurrentDuration(0,0);
+    RobotContainer.flywheelMotor.configPeakCurrentLimit(10,0);
 
-    RobotContainer.flywheelSub.flywheelMotor2.enableCurrentLimit(true);
-    RobotContainer.flywheelSub.flywheelMotor2.configPeakCurrentDuration(0,0);
-    RobotContainer.flywheelSub.flywheelMotor2.configPeakCurrentLimit(10,0);
+    RobotContainer.flywheelMotor2.enableCurrentLimit(true);
+    RobotContainer.flywheelMotor2.configPeakCurrentDuration(0,0);
+    RobotContainer.flywheelMotor2.configPeakCurrentLimit(10,0);
 
   }
 
@@ -113,11 +113,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    RobotContainer.flywheelSub.flywheelMotor.set(RobotContainer.driver.getRawAxis(1));
-    RobotContainer.flywheelSub.flywheelMotor2.set(RobotContainer.driver.getRawAxis(1));
+    RobotContainer.flywheelMotor.set(RobotContainer.driver.getRawAxis(1));
+    RobotContainer.flywheelMotor2.set(RobotContainer.driver.getRawAxis(1));
 
-    RobotContainer.hoodSub.hoodMotor.set(RobotContainer.driver.getRawAxis(5));
-    RobotContainer.turretSub.turretMotor.set(RobotContainer.driver.getRawAxis(4));
+    RobotContainer.hoodMotor.set(RobotContainer.driver.getRawAxis(5));
+    RobotContainer.turretMotor.set(RobotContainer.driver.getRawAxis(4));
 
   }
 

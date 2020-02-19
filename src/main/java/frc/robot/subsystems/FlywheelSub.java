@@ -10,11 +10,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class FlywheelSub extends SubsystemBase {
 
-  public static WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(1);
-  public static WPI_TalonSRX flywheelMotor2 = new WPI_TalonSRX(2);
+
   public static final double flywheelRadius = 1; //meters
   private static final double encTicksPerRot = 0;
 
@@ -30,13 +30,13 @@ public class FlywheelSub extends SubsystemBase {
   }
 
   public void spinFlywheel(double speed) {
-    flywheelMotor.set(speed);
-    flywheelMotor2.set(speed);
+    RobotContainer.flywheelMotor.set(speed);
+    RobotContainer.flywheelMotor2.set(speed);
   }
 
   // returns RPM of flywheel
   public double getFlywheelSpeed() {
-    return (flywheelMotor.getSensorCollection().getQuadratureVelocity() / encTicksPerRot) * 600;
+    return (RobotContainer.flywheelMotor.getSensorCollection().getQuadratureVelocity() / encTicksPerRot) * 600;
 
   }
 

@@ -10,10 +10,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class HoodSub extends SubsystemBase {
 
-  public static WPI_TalonSRX hoodMotor = new WPI_TalonSRX(3);
   private static final double radiansPerEncoder = 0;
 
   public HoodSub() {
@@ -21,11 +21,11 @@ public class HoodSub extends SubsystemBase {
   }
 
   public void angleHood(double speed){
-    hoodMotor.set(speed);
+    RobotContainer.hoodMotor.set(speed);
   }
 
   public double getHoodAngle() {
-    return hoodMotor.getSensorCollection().getQuadraturePosition() * radiansPerEncoder;
+    return RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition() * radiansPerEncoder;
   }
 
   @Override

@@ -10,37 +10,32 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class IntakeSub extends SubsystemBase {
-
-  private static final WPI_TalonSRX bigIntakeAngler = new WPI_TalonSRX(64);
-  private static final WPI_TalonSRX bigIntakeRunner = new WPI_TalonSRX(63);
-  private static final WPI_TalonSRX smallIntakeAngler = new WPI_TalonSRX(62);
-  private static final WPI_TalonSRX smallIntakeRunner = new WPI_TalonSRX(61);
-  private static final WPI_TalonSRX conveyorMotor = new WPI_TalonSRX(60);
 
   public IntakeSub() {
 
   }
 
   public void angleBigIntake(double speed) {
-    bigIntakeAngler.set(speed);
+    RobotContainer.bigIntakeAngler.set(speed);
   }
 
   public void runBigIntake(double speed) {
-    bigIntakeRunner.set(speed);
+    RobotContainer.bigIntakeRunner.set(speed);
   }
 
   public void angleSmallIntake(double speed) {
-    smallIntakeAngler.set(speed);
+    RobotContainer.smallIntakeAngler.set(speed);
   }
 
   public void runSmallIntake(double speed) {
-    smallIntakeRunner.set(speed);
+    RobotContainer.smallIntakeRunner.set(speed);
   }
 
   public void runConveyorBelt(double speed) {
-    conveyorMotor.set(speed);
+    RobotContainer.conveyorMotor.set(speed);
   }
 
   @Override

@@ -73,9 +73,6 @@ public class RobotContainer {
   public static CANSparkMax r1 = new CANSparkMax(12, MotorType.kBrushless);
   public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);
 
-  public static WPI_TalonSRX turret = new WPI_TalonSRX(0);
-
-
   public static SpeedControllerGroup left = new SpeedControllerGroup(l1, l2);
   public static SpeedControllerGroup right = new SpeedControllerGroup(r1, r2);
   
@@ -84,6 +81,21 @@ public class RobotContainer {
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
   public static AHRS navX = new AHRS(SPI.Port.kMXP);
+
+  public static WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(1);
+  public static WPI_TalonSRX flywheelMotor2 = new WPI_TalonSRX(2);
+
+  public static WPI_TalonSRX bigIntakeAngler = new WPI_TalonSRX(64);
+  public static WPI_TalonSRX bigIntakeRunner = new WPI_TalonSRX(63);
+  public static WPI_TalonSRX smallIntakeAngler = new WPI_TalonSRX(62);
+  public static WPI_TalonSRX smallIntakeRunner = new WPI_TalonSRX(61);
+  public static WPI_TalonSRX conveyorMotor = new WPI_TalonSRX(60);
+
+  public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(0);
+  public static WPI_TalonSRX hoodMotor = new WPI_TalonSRX(3);
+
+  public static DigitalInput touchHigh = new DigitalInput(0);
+  public static DigitalInput touchLow = new DigitalInput(1);
 
 
   public RobotContainer() {
@@ -112,7 +124,6 @@ public class RobotContainer {
         new PIDFlywheel()
       )
     );
-
 
   }
 
