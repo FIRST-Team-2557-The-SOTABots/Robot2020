@@ -37,13 +37,13 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     RobotContainer.dsL.set(Value.kForward);
 
-    RobotContainer.flywheelMotor.enableCurrentLimit(true);
-    RobotContainer.flywheelMotor.configPeakCurrentDuration(0,0);
-    RobotContainer.flywheelMotor.configPeakCurrentLimit(30,0);
+    // RobotContainer.flywheelMotor.enableCurrentLimit(true);
+    // RobotContainer.flywheelMotor.configPeakCurrentDuration(0,0);
+    // RobotContainer.flywheelMotor.configPeakCurrentLimit(30,0);
 
-    RobotContainer.flywheelMotor2.enableCurrentLimit(true);
-    RobotContainer.flywheelMotor2.configPeakCurrentDuration(0,0);
-    RobotContainer.flywheelMotor2.configPeakCurrentLimit(30,0);
+    // RobotContainer.flywheelMotor2.enableCurrentLimit(true);
+    // RobotContainer.flywheelMotor2.configPeakCurrentDuration(0,0);
+    // RobotContainer.flywheelMotor2.configPeakCurrentLimit(30,0);
 
   }
 
@@ -112,8 +112,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    RobotContainer.flywheelMotor.set(RobotContainer.driver.getRawAxis(1));
-    RobotContainer.flywheelMotor2.set(RobotContainer.driver.getRawAxis(1));
+    // RobotContainer.flywheelMotor.set(RobotContainer.driver.getRawAxis(1));
+    // RobotContainer.flywheelMotor2.set(RobotContainer.driver.getRawAxis(1));
+
+    RobotContainer.flywheelMotor.set(-RobotContainer.driver.getRawAxis(2));
+    RobotContainer.flywheelMotor2.set(-RobotContainer.driver.getRawAxis(2));
 
     RobotContainer.hoodMotor.set(RobotContainer.driver.getRawAxis(5));
     RobotContainer.turretMotor.set(RobotContainer.driver.getRawAxis(4));
@@ -137,6 +140,34 @@ public class Robot extends TimedRobot {
 
   public void Smartdashboarding(){
     SmartDashboard.putNumber("Current Gear", RobotContainer.driveSub.getCurrentGear());
+
+    SmartDashboard.putString("Wheel Speeds", RobotContainer.driveSub.getWheelSpeeds().toString());
+    SmartDashboard.putNumber("l1",RobotContainer.l1.getEncoder().getPosition());
+    SmartDashboard.putNumber("l2",RobotContainer.l2.getEncoder().getPosition());
+    SmartDashboard.putNumber("r1",-RobotContainer.r1.getEncoder().getPosition());
+    SmartDashboard.putNumber("r2",-RobotContainer.r2.getEncoder().getPosition());
+    SmartDashboard.putNumber("Gyro Heading", RobotContainer.driveSub.getHeading());
+    SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
+    SmartDashboard.putString("Pose", RobotContainer.driveSub.getPose().toString());
+    SmartDashboard.putString("Pose Rot", RobotContainer.driveSub.getPose().getRotation().toString());
+    SmartDashboard.putString("Pose Dist", RobotContainer.driveSub.getPose().getTranslation().toString());
+    SmartDashboard.putNumber("Average encoder distance", RobotContainer.driveSub.getAverageEncoderDistance());
+    if(RobotContainer.dsL.get() == Value.kForward){
+      SmartDashboard.putNumber("R Dist", (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("L Dist", (RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("R Vel", (-RobotContainer.r1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("L Vel", (RobotContainer.l1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+    }else{
+      SmartDashboard.putNumber("R Dist", (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("L Dist", (RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("R Vel", (-RobotContainer.r1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("L Vel", (RobotContainer.l1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);  
+    }
+    SmartDashboard.putNumber("axis 1", RobotContainer.driver.getRawAxis(1));
+    SmartDashboard.putNumber("axis 4", RobotContainer.driver.getRawAxis(4));
+    SmartDashboard.putString("Sol", RobotContainer.dsL.get().toString());
+    // SmartDashboard.putNumber("hood position", RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
+
     // SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
     // SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
     // SmartDashboard.putNumber("FtPerSecondOfRobot", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) * (DriveSub.wheelDiameter * Math.PI) / 60);

@@ -15,7 +15,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.SPI;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -29,8 +28,6 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 public class DriveSub extends SubsystemBase {
-
-  public static AHRS navX = new AHRS(SPI.Port.kMXP);
 
   DifferentialDriveOdometry m_odometry;
   private double gyroReversed = 1;
@@ -69,7 +66,7 @@ public class DriveSub extends SubsystemBase {
   }
 
   public double getTurnRate(){
-    return gyroReversed*navX.getRate();
+    return gyroReversed*RobotContainer.navX.getRate();
   }
 
   public void teleDrive(){
@@ -142,16 +139,16 @@ public class DriveSub extends SubsystemBase {
 
 
   public Rotation2d getAngle(){
-    return Rotation2d.fromDegrees(gyroReversed*navX.getAngle());
+    return Rotation2d.fromDegrees(gyroReversed*RobotContainer.navX.getAngle());
   }
 
   //robot's heading in degrees from -180 to 180
   public double getHeading(){
-    return Math.IEEEremainder(gyroReversed*navX.getAngle(), 360);
+    return Math.IEEEremainder(gyroReversed*RobotContainer.navX.getAngle(), 360);
   }
 
   public void zeroHeading(){
-    navX.reset();
+    RobotContainer.navX.reset();
   }
 
   public void resetEncoders(){

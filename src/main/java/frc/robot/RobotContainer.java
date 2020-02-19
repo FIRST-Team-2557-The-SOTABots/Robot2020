@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.DriveCommand;
@@ -38,6 +39,7 @@ public class RobotContainer {
   public static SpeedControllerGroup right = new SpeedControllerGroup(r1, r2);
   
   public static DifferentialDrive diffDrive = new DifferentialDrive(left, right);
+  public static AHRS navX = new AHRS(SPI.Port.kMXP);
 
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
