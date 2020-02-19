@@ -32,11 +32,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    DriveSub.driveTrain.setSafetyEnabled(false);
+    RobotContainer.diffDrive.setSafetyEnabled(false);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    DriveSub.dsL.set(Value.kForward);
+    RobotContainer.dsL.set(Value.kForward);
     m_robotContainer = new RobotContainer();
+
+    RobotContainer.flywheelSub.flywheelMotor.enableCurrentLimit(true);
+    RobotContainer.flywheelSub.flywheelMotor.configPeakCurrentDuration(0,0);
+    RobotContainer.flywheelSub.flywheelMotor.configPeakCurrentLimit(10,0);
+
+    RobotContainer.flywheelSub.flywheelMotor2.enableCurrentLimit(true);
+    RobotContainer.flywheelSub.flywheelMotor2.configPeakCurrentDuration(0,0);
+    RobotContainer.flywheelSub.flywheelMotor2.configPeakCurrentLimit(10,0);
+
   }
 
   /**
@@ -53,6 +62,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    Smartdashboarding();
   }
 
   /**
@@ -103,12 +113,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    SmartDashboard.putNumber("Current Gear", RobotContainer.driveSub.getCurrentGear());
-    SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
-    SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
-    SmartDashboard.putNumber("FtPerSecondOfRobot", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) * (DriveSub.wheelDiameter * Math.PI) / 60);
-    SmartDashboard.putNumber("EncoderVelocity", DriveSub.encoder.getVelocity());
-    SmartDashboard.putBoolean("Exceeded RPM limit gear one", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) > DriveSub.limitRotSpdGear1 ? true : false);
+    RobotContainer.flywheelSub.flywheelMotor.set(RobotContainer.driver.getRawAxis(1));
+    RobotContainer.flywheelSub.flywheelMotor2.set(RobotContainer.driver.getRawAxis(1));
+
+    RobotContainer.hoodSub.hoodMotor.set(RobotContainer.driver.getRawAxis(5));
+    RobotContainer.turretSub.turretMotor.set(RobotContainer.driver.getRawAxis(4));
+
   }
 
   @Override
@@ -124,5 +134,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public void Smartdashboarding(){
+    SmartDashboard.putNumber("Current Gear", RobotContainer.driveSub.getCurrentGear());
+    SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
+    SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
+    SmartDashboard.putNumber("FtPerSecondOfRobot", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) * (DriveSub.wheelDiameter * Math.PI) / 60);
+    SmartDashboard.putNumber("EncoderVelocity", DriveSub.encoder.getVelocity());
+    SmartDashboard.putBoolean("Exceeded RPM limit gear one", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) > DriveSub.limitRotSpdGear1 ? true : false);
+    
   }
 }

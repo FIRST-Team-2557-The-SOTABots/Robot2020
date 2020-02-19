@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Projectile;
+// import frc.robot.subsystems.Projectile;
 
 public class PIDHood extends CommandBase {
 
@@ -32,7 +32,7 @@ public class PIDHood extends CommandBase {
     pidController.setTolerance(tolerance);
     pidController.reset();
 
-    setpoint = Projectile.getProjectileAngle();
+    // setpoint = Projectile.getProjectileAngle();
   }
 
   @Override

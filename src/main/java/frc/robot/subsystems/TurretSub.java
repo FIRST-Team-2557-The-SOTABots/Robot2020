@@ -19,7 +19,7 @@ public class TurretSub extends SubsystemBase {
   private static final DigitalInput touchHigh = new DigitalInput(0);
   private static final DigitalInput touchLow = new DigitalInput(1);
 
-  public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(1);
+  public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(0);
 
   public TurretSub() {
 
