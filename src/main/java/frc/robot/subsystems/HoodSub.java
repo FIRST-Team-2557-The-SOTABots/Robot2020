@@ -14,6 +14,7 @@ import frc.robot.RobotContainer;
 
 public class HoodSub extends SubsystemBase {
 
+  private static final double ticksPerRev = 0;
   private static final double degreesPerEncoder = 0;
 
   public HoodSub() {

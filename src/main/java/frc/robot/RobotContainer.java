@@ -26,6 +26,7 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.LidarLitePWM;
 import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -88,6 +89,9 @@ public class RobotContainer {
   public static JoystickButton mstart = new JoystickButton(manipulator, 8);
   public static JoystickButton mterribleLeft = new JoystickButton(manipulator, 9);
   public static JoystickButton mterribleRight = new JoystickButton(manipulator, 10);
+
+  // public static AnalogInput ani = new AnalogInput(70);
+  // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));
 
   // The robot's subsystems
   public static final DriveSub driveSub = new DriveSub();

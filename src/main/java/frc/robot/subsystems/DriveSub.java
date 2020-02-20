@@ -81,15 +81,7 @@ public class DriveSub extends SubsystemBase {
     } else {
       RobotContainer.diffDrive.arcadeDrive(-RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4));
     }
-  // if(RobotContainer.da.get()){
-  //   DriveConstants.reverse = true;
-  //   tankDriveVolts(1, 2);
-  // } else if(RobotContainer.db.get()){
-  //   DriveConstants.reverse = false;
-  //   tankDriveVolts(1, 2);
-  // }else{
-  //   tankDriveVolts(0, 0);
-  // }
+
 }
 
   public void drive(double xSpeed, double rotation){
