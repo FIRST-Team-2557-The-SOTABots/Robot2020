@@ -14,7 +14,7 @@ import frc.robot.RobotContainer;
 
 public class HoodSub extends SubsystemBase {
 
-  private static final double radiansPerEncoder = 0;
+  private static final double degreesPerEncoder = 0;
 
   public HoodSub() {
 
@@ -25,7 +25,7 @@ public class HoodSub extends SubsystemBase {
   }
 
   public double getHoodAngle() {
-    return RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition() * radiansPerEncoder;
+    return RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition() * degreesPerEncoder;
   }
 
   @Override

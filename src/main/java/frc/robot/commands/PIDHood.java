@@ -14,7 +14,7 @@ import frc.robot.RobotContainer;
 
 public class PIDHood extends CommandBase {
 
-  PIDController pidController;//hi
+  PIDController pidController;
   private final double kP = 0;
   private final double kI = 0;
   private final double kD = 0;

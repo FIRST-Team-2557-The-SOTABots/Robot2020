@@ -4,13 +4,14 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class PIDTurret extends CommandBase {
 
   static PIDController pidController;
-  private static final double kP = 0.005;
+  private static final double kP = 0.025;
   private static final double kI = 0;
   private static final double kD = 0;
   private static final double tolerance = 10;
@@ -47,8 +48,11 @@ public class PIDTurret extends CommandBase {
   @Override
   public void execute() {
     getCamData();
-    double output = pidController.calculate(x, setpoint);
+    double output = -pidController.calculate(x, setpoint);
     RobotContainer.turretSub.rotate(output);
+
+    SmartDashboard.putNumber("This is PID turret output", output);
+    SmartDashboard.putNumber("This is PID turret error!!", pidController.getPositionError());
   }
 
   @Override

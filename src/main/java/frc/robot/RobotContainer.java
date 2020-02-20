@@ -14,12 +14,14 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.PIDTurret;
 import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
@@ -59,6 +61,8 @@ public class RobotContainer {
 
   public static DigitalInput touchHigh = new DigitalInput(0);
   public static DigitalInput touchLow = new DigitalInput(1);
+
+  public static AnalogInput hoodEncoder = new AnalogInput(0);
 
   // Joysticks and Buttons
   public static Joystick driver = new Joystick(0);
@@ -108,7 +112,8 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    // da.whenPressed(() -> driveSub.shift(), driveSub);
+    da.whileHeld(new PIDTurret());
+
 
   //   mb.whileHeld(
   //     new AimCommand()
