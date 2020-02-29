@@ -1,17 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -27,7 +19,6 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
 import frc.robot.subsystems.IntakeSub;
-import frc.robot.subsystems.LidarLitePWM;
 import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -38,16 +29,10 @@ public class RobotContainer {
   public static CANSparkMax l2 = new CANSparkMax(11, MotorType.kBrushless);
   public static CANSparkMax r1 = new CANSparkMax(12, MotorType.kBrushless);
   public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);
-
   public static SpeedControllerGroup left = new SpeedControllerGroup(l1, l2);
   public static SpeedControllerGroup right = new SpeedControllerGroup(r1, r2);
-  
   public static DifferentialDrive diffDrive = new DifferentialDrive(left, right);
   public static AHRS navX = new AHRS(SPI.Port.kMXP);
-
-  public static Compressor compressor = new Compressor(1);
-  public static DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
-  public static DoubleSolenoid intakePistons = new DoubleSolenoid(1, 0, 1);
 
   public static WPI_TalonSRX beaverTail = new WPI_TalonSRX(63);
   public static WPI_TalonSRX starWheelAndCPM = new WPI_TalonSRX(69); //don't make a method to run cpm motor, because these are the same
@@ -64,11 +49,18 @@ public class RobotContainer {
   public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(0);
   public static WPI_TalonSRX hoodMotor = new WPI_TalonSRX(3);
 
+  public static Compressor compressor = new Compressor(1);
+  public static DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
+  public static DoubleSolenoid intakePistons = new DoubleSolenoid(1, 0, 1);
+
   public static DigitalInput touchHigh = new DigitalInput(0);
   public static DigitalInput touchLow = new DigitalInput(1);
   public static DigitalInput touch1 = new DigitalInput(5); 
   public static DigitalInput touch2 = new DigitalInput(6); 
   public static DigitalInput touch3 = new DigitalInput(7); 
+
+  // public static AnalogInput ani = new AnalogInput(70);
+  // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));
 
   public static AnalogInput hoodEncoder = new AnalogInput(0);
 
@@ -96,9 +88,6 @@ public class RobotContainer {
   public static JoystickButton mstart = new JoystickButton(manipulator, 8);
   public static JoystickButton mterribleLeft = new JoystickButton(manipulator, 9);
   public static JoystickButton mterribleRight = new JoystickButton(manipulator, 10);
-
-  // public static AnalogInput ani = new AnalogInput(70);
-  // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));
 
   // The robot's subsystems
   public static final DriveSub driveSub = new DriveSub();

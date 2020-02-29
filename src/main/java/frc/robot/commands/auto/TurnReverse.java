@@ -1,8 +1,6 @@
- 
 package frc.robot.commands.auto;
 
 import java.util.List;
-
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;

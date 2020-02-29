@@ -2,7 +2,6 @@
 package frc.robot.commands.auto;
 
 import java.io.IOException;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.components.eightball1;
 import frc.robot.commands.auto.components.eightball2;
