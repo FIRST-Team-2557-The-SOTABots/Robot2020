@@ -1,10 +1,4 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
+ 
 package frc.robot.commands.auto;
 
 import java.util.List;
@@ -20,8 +14,6 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-// import frc.robot.RamseteCommand;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
@@ -29,9 +21,6 @@ import frc.robot.Constants.DriveConstants;
 public class Forward extends CommandBase {
   public static double commandTime = 0;
   double dist = 1;
-  /**
-   * Creates a new Forward.
-   */
   DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
     new SimpleMotorFeedforward(DriveConstants.ksVoltsLow, DriveConstants.kvVoltSecondsPerMeterLow,
         DriveConstants.kaVoltSecondsSquaredPerMeterLow),
@@ -65,20 +54,17 @@ public class Forward extends CommandBase {
   );
 
   public Forward(double dist) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.dist = dist;
     commandTime = exampleTrajectory.getTotalTimeSeconds();
     addRequirements(RobotContainer.driveSub);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     DriveConstants.reverse = false;
     gordonRamsete.schedule();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // System.out.println("LEFT:    " + gordonRamsete.leftSpeedSetpoint);
@@ -86,14 +72,12 @@ public class Forward extends CommandBase {
     // System.out.println("SPEEDS:    " + Robot.driveSub.getWheelSpeeds().toString());
   }
 
-  // Called once the command ends or is interrupted.
    @Override
    public void end(boolean interrupted) {
     RobotContainer.left.set(0);
     RobotContainer.right.set(0);
    }
  
-   // Returns true when the command should end.
    @Override
    public boolean isFinished() {
      return gordonRamsete.isFinished();

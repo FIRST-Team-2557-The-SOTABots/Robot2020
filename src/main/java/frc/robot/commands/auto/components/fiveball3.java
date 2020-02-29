@@ -1,12 +1,6 @@
 package frc.robot.commands.auto.components;
 
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-import java.io.IOException;
+ import java.io.IOException;
 import java.nio.file.Paths;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -24,14 +18,10 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
 public class fiveball3 extends CommandBase {
-  /**
-   * Creates a new Forward.
-   */
   Trajectory exampleTrajectory;
   RamseteCommand gordonRamsete;
 
   public fiveball3() throws IOException {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.driveSub);
     
     exampleTrajectory = TrajectoryUtil.fromPathweaverJson(Paths.get("/home/lvuser/deploy/output/fiveball3.wpilib.json"));
@@ -52,7 +42,6 @@ public class fiveball3 extends CommandBase {
     );
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     RobotContainer.driveSub.zeroHeading();
@@ -62,19 +51,16 @@ public class fiveball3 extends CommandBase {
     gordonRamsete.schedule();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotContainer.left.set(0);
     RobotContainer.right.set(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return gordonRamsete.isFinished();

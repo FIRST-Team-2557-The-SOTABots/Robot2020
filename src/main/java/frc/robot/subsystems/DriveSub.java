@@ -1,22 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
+ 
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
@@ -33,9 +18,7 @@ public class DriveSub extends SubsystemBase {
   private double gyroReversed = 1;
   public static final double limitMeterPerSecGear1 = 1.8288; //in meters per second
   public static final double limitRotSpdGear1 = 
-    (limitMeterPerSecGear1/Constants.wheelCircumferenceMeters) /* ft/s / ft/rot = rot/s */ * 60; // rotations
-                                                                                                              // per
-                                                                                                              // minute
+    (limitMeterPerSecGear1/Constants.wheelCircumferenceMeters) /* ft/s / ft/rot = rot/s */ * 60; // rotations per minute
   public static final int gearWhenForward = 1;
   public static final int gearWhenReverse = 2;
   public static final double ratioGear1 = 18.86;
@@ -43,9 +26,6 @@ public class DriveSub extends SubsystemBase {
   public static final double eTicksPerRev = 42; //ticks of 
 
   public static final double wheelDiameter = 0.1524; //in meters
-
-  // public static final CANEncoder encoder = RobotContainer.l1.getEncoder();
-
 
   public DriveSub() {
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));

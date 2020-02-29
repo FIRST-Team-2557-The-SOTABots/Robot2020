@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDTurret;
 import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
@@ -46,7 +47,10 @@ public class RobotContainer {
 
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
+  public static DoubleSolenoid intakePistons = new DoubleSolenoid(1, 0, 1);
 
+  public static WPI_TalonSRX beaverTail = new WPI_TalonSRX(63);
+  public static WPI_TalonSRX starWheelAndCPM = new WPI_TalonSRX(69); //don't make a method to run cpm motor, because these are the same
 
   public static WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(1);
   public static WPI_TalonSRX flywheelMotor2 = new WPI_TalonSRX(2);
@@ -62,6 +66,9 @@ public class RobotContainer {
 
   public static DigitalInput touchHigh = new DigitalInput(0);
   public static DigitalInput touchLow = new DigitalInput(1);
+  public static DigitalInput touch1 = new DigitalInput(5); 
+  public static DigitalInput touch2 = new DigitalInput(6); 
+  public static DigitalInput touch3 = new DigitalInput(7); 
 
   public static AnalogInput hoodEncoder = new AnalogInput(0);
 
@@ -104,6 +111,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     driveSub.setDefaultCommand(new DriveCommand());
+    intakeSub.setDefaultCommand(new IntakeCommand());
     configureButtonBindings();
 
     //lift.setDefaultCommand(new RunCommand( () -> lift.lift(manipulator.getRawAxis(5)) , lift));
