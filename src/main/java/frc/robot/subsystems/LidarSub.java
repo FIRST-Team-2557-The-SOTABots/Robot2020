@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class LidarLitePWM {
+public class LidarSub {
 /*
  * Adjust the Calibration Offset to compensate for differences in each unit.
  * We've found this is a reasonably constant value for readings in the 25 cm to 600 cm range.
@@ -20,7 +20,7 @@ private int printedWarningCount = 5;
  * 
  * @param source The DigitalInput or DigitalSource where the LIDAR-Lite is attached (ex: new DigitalInput(9))
  */
-public LidarLitePWM (DigitalSource source) {
+public LidarSub (DigitalSource source) {
 	counter = new Counter(source);
     counter.setMaxPeriod(1.0);
     // Configure for measuring rising to falling pulses

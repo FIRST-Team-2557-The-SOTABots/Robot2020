@@ -5,7 +5,7 @@ import frc.robot.RobotContainer;
 
 public class TurretSub extends SubsystemBase {
 
-  // assume counter clockwise is more +, that encoder counts become more positive when turning cclockwise, etc.
+  // assume counter clockwise is more +, that encoder counts become more positive when turning clockwise, etc.
  // actual 
  //4825 tickers per revers
 

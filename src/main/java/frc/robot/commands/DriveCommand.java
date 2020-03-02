@@ -16,7 +16,8 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     
-    RobotContainer.driveSub.drive(RobotContainer.driver.getRawAxis(1), 0.6 * RobotContainer.driver.getRawAxis(4));
+    // RobotContainer.driveSub.drive(RobotContainer.driver.getRawAxis(1), 0.6 * RobotContainer.driver.getRawAxis(4));
+    RobotContainer.driveSub.teleDrive();
 
     // if (RobotContainer.driveSub.getCurrentGear() == 1 && Math.abs(RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear())) > DriveSub.limitRotSpdGear1) {
     //   RobotContainer.driveSub.shift();

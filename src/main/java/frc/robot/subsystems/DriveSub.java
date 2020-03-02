@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -49,17 +50,48 @@ public class DriveSub extends SubsystemBase {
   }
 
   public void teleDrive(){
-    if(RobotContainer.dback.get()){//low
-      RobotContainer.dsL.set(Value.kForward);
-    }else if(RobotContainer.dstart.get()){//high
-      RobotContainer.dsL.set(Value.kReverse);
+
+    // public static CANSparkMax l1 = new CANSparkMax(16, MotorType.kBrushless);
+    // public static CANSparkMax l2 = new CANSparkMax(17, MotorType.kBrushless);
+    // public static CANSparkMax r1 = new CANSparkMax(14, MotorType.kBrushless);//11
+    // public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);//13
+    // public static CANSparkMax r2 = new CANSparkMax(10, MotorType.kBrushless);
+
+    if(RobotContainer.da.get()){
+      RobotContainer.l1.set(0.5);
+    }else{
+      RobotContainer.l1.set(0);
     }
 
-   if(RobotContainer.dbumperLeft.get()){
-      RobotContainer.diffDrive.arcadeDrive(-RobotContainer.driver.getRawAxis(1) * 0.5, (RobotContainer.driver.getRawAxis(4) * 0.5));
-    } else {
-      RobotContainer.diffDrive.arcadeDrive(-RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4));
+    if(RobotContainer.db.get()){
+      RobotContainer.l2.set(0.5);
+    }else{
+      RobotContainer.l2.set(0);
     }
+
+    if(RobotContainer.dx.get()){
+      RobotContainer.r1.set(0.5);
+    }else{
+      RobotContainer.r1.set(0);
+    }
+
+    if(RobotContainer.dy.get()){
+      RobotContainer.r2.set(0.5);
+    }else{
+      RobotContainer.r2.set(0);
+    }
+
+    // if(RobotContainer.dback.get()){//low
+    //   RobotContainer.dsL.set(Value.kForward);
+    // }else if(RobotContainer.dstart.get()){//high
+    //   RobotContainer.dsL.set(Value.kReverse);
+    // }
+
+  //  if(RobotContainer.dbumperLeft.get()){
+  //     RobotContainer.diffDrive.arcadeDrive(-RobotContainer.driver.getRawAxis(1) * 0.5, (RobotContainer.driver.getRawAxis(4) * 0.5));
+  //   } else {
+      // RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4));
+    // }
 
 }
 

@@ -19,7 +19,7 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public void runBeaverTail(double speed) {
-    RobotContainer.beaverTail.set(speed);
+    RobotContainer.intake1.set(speed);
   }
 
   public void angleBeaverTail() {
@@ -31,11 +31,11 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public void runStarWheelAndCPM (double speed) {
-    RobotContainer.starWheelAndCPM.set(speed);
+    RobotContainer.intake2.set(speed);
   }
 
   public void runConveyorBelt(final double speed) {
-    RobotContainer.conveyorMotor.set(speed);
+    RobotContainer.intake3.set(speed);
   }
 
   @Override

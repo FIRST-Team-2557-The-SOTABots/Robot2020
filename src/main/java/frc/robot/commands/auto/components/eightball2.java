@@ -1,7 +1,6 @@
 package frc.robot.commands.auto.components;
- import java.io.IOException;
+import java.io.IOException;
 import java.nio.file.Paths;
-
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;

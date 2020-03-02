@@ -19,39 +19,49 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.LidarSub;
 import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
 
-  public static CANSparkMax l1 = new CANSparkMax(10, MotorType.kBrushless);
-  public static CANSparkMax l2 = new CANSparkMax(11, MotorType.kBrushless);
-  public static CANSparkMax r1 = new CANSparkMax(12, MotorType.kBrushless);
-  public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);
+
+  public static CANSparkMax l1 = new CANSparkMax(16, MotorType.kBrushless);
+  public static CANSparkMax l2 = new CANSparkMax(17, MotorType.kBrushless);
+  public static CANSparkMax r1 = new CANSparkMax(14, MotorType.kBrushless);//11
+  // public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);//13
+  public static CANSparkMax r2 = new CANSparkMax(10, MotorType.kBrushless);
+  // public static CANSparkMax l1 = new CANSparkMax(16, MotorType.kBrushless);
+  // public static CANSparkMax l2 = new CANSparkMax(17, MotorType.kBrushless);
+  // public static CANSparkMax r1 = new CANSparkMax(14, MotorType.kBrushless);//11
+  // // public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);//13
+  // public static CANSparkMax r2 = new CANSparkMax(10, MotorType.kBrushless);
   public static SpeedControllerGroup left = new SpeedControllerGroup(l1, l2);
   public static SpeedControllerGroup right = new SpeedControllerGroup(r1, r2);
   public static DifferentialDrive diffDrive = new DifferentialDrive(left, right);
   public static AHRS navX = new AHRS(SPI.Port.kMXP);
 
-  public static WPI_TalonSRX beaverTail = new WPI_TalonSRX(63);
-  public static WPI_TalonSRX starWheelAndCPM = new WPI_TalonSRX(69); //don't make a method to run cpm motor, because these are the same
+  public static CANSparkMax flywheelMotor = new CANSparkMax(1, MotorType.kBrushless);
+  public static CANSparkMax flywheelMotor2 = new CANSparkMax(2, MotorType.kBrushless);
 
-  public static WPI_TalonSRX flywheelMotor = new WPI_TalonSRX(1);
-  public static WPI_TalonSRX flywheelMotor2 = new WPI_TalonSRX(2);
+  public static WPI_TalonSRX intake1 = new WPI_TalonSRX(4);
+  public static WPI_TalonSRX intake2 = new WPI_TalonSRX(5);//cpm
+  public static WPI_TalonSRX intake3 = new WPI_TalonSRX(6);
 
-  public static WPI_TalonSRX bigIntakeAngler = new WPI_TalonSRX(64);
-  public static WPI_TalonSRX bigIntakeRunner = new WPI_TalonSRX(63);
-  public static WPI_TalonSRX smallIntakeAngler = new WPI_TalonSRX(62);
-  public static WPI_TalonSRX smallIntakeRunner = new WPI_TalonSRX(61);
-  public static WPI_TalonSRX conveyorMotor = new WPI_TalonSRX(60);
+  public static WPI_TalonSRX winch1 = new WPI_TalonSRX(7);
+  public static WPI_TalonSRX lift = new WPI_TalonSRX(8);
+  public static WPI_TalonSRX winch2 = new WPI_TalonSRX(9);
 
   public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(0);
   public static WPI_TalonSRX hoodMotor = new WPI_TalonSRX(3);
 
-  public static Compressor compressor = new Compressor(1);
-  public static DoubleSolenoid dsL = new DoubleSolenoid(1, 0, 1);
-  public static DoubleSolenoid intakePistons = new DoubleSolenoid(1, 0, 1);
+  public static Compressor compressor = new Compressor(0);
+  public static DoubleSolenoid dsL = new DoubleSolenoid(0, 0, 1);
+  public static DoubleSolenoid intakePistons = new DoubleSolenoid(0, 2, 3);
+  public static DoubleSolenoid winchShift = new DoubleSolenoid(0, 4, 5);
+  public static DoubleSolenoid climbLock = new DoubleSolenoid(0, 6, 7);
+  public static DoubleSolenoid CPMshift = new DoubleSolenoid(1, 0, 1);
 
   public static DigitalInput touchHigh = new DigitalInput(0);
   public static DigitalInput touchLow = new DigitalInput(1);
@@ -97,10 +107,9 @@ public class RobotContainer {
   // public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
   public static final IntakeSub intakeSub = new IntakeSub();
 
-
   public RobotContainer() {
     driveSub.setDefaultCommand(new DriveCommand());
-    intakeSub.setDefaultCommand(new IntakeCommand());
+    // intakeSub.setDefaultCommand(new IntakeCommand());
     configureButtonBindings();
 
     //lift.setDefaultCommand(new RunCommand( () -> lift.lift(manipulator.getRawAxis(5)) , lift));

@@ -21,13 +21,13 @@ public class FlywheelSub extends SubsystemBase {
   }
 
   public void spinFlywheel(double speed) {
-    RobotContainer.flywheelMotor.set(speed);
-    RobotContainer.flywheelMotor2.set(speed);
+    RobotContainer.flywheelMotor.set(-speed);
+    RobotContainer.flywheelMotor2.set(-speed);
   }
 
   // returns RPM of flywheel
   public double getFlywheelSpeed() {
-    return (RobotContainer.flywheelMotor.getSensorCollection().getQuadratureVelocity() / encTicksPerRot) * 600;
+    return (RobotContainer.flywheelMotor.getEncoder().getVelocity());
 
   }
 

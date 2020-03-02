@@ -3,7 +3,6 @@ package frc.robot.commands.auto;
 import java.io.IOException;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.auto.components.fiveball1;
-import frc.robot.commands.auto.components.fiveball2;
 import frc.robot.commands.auto.components.fiveball3;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
