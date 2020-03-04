@@ -10,23 +10,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class CPMCommand extends CommandBase {
-
-  public CPMCommand() {
-      addRequirements(RobotContainer.cpmSub);
-    }
+public class HoodCommand extends CommandBase {
+  /**
+   * Creates a new HoodCommand.
+   */
+  public HoodCommand() {
+    addRequirements(RobotContainer.hoodSub);
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    String[] colors1 = {"B","G","R","Y"};
-    String[] colors2 = {"R","Y","B","G"};
-    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.hoodMotor.set(RobotContainer.manipulator.getRawAxis(1));
   }
 
   // Called once the command ends or is interrupted.

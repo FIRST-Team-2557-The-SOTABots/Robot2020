@@ -24,7 +24,7 @@ public class TurretSub extends SubsystemBase {
 
   public void rotate(double speed){
     if (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() > encoderHighLimit-100 && speed > 0){
-
+      RobotContainer.turretMotor.set(0);
     }
     
     // if (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() > encoderHighLimit-10 && speed > 0) {

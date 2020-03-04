@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.CPMSub;
+import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
 
 /**
@@ -39,6 +41,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     RobotContainer.dsL.set(Value.kForward);
 
+    RobotContainer.intakePistons.set(Value.kForward);
     RobotContainer.intake1.enableCurrentLimit(true);
     RobotContainer.intake1.configPeakCurrentDuration(0,0);
     RobotContainer.intake1.configPeakCurrentLimit(30,0);
@@ -171,54 +174,6 @@ public class Robot extends TimedRobot {
       RobotContainer.CPMshift.set(Value.kReverse);
     }
 
-    if(RobotContainer.ma.get()){
-      RobotContainer.intake1.set(0.5);
-    }else{
-      RobotContainer.intake1.set(0);
-    }
-
-    if(RobotContainer.mb.get()){
-      RobotContainer.intake2.set(0.4);
-    }else{
-      RobotContainer.intake2.set(0);
-    }
-
-    if(RobotContainer.mx.get()){
-      RobotContainer.intake3.set(0.4);
-    }else{
-      RobotContainer.intake3.set(0);
-    }
-
-    // if(RobotContainer.mx.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000){ //-14300
-    //   RobotContainer.lift.set(.3);
-    // }else if(RobotContainer.ma.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000){
-    //   RobotContainer.lift.set(-.3);
-    // }else{
-    //   RobotContainer.lift.set(0);
-    // }
-
-    // && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000
-    // if(RobotContainer.mx.get()){ //-14300
-    //   RobotContainer.lift.set(-.3);
-    // }else{
-    //   RobotContainer.lift.set(0);
-    // }
-
-    if(RobotContainer.mbumperLeft.get()){
-      RobotContainer.lift.set(.3);
-    }else if(RobotContainer.mbumperRight.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000){
-      RobotContainer.lift.set(-.3);
-    }else{
-      RobotContainer.lift.set(0);
-    }
-    
-    RobotContainer.flywheelMotor.set(RobotContainer.manipulator.getRawAxis(2));
-    RobotContainer.flywheelMotor2.set(RobotContainer.manipulator.getRawAxis(2));
-
-    SmartDashboard.putNumber("raw mani 5", RobotContainer.manipulator.getRawAxis(1));
-    RobotContainer.hoodMotor.set(RobotContainer.manipulator.getRawAxis(1));
-    RobotContainer.turretMotor.set(RobotContainer.manipulator.getRawAxis(4));
-
     if(RobotContainer.dx.get()){
       RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
       // RobotContainer.hoodEncoder.resetAccumulator();
@@ -279,6 +234,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("mani POV", RobotContainer.manipulator.getPOV());
 
     SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
+    SmartDashboard.putString("Color L", RobotContainer.cpmSub.getColorL());
 
     SmartDashboard.putBoolean("lift and x", RobotContainer.mx.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000);
     SmartDashboard.putBoolean("mx", RobotContainer.mx.get());
@@ -293,26 +249,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
     SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed());
 
-    SmartDashboard.putBoolean("Digital 0", RobotContainer.touch0.get());
-    SmartDashboard.putBoolean("Digital 1", RobotContainer.touch1.get());
-    SmartDashboard.putBoolean("Digital 2", RobotContainer.touch2.get());
-    SmartDashboard.putBoolean("Digital 3", RobotContainer.touch3.get());
-    SmartDashboard.putBoolean("Digital 4", RobotContainer.touch4.get());
-    SmartDashboard.putBoolean("Digital 5", RobotContainer.touch5.get());
-    SmartDashboard.putBoolean("Digital 6", RobotContainer.touch6.get());
-    SmartDashboard.putBoolean("Digital 7", RobotContainer.touch7.get());
-    SmartDashboard.putBoolean("Digital 8", RobotContainer.touch8.get());
-    SmartDashboard.putBoolean("Digital 9", RobotContainer.touch9.get());
+    SmartDashboard.putBoolean("Intake 1 touch", RobotContainer.touchOne.get());
+    SmartDashboard.putBoolean("Intake 2 touch", RobotContainer.touchTwo.get());
+    SmartDashboard.putBoolean("Intake 3 touch", RobotContainer.touchThree.get());
 
-    SmartDashboard.putNumber("analog 0 voltage", RobotContainer.touchani0.getVoltage());
-    SmartDashboard.putNumber("analog 1 voltage", RobotContainer.touchani1.getVoltage());
-    SmartDashboard.putNumber("analog 2 voltage", RobotContainer.touchani2.getVoltage());
-    SmartDashboard.putNumber("analog 3 voltage", RobotContainer.touchani3.getVoltage());
 
-    SmartDashboard.putNumber("analog 0 a", RobotContainer.touchani0.getValue());
-    SmartDashboard.putNumber("analog 1 a", RobotContainer.touchani1.getValue());
-    SmartDashboard.putNumber("analog 2 a", RobotContainer.touchani2.getValue());
-    SmartDashboard.putNumber("analog 3 a", RobotContainer.touchani3.getValue());
 
     //hood is 4 
     //position three is ball 3 is digi 1intake 2 is digi two digi three is intake one

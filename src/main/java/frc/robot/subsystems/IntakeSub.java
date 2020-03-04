@@ -6,9 +6,9 @@ import frc.robot.RobotContainer;
 
 public class IntakeSub extends SubsystemBase {
 
-  public static final double BEAVER_TAIL_SPEED = 0.5;
+  public static final double intakeSpeed = 1;
   public static final double starWheelAndCPMSpeed = 0.5;
-  public static final double conveyorMotorSpeed = 0.5;
+  public static final double conveyorMotorSpeed = -0.5;
 
   public static int targetTS; //which touch sensor are we looking for?
   public static boolean cyclingBall; 
@@ -18,16 +18,25 @@ public class IntakeSub extends SubsystemBase {
     cyclingBall = false;
   }
 
-  public void runBeaverTail(double speed) {
+  public void runIntake(double speed) {
     RobotContainer.intake1.set(speed);
   }
 
-  public void angleBeaverTail() {
+  public void angleIntake() {
     if (RobotContainer.intakePistons.get() == Value.kForward) {
       RobotContainer.intakePistons.set(Value.kReverse);
     } else if (RobotContainer.intakePistons.get() == Value.kReverse) {
       RobotContainer.intakePistons.set(Value.kForward);
     }
+  }
+
+  public void intakeIn() {
+    //Value.kForward is in
+    RobotContainer.intakePistons.set(Value.kForward);
+  }
+
+  public void intakeOut() {
+    RobotContainer.intakePistons.set(Value.kReverse);
   }
 
   public void runStarWheelAndCPM (double speed) {

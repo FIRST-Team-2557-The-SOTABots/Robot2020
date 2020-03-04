@@ -51,36 +51,6 @@ public class DriveSub extends SubsystemBase {
 
   public void teleDrive(){
 
-    // public static CANSparkMax l1 = new CANSparkMax(16, MotorType.kBrushless);
-    // public static CANSparkMax l2 = new CANSparkMax(17, MotorType.kBrushless);
-    // public static CANSparkMax r1 = new CANSparkMax(14, MotorType.kBrushless);//11
-    // public static CANSparkMax r2 = new CANSparkMax(13, MotorType.kBrushless);//13
-    // public static CANSparkMax r2 = new CANSparkMax(10, MotorType.kBrushless);
-
-    // if(RobotContainer.da.get()){
-    //   RobotContainer.l1.set(0.5);
-    // }else{
-    //   RobotContainer.l1.set(0);
-    // }
-
-    // if(RobotContainer.db.get()){
-    //   RobotContainer.l2.set(0.5);
-    // }else{
-    //   RobotContainer.l2.set(0);
-    // }
-
-    // if(RobotContainer.dx.get()){
-    //   RobotContainer.r1.set(0.5);
-    // }else{
-    //   RobotContainer.r1.set(0);
-    // }
-
-    // if(RobotContainer.dy.get()){
-    //   RobotContainer.r2.set(0.5);
-    // }else{
-    //   RobotContainer.r2.set(0);
-    // }
-
     if(RobotContainer.dback.get()){//high
       RobotContainer.climbLock.set(Value.kForward);
     }else if(RobotContainer.dstart.get()){//low

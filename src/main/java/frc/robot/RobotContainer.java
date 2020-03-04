@@ -12,9 +12,15 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.FlywheelCommand;
+import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDTurret;
+import frc.robot.commands.TurretCommand;
+import frc.robot.subsystems.CPMSub;
+import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
@@ -22,6 +28,7 @@ import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
 import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -62,27 +69,9 @@ public class RobotContainer {
   public static DoubleSolenoid climbLock = new DoubleSolenoid(0, 6, 7);
   public static DoubleSolenoid CPMshift = new DoubleSolenoid(1, 0, 1);
 
-  // public static DigitalInput touchHigh = new DigitalInput(0);
-  // public static DigitalInput touchLow = new DigitalInput(1);
-  // public static DigitalInput touch1 = new DigitalInput(5); 
-  // public static DigitalInput touch2 = new DigitalInput(6); 
-  // public static DigitalInput touch3 = new DigitalInput(7); 
-
-  public static DigitalInput touch0 = new DigitalInput(0);
-  public static DigitalInput touch1 = new DigitalInput(1);
-  public static DigitalInput touch2 = new DigitalInput(2); 
-  public static DigitalInput touch3 = new DigitalInput(3); 
-  public static DigitalInput touch4 = new DigitalInput(4); 
-  public static DigitalInput touch5 = new DigitalInput(5);
-  public static DigitalInput touch6 = new DigitalInput(6);
-  public static DigitalInput touch7 = new DigitalInput(7); 
-  public static DigitalInput touch8 = new DigitalInput(8); 
-  public static DigitalInput touch9 = new DigitalInput(9); 
-
-  public static AnalogInput touchani0 = new AnalogInput(0);
-  public static AnalogInput touchani1 = new AnalogInput(1);
-  public static AnalogInput touchani2 = new AnalogInput(2); 
-  public static AnalogInput touchani3 = new AnalogInput(3);
+  public static DigitalInput touchThree = new DigitalInput(1);
+  public static DigitalInput touchTwo = new DigitalInput(2); 
+  public static DigitalInput touchOne = new DigitalInput(3); 
 
   // public static AnalogInput ani = new AnalogInput(70);
   // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));
@@ -121,10 +110,16 @@ public class RobotContainer {
   public static final FlywheelSub flywheelSub = new FlywheelSub();
   public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
   public static final IntakeSub intakeSub = new IntakeSub();
+  public static final ClimbSub climbSub = new ClimbSub();
+  public static final CPMSub cpmSub = new CPMSub();
 
   public RobotContainer() {
     driveSub.setDefaultCommand(new DriveCommand());
-    // intakeSub.setDefaultCommand(new IntakeCommand());
+    intakeSub.setDefaultCommand(new IntakeCommand());
+    hoodSub.setDefaultCommand(new HoodCommand());
+    turretSub.setDefaultCommand(new TurretCommand());
+    flywheelSub.setDefaultCommand(new FlywheelCommand());
+    climbSub.setDefaultCommand(new ClimbCommand());
     configureButtonBindings();
 
     //lift.setDefaultCommand(new RunCommand( () -> lift.lift(manipulator.getRawAxis(5)) , lift));
@@ -138,7 +133,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     da.whileHeld(new PIDTurret());
-
 
   //   mb.whileHeld(
   //     new AimCommand()
