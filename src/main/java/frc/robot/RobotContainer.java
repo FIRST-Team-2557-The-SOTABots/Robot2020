@@ -119,7 +119,7 @@ public class RobotContainer {
   public static final TurretSub turretSub = new TurretSub();
   public static final HoodSub hoodSub =new HoodSub();
   public static final FlywheelSub flywheelSub = new FlywheelSub();
-  // public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
+  public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
   public static final IntakeSub intakeSub = new IntakeSub();
 
   public RobotContainer() {

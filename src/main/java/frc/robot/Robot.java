@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.LidarSub;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -276,6 +277,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("lift position", RobotContainer.lift.getSensorCollection().getQuadraturePosition());
 
     SmartDashboard.putNumber("mani POV", RobotContainer.manipulator.getPOV());
+
+    SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
 
     SmartDashboard.putBoolean("lift and x", RobotContainer.mx.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000);
     SmartDashboard.putBoolean("mx", RobotContainer.mx.get());
