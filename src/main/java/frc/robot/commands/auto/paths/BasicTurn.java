@@ -1,4 +1,4 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.paths;
 
 import java.util.List;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -16,9 +16,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
-public class Forward extends CommandBase {
-  public static double commandTime = 0;
-  double dist = 1;
+public class BasicTurn extends CommandBase {
   DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
     new SimpleMotorFeedforward(DriveConstants.ksVoltsLow, DriveConstants.kvVoltSecondsPerMeterLow,
         DriveConstants.kaVoltSecondsSquaredPerMeterLow),
@@ -28,14 +26,17 @@ public class Forward extends CommandBase {
       AutoConstants.kMaxAccelerationMetersPerSecondSquaredLow)
           // Add kinematics to ensure max speed is actually obeyed
           .setKinematics(DriveConstants.kDriveKinematics)
-          // Apply the voltage constraint
+          // Apply the voltage co nstraint
           .addConstraint(autoVoltageConstraint);
 
-  public Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
     new Pose2d(0,0,new Rotation2d(0)),
     List.of(
+      // new Translation2d(1,1),
+      // new Translation2d(2,-1)
     ),
-    new Pose2d(dist,0,new Rotation2d(Math.toRadians(0))), config);
+    // new Pose2d(3,0,new Rotation2d(Math.toRadians(0))), config);
+    new Pose2d(1,1,new Rotation2d(Math.toRadians(90))), config);
           
   RamseteCommand gordonRamsete = new RamseteCommand(
     exampleTrajectory,
@@ -51,9 +52,7 @@ public class Forward extends CommandBase {
     RobotContainer.driveSub
   );
 
-  public Forward(double dist) {
-    this.dist = dist;
-    commandTime = exampleTrajectory.getTotalTimeSeconds();
+  public BasicTurn() {
     addRequirements(RobotContainer.driveSub);
   }
 
@@ -65,9 +64,6 @@ public class Forward extends CommandBase {
 
   @Override
   public void execute() {
-    // System.out.println("LEFT:    " + gordonRamsete.leftSpeedSetpoint);
-    // System.out.println("RIGHT:    " + gordonRamsete.rightSpeedSetpoint);
-    // System.out.println("SPEEDS:    " + Robot.driveSub.getWheelSpeeds().toString());
   }
 
    @Override

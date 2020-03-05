@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class PIDHood extends CommandBase {
@@ -18,6 +19,14 @@ public class PIDHood extends CommandBase {
     this.setpoint = setpoint;
   }
 
+  public void hoodPosition(){
+    if(RobotContainer.manipulator.getPOV() == 90){
+      setpoint = Constants.hoodFromTrench;
+    }else if(RobotContainer.manipulator.getPOV() == 180){
+      setpoint = Constants.hoodClose;
+    }
+  }
+
   @Override
   public void initialize() {
     pidController = new PIDController(kP, kI, kD);
@@ -30,6 +39,7 @@ public class PIDHood extends CommandBase {
 
   @Override
   public void execute() { 
+    hoodPosition();
     double output = pidController.calculate(RobotContainer.hoodSub.getHoodAngle(), setpoint);
     RobotContainer.hoodSub.angleHood(output);
   }

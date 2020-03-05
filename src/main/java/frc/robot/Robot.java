@@ -7,15 +7,26 @@
 
 package frc.robot;
 
+import java.io.IOException;
+
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
+import frc.robot.commands.auto.paths.BasicTurn;
+import frc.robot.commands.auto.paths.Chain;
+import frc.robot.commands.auto.paths.Example;
+import frc.robot.commands.auto.paths.Fiveball;
+import frc.robot.commands.auto.paths.Forward;
+import frc.robot.commands.auto.paths.Secondary;
+import frc.robot.commands.auto.paths.Smiles;
+import frc.robot.commands.auto.paths.TurnReverse;
 import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
@@ -28,6 +39,7 @@ import frc.robot.subsystems.LidarSub;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  SendableChooser<Command> m_chooser;
 
   private RobotContainer m_robotContainer;
 
@@ -41,57 +53,25 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-    RobotContainer.diffDrive.setSafetyEnabled(false);
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    RobotContainer.dsL.set(Value.kForward);
+    configRobot();
 
-    // RobotContainer.intakePistons.set(Value.kForward);
-    RobotContainer.intake1.enableCurrentLimit(true);
-    RobotContainer.intake1.configPeakCurrentDuration(0,0);
-    RobotContainer.intake1.configPeakCurrentLimit(30,0);
-
-    RobotContainer.intake2.enableCurrentLimit(true);
-    RobotContainer.intake2.configPeakCurrentDuration(0,0);
-    RobotContainer.intake2.configPeakCurrentLimit(30,0);   
-  
-    RobotContainer.intake3.enableCurrentLimit(true);
-    RobotContainer.intake3.configPeakCurrentDuration(0,0);
-    RobotContainer.intake3.configPeakCurrentLimit(30,0);
-
-    RobotContainer.r1.setInverted(true);
-    RobotContainer.r2.setInverted(true);
-    RobotContainer.r1.setIdleMode(IdleMode.kBrake);
-    RobotContainer.r2.setIdleMode(IdleMode.kBrake);
-    RobotContainer.l1.setIdleMode(IdleMode.kBrake);
-    RobotContainer.l2.setIdleMode(IdleMode.kBrake);
-    RobotContainer.flywheelMotor.setIdleMode(IdleMode.kCoast);
-    RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
-    RobotContainer.l1.setInverted(true);
-    RobotContainer.l2.setInverted(true);
-    final double ramprate = .25;
-    final int current = 40;
-    RobotContainer.l1.setSmartCurrentLimit(current);
-    RobotContainer.l1.setClosedLoopRampRate(ramprate);
-    RobotContainer.l1.setOpenLoopRampRate(ramprate);
-    RobotContainer.l2.setSmartCurrentLimit(current);
-    RobotContainer.l2.setClosedLoopRampRate(ramprate);
-    RobotContainer.l2.setOpenLoopRampRate(ramprate);
-    RobotContainer.r1.setSmartCurrentLimit(current);
-    RobotContainer.r1.setClosedLoopRampRate(ramprate);
-    RobotContainer.r1.setOpenLoopRampRate(ramprate);
-    RobotContainer.r2.setSmartCurrentLimit(current);
-    RobotContainer.r2.setClosedLoopRampRate(ramprate);
-    RobotContainer.r2.setOpenLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor.setSmartCurrentLimit(current);
-    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor2.setSmartCurrentLimit(current);
-    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprate);
-
-    // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
-    // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
+    m_chooser = new SendableChooser<>();
+    m_chooser.addOption("forward", new Forward(1));
+    m_chooser.addOption("reverse turn", new TurnReverse());
+    m_chooser.addOption("basic turning", new BasicTurn());
+    try {
+      m_chooser.addOption("example", new Example());
+      m_chooser.addOption("chain", new Chain());
+      m_chooser.addOption("smiles", new Smiles());
+      // m_chooser.addOption("eightball", new Eightball());
+      m_chooser.addOption("secondary", new Secondary());
+      // m_chooser.addOption("fiveball1", new fiveball1());
+      // m_chooser.addOption("fiveball2", new fiveball2());
+      m_chooser.addOption("fiveball", new Fiveball());
+    } catch (final IOException e1) {
+      e1.printStackTrace();
+    }
+    SmartDashboard.putData("Auto choochooer", m_chooser);
 
   }
 
@@ -128,8 +108,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    m_autonomousCommand = m_chooser.getSelected();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -163,7 +142,7 @@ public class Robot extends TimedRobot {
     // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
 
-    trenchShootPosition();
+    shooter();
 
     if(RobotContainer.mback.get()){
       RobotContainer.intakePistons.set(Value.kForward);
@@ -182,10 +161,7 @@ public class Robot extends TimedRobot {
     }
 
     if(RobotContainer.dx.get()){
-      RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
-      RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
-      // RobotContainer.hoodEncoder.resetAccumulator();
-      RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
+      resetTheSpaghet();
     }
 
   }
@@ -262,20 +238,82 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Intake 1 touch", RobotContainer.touchOne.get());
     SmartDashboard.putBoolean("Intake 2 touch", RobotContainer.touchTwo.get());
     SmartDashboard.putBoolean("Intake 3 touch", RobotContainer.touchThree.get());
-
-
-
     //hood is 4 
     //position three is ball 3 is digi 1intake 2 is digi two digi three is intake one
+  }
+
+  public void configRobot(){
+    RobotContainer.diffDrive.setSafetyEnabled(false);
+
+    RobotContainer.dsL.set(Value.kForward);
+    RobotContainer.intake1.enableCurrentLimit(true);
+    RobotContainer.intake1.configPeakCurrentDuration(0,0);
+    RobotContainer.intake1.configPeakCurrentLimit(30,0);
+
+    RobotContainer.intake2.enableCurrentLimit(true);
+    RobotContainer.intake2.configPeakCurrentDuration(0,0);
+    RobotContainer.intake2.configPeakCurrentLimit(30,0);   
+  
+    RobotContainer.intake3.enableCurrentLimit(true);
+    RobotContainer.intake3.configPeakCurrentDuration(0,0);
+    RobotContainer.intake3.configPeakCurrentLimit(30,0);
+
+    RobotContainer.r1.setInverted(true);
+    RobotContainer.r2.setInverted(true);
+    RobotContainer.r1.setIdleMode(IdleMode.kBrake);
+    RobotContainer.r2.setIdleMode(IdleMode.kBrake);
+    RobotContainer.l1.setIdleMode(IdleMode.kBrake);
+    RobotContainer.l2.setIdleMode(IdleMode.kBrake);
+    RobotContainer.flywheelMotor.setIdleMode(IdleMode.kCoast);
+    RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
+    RobotContainer.l1.setInverted(true);
+    RobotContainer.l2.setInverted(true);
+    final double ramprate = .25;
+    final int current = 40;
+    RobotContainer.l1.setSmartCurrentLimit(current);
+    RobotContainer.l1.setClosedLoopRampRate(ramprate);
+    RobotContainer.l1.setOpenLoopRampRate(ramprate);
+    RobotContainer.l2.setSmartCurrentLimit(current);
+    RobotContainer.l2.setClosedLoopRampRate(ramprate);
+    RobotContainer.l2.setOpenLoopRampRate(ramprate);
+    RobotContainer.r1.setSmartCurrentLimit(current);
+    RobotContainer.r1.setClosedLoopRampRate(ramprate);
+    RobotContainer.r1.setOpenLoopRampRate(ramprate);
+    RobotContainer.r2.setSmartCurrentLimit(current);
+    RobotContainer.r2.setClosedLoopRampRate(ramprate);
+    RobotContainer.r2.setOpenLoopRampRate(ramprate);
+    RobotContainer.flywheelMotor.setSmartCurrentLimit(current);
+    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprate);
+    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprate);
+    RobotContainer.flywheelMotor2.setSmartCurrentLimit(current);
+    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprate);
+    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprate);
+
+    // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
+    // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
 
   }
 
-  public void trenchShootPosition(){
-    if(RobotContainer.manipulator.getPOV() == 90){
+  public void resetTheSpaghet(){
+    RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
+    RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
+     // RobotContainer.hoodEncoder.resetAccumulator();
+    RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
+    RobotContainer.winch2.getSensorCollection().setQuadraturePosition(0, 10);
+    RobotContainer.l1.getEncoder().setPosition(0);
+    RobotContainer.l2.getEncoder().setPosition(0);
+    RobotContainer.r1.getEncoder().setPosition(0);
+    RobotContainer.r2.getEncoder().setPosition(0);
+    RobotContainer.flywheelMotor.getEncoder().setPosition(0);
+    RobotContainer.flywheelMotor2.getEncoder().setPosition(0);
+    RobotContainer.navX.reset();
+  }
+  
+  public void shooter(){
+    if(RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180){
       pt.schedule();
       ph.schedule();
     }
-
   }
 
 }

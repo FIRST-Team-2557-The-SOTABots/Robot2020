@@ -1,5 +1,4 @@
- 
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.paths;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -14,15 +13,14 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
-public class Example extends CommandBase {
-  Trajectory exampleTrajectory;// =
-                               // TrajectoryUtil.fromPathweaverJson(Paths.get("/home/lvuser/deploy/output/example.wpilib.json"));
+public class Smiles extends CommandBase {
+  Trajectory exampleTrajectory;
   RamseteCommand gordonRamsete;
 
-  public Example() throws IOException {
+  public Smiles() throws IOException {
     addRequirements(RobotContainer.driveSub);
     
-    exampleTrajectory = TrajectoryUtil.fromPathweaverJson(Paths.get("/home/lvuser/deploy/output/example.wpilib.json"));
+    exampleTrajectory = TrajectoryUtil.fromPathweaverJson(Paths.get("/home/lvuser/deploy/output/smiles.wpilib.json"));
    
     gordonRamsete = new RamseteCommand(
     exampleTrajectory,

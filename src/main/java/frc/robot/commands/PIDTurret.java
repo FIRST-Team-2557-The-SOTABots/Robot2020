@@ -6,6 +6,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class PIDTurret extends CommandBase {
@@ -21,12 +22,19 @@ public class PIDTurret extends CommandBase {
   static NetworkTable table;
   static NetworkTableEntry tx;
   static NetworkTableEntry tv;
-  private static final double setpoint = 6;
+  private static double setpoint = 0;
 
   public PIDTurret() {
     table = NetworkTableInstance.getDefault().getTable("limelight");
-
     addRequirements(RobotContainer.turretSub);
+  }
+
+  public void turretPosition(){
+    if(RobotContainer.manipulator.getPOV() == 90){
+      setpoint = Constants.turretFromTrench;
+    }else if(RobotContainer.manipulator.getPOV() == 180){
+      setpoint = Constants.turretClose;
+    }
   }
 
   @Override
@@ -47,6 +55,7 @@ public class PIDTurret extends CommandBase {
 
   @Override
   public void execute() {
+    turretPosition();
     getCamData();
     double output = -pidController.calculate(x, setpoint);
     RobotContainer.turretSub.rotate(output);

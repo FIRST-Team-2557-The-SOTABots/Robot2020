@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
  */
 public final class Constants {
     public static final double hoodFromTrench = 4000;
+    public static final double hoodClose = 4000;
+    public static final double turretFromTrench = 6;
+    public static final double turretClose = 0;
     public static final double ticksPerRevolutionLow = 19;
     public static final double ticksPerRevolutionHigh = 6.4;
     public static final double ratioGearLow = 18.86;

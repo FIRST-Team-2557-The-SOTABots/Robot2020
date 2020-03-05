@@ -1,4 +1,4 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.auto.paths;
 
 import java.io.IOException;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
