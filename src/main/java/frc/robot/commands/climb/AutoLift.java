@@ -5,17 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class FlywheelCommand extends CommandBase {
+public class AutoLift extends CommandBase {
   /**
-   * Creates a new FlywheelCommand.
+   * Creates a new AutoLift.
    */
-  public FlywheelCommand() {
-    addRequirements(RobotContainer.flywheelSub);
+  boolean up2;
+  double count2;
+  public AutoLift(double count, boolean up) {
+    addRequirements(RobotContainer.climbSub);
+    count2=count;//-14000 to work
+    up2 = up;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,8 +32,9 @@ public class FlywheelCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.flywheelMotor.set(RobotContainer.manipulator.getRawAxis(3));
-    RobotContainer.flywheelMotor2.set(RobotContainer.manipulator.getRawAxis(3));
+    SmartDashboard.putBoolean("up in command", up2);
+    System.out.println("climb go");
+    RobotContainer.climbSub.autoLift(count2, up2);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +45,11 @@ public class FlywheelCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14000 ){//&& count2 == 14000){
+      return false;
+    }else if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -13000){ //&& count2 == 13000){
+      return false;
+    }
+    return true;
   }
 }

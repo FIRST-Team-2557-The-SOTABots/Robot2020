@@ -1,13 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -21,6 +15,27 @@ public class ClimbSub extends SubsystemBase {
     RobotContainer.lift.set(speed);
   }
 
+  public void autoLift(double count, boolean up){
+    SmartDashboard.putBoolean("lift condition for up", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -count);
+    SmartDashboard.putBoolean("this is up", up);
+
+    if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -count && up){
+      System.out.println("climb up");
+      RobotContainer.lift.set(-.3);
+    }else if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() < -count && !up){
+      System.out.println("climb down");
+      RobotContainer.lift.set(.2);
+    }else{
+      System.out.println("climb no");
+      RobotContainer.lift.set(0);
+    }
+  }
+
+  public void autoWinch(){
+     RobotContainer.winch1.set(.3); //down positive
+     RobotContainer.winch2.set(-.3);
+  }
+
   public void testLift(){
 
     //unshift dog shift
@@ -28,29 +43,37 @@ public class ClimbSub extends SubsystemBase {
     //all locks engaged
     //
 
-    if(RobotContainer.mbumperLeft.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() < 0){
+    if(RobotContainer.tbumperLeft.get()){
+      RobotContainer.winch1.set(.3); //down positive
+      RobotContainer.winch2.set(-.3); //down negative
+    }else {
+      RobotContainer.winch1.set(0);
+      RobotContainer.winch2.set(0);
+    }
+
+    if(RobotContainer.mbumperLeft.get()){//down
       RobotContainer.lift.set(.3);
-    }else if(RobotContainer.mbumperRight.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000){
+    }else if(RobotContainer.mbumperRight.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14500){
       RobotContainer.lift.set(-.3);
     }else{
       RobotContainer.lift.set(0);
     }
 
-    // if(RobotContainer.dback.get()){
-    //   lockClimb();
-    // }
+    if(RobotContainer.tback.get()){
+      lockClimb();
+    }
 
-    // if(RobotContainer.dstart.get()){
-    //   unlockClimb();
-    // }
+    if(RobotContainer.tstart.get()){
+      unlockClimb();
+    }
 
-    // if(RobotContainer.driver.getPOV() == 270){
-    //   engageWinch();
-    // }
+    if(RobotContainer.testStick.getPOV() == 270){
+      pullWinch();
+    }
 
-    // if(RobotContainer.driver.getPOV() == 90){
-    //   disengageWinch();
-    // }
+    if(RobotContainer.testStick.getPOV() == 90){
+      freespinWinch();
+    }
 
   }
 
@@ -62,11 +85,11 @@ public class ClimbSub extends SubsystemBase {
     RobotContainer.climbLock.set(Value.kForward);
   }
 
-  public void engageWinch(){
+  public void pullWinch(){
     RobotContainer.winchShift.set(Value.kReverse);
   }
 
-  public void disengageWinch(){
+  public void freespinWinch(){
     RobotContainer.winchShift.set(Value.kForward);
   }
 

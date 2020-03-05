@@ -12,6 +12,7 @@ public class IntakeSub extends SubsystemBase {
 
   public static int targetTS; //which touch sensor are we looking for?
   public static boolean cyclingBall; 
+  public static boolean starWheelOff = false;
 
   public IntakeSub() {
     targetTS = 2;
@@ -32,11 +33,11 @@ public class IntakeSub extends SubsystemBase {
 
   public void intakeIn() {
     //Value.kForward is in
-    RobotContainer.intakePistons.set(Value.kForward);
+    // RobotContainer.intakePistons.set(Value.kForward);
   }
 
   public void intakeOut() {
-    RobotContainer.intakePistons.set(Value.kReverse);
+    // RobotContainer.intakePistons.set(Value.kReverse);
   }
 
   public void runStarWheelAndCPM (double speed) {

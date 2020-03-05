@@ -21,7 +21,7 @@ public class PIDTurret extends CommandBase {
   static NetworkTable table;
   static NetworkTableEntry tx;
   static NetworkTableEntry tv;
-  private static final double setpoint = 0;
+  private static final double setpoint = 6;
 
   public PIDTurret() {
     table = NetworkTableInstance.getDefault().getTable("limelight");

@@ -6,19 +6,22 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDTurret;
 import frc.robot.commands.TurretCommand;
+import frc.robot.commands.climb.ClimbCommand;
+import frc.robot.commands.climb.ClimbSequence1;
+import frc.robot.commands.climb.ClimbSequence2;
+import frc.robot.commands.climb.LockClimb;
+import frc.robot.commands.climb.UnlockClimb;
 import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveSub;
@@ -59,7 +62,7 @@ public class RobotContainer {
 
 //  CPM:kReverse=up,kForward=down
 //  climbLock:kReverse=lock,kForward=unlock
-//  winchShift:kReverse=engage,kForward=disengage
+//  winchShift:kReverse=pull,kForward=freespin
 //  intakePistons:kReverse=in,kForward=out
 //  dSl:kReverse=low,kForward=high
   public static Compressor compressor = new Compressor(0);
@@ -145,6 +148,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     da.whileHeld(new PIDTurret());
+
+    ta.whileHeld(new ClimbSequence1());
+    tb.whileHeld(new ClimbSequence2());
+    tb.whenReleased(new LockClimb());
 
   //   mb.whileHeld(
   //     new AimCommand()

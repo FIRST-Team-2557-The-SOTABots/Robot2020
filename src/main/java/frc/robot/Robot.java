@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     RobotContainer.dsL.set(Value.kForward);
 
-    RobotContainer.intakePistons.set(Value.kForward);
+    // RobotContainer.intakePistons.set(Value.kForward);
     RobotContainer.intake1.enableCurrentLimit(true);
     RobotContainer.intake1.configPeakCurrentDuration(0,0);
     RobotContainer.intake1.configPeakCurrentLimit(30,0);
@@ -60,8 +60,8 @@ public class Robot extends TimedRobot {
     RobotContainer.r2.setIdleMode(IdleMode.kBrake);
     RobotContainer.l1.setIdleMode(IdleMode.kBrake);
     RobotContainer.l2.setIdleMode(IdleMode.kBrake);
-    RobotContainer.flywheelMotor.setIdleMode(IdleMode.kBrake);
-    RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kBrake);
+    RobotContainer.flywheelMotor.setIdleMode(IdleMode.kCoast);
+    RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
     RobotContainer.l1.setInverted(true);
     RobotContainer.l2.setInverted(true);
     final double ramprate = .25;
@@ -192,6 +192,7 @@ public class Robot extends TimedRobot {
 
     if(RobotContainer.dx.get()){
       RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
+      RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
       // RobotContainer.hoodEncoder.resetAccumulator();
       RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
     }
@@ -246,19 +247,18 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("hood position",  RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("lift position", RobotContainer.lift.getSensorCollection().getQuadraturePosition());
+    SmartDashboard.putNumber("winch position 1", RobotContainer.winch1.getSensorCollection().getQuadraturePosition());
+    SmartDashboard.putNumber("winch position 2", RobotContainer.winch1.getSensorCollection().getQuadraturePosition());
 
     SmartDashboard.putNumber("mani POV", RobotContainer.manipulator.getPOV());
 
     SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     // SmartDashboard.putString("Color L", RobotContainer.cpmSub.getColorL());
 
-    SmartDashboard.putBoolean("Climb lock", RobotContainer.climbLock.get() == Value.kForward);
-    SmartDashboard.putBoolean("Winch engage", RobotContainer.winchShift.get() == Value.kReverse);
+    SmartDashboard.putBoolean("Climb lock", RobotContainer.climbLock.get() == Value.kReverse);
+    SmartDashboard.putBoolean("Winch pull", RobotContainer.winchShift.get() == Value.kReverse);
 
-    SmartDashboard.putBoolean("lift and x", RobotContainer.mx.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000);
-    SmartDashboard.putBoolean("mx", RobotContainer.mx.get());
-    SmartDashboard.putBoolean("ma", RobotContainer.ma.get());
-    SmartDashboard.putBoolean("quad pos", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000);
+    SmartDashboard.putBoolean("quad pos", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14000);
     // SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
     // SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
     // SmartDashboard.putNumber("FtPerSecondOfRobot", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) * (DriveSub.wheelDiameter * Math.PI) / 60);

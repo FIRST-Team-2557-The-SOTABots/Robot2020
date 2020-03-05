@@ -5,16 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ClimbCommand extends CommandBase {
+public class FreespinWinch extends CommandBase {
   /**
-   * Creates a new ClimbCommand.
+   * Creates a new UnlockClimb.
    */
-  public ClimbCommand() {
+  public FreespinWinch() {
     addRequirements(RobotContainer.climbSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -27,7 +28,8 @@ public class ClimbCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.climbSub.testLift();
+    RobotContainer.climbSub.freespinWinch();
+    System.out.println("2");
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +40,9 @@ public class ClimbCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(RobotContainer.winchShift.get() == Value.kForward){
+      return true;
+    }
     return false;
   }
 }

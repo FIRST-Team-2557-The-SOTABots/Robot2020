@@ -5,30 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class FlywheelCommand extends CommandBase {
+public class AutoWinch extends CommandBase {
   /**
-   * Creates a new FlywheelCommand.
+   * Creates a new AutoWinch.
    */
-  public FlywheelCommand() {
-    addRequirements(RobotContainer.flywheelSub);
+  public AutoWinch() {
+    addRequirements(RobotContainer.climbSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.flywheelMotor.set(RobotContainer.manipulator.getRawAxis(3));
-    RobotContainer.flywheelMotor2.set(RobotContainer.manipulator.getRawAxis(3));
+    RobotContainer.climbSub.autoWinch();
   }
 
   // Called once the command ends or is interrupted.

@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class FlywheelCommand extends CommandBase {
+public class PullWinch extends CommandBase {
   /**
-   * Creates a new FlywheelCommand.
+   * Creates a new ClimbLock.
    */
-  public FlywheelCommand() {
-    addRequirements(RobotContainer.flywheelSub);
+  public PullWinch() {
+    addRequirements(RobotContainer.climbSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,8 +28,7 @@ public class FlywheelCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.flywheelMotor.set(RobotContainer.manipulator.getRawAxis(3));
-    RobotContainer.flywheelMotor2.set(RobotContainer.manipulator.getRawAxis(3));
+    RobotContainer.climbSub.pullWinch();
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +39,9 @@ public class FlywheelCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(RobotContainer.winchShift.get() == Value.kReverse){
+      return true;
+    }
     return false;
   }
 }
