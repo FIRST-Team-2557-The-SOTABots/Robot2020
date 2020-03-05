@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.PIDHood;
+import frc.robot.commands.PIDTurret;
 import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
@@ -28,6 +30,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  public static PIDTurret pt = new PIDTurret();
+  public static PIDHood ph = new PIDHood(Constants.hoodFromTrench);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -158,21 +163,7 @@ public class Robot extends TimedRobot {
     // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
 
-    if(RobotContainer.ta.get()){
-      RobotContainer.l1.set(1);
-    }
-
-    if(RobotContainer.tb.get()){
-      RobotContainer.l2.set(1);
-    }
-
-    if(RobotContainer.tx.get()){
-      RobotContainer.r1.set(1);
-    }
-
-    if(RobotContainer.ty.get()){
-      RobotContainer.r2.set(1);
-    }
+    trenchShootPosition();
 
     if(RobotContainer.mback.get()){
       RobotContainer.intakePistons.set(Value.kForward);
@@ -276,6 +267,14 @@ public class Robot extends TimedRobot {
 
     //hood is 4 
     //position three is ball 3 is digi 1intake 2 is digi two digi three is intake one
+
+  }
+
+  public void trenchShootPosition(){
+    if(RobotContainer.manipulator.getPOV() == 90){
+      pt.schedule();
+      ph.schedule();
+    }
 
   }
 

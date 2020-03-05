@@ -10,11 +10,12 @@ public class PIDHood extends CommandBase {
   private final double kP = 0;
   private final double kI = 0;
   private final double kD = 0;
-  private final double tolerance = 0;
+  private final double tolerance = 100;
   private double setpoint;
 
-  public PIDHood() {
+  public PIDHood(double setpoint) {
     addRequirements(RobotContainer.hoodSub);
+    this.setpoint = setpoint;
   }
 
   @Override

@@ -15,7 +15,7 @@ public class AimCommand extends SequentialCommandGroup {
         new PIDTurret(),
         new PIDFlywheel(100)
       ),
-      new PIDHood()
+      new PIDHood(1000)
     );
   }
 }

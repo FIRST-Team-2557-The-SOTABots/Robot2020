@@ -27,13 +27,13 @@ public class IntakeCommand extends CommandBase {
 
     double axis2 = RobotContainer.manipulator.getRawAxis(2);
 
-    if(RobotContainer.manipulator.getPOV() == 180){
-      RobotContainer.intakeSub.intakeOut();
-    }
+    // if(RobotContainer.manipulator.getPOV() == 180){
+    //   RobotContainer.intakeSub.intakeOut();
+    // }
 
-    if(RobotContainer.manipulator.getPOV() == 0){
-      RobotContainer.intakeSub.intakeIn();
-    }
+    // if(RobotContainer.manipulator.getPOV() == 0){
+    //   RobotContainer.intakeSub.intakeIn();
+    // }
 
     if(RobotContainer.ma.get()){
       System.out.println("1");
@@ -42,21 +42,21 @@ public class IntakeCommand extends CommandBase {
         System.out.println("2");
         RobotContainer.intakeSub.runStarWheelAndCPM(IntakeSub.starWheelAndCPMSpeed);
       }else{
-      System.out.println("3");
-      RobotContainer.intakeSub.runStarWheelAndCPM(0);
+        System.out.println("3");
+        RobotContainer.intakeSub.runStarWheelAndCPM(0);
       }
 
       if(RobotContainer.mb.get()){
-      System.out.println("4");
-      RobotContainer.intakeSub.runIntake(-IntakeSub.intakeSpeed);
+        System.out.println("4");
+        RobotContainer.intakeSub.runIntake(-IntakeSub.intakeSpeed);
       }else{
-      System.out.println("5");
-      RobotContainer.intakeSub.runIntake(IntakeSub.intakeSpeed);
+        System.out.println("5");
+        RobotContainer.intakeSub.runIntake(IntakeSub.intakeSpeed);
       }
     } else if (!RobotContainer.ma.get()){
-      System.out.println("6");
-      RobotContainer.intakeSub.runStarWheelAndCPM(0);
-      RobotContainer.intakeSub.runIntake(0);
+        System.out.println("6");
+        RobotContainer.intakeSub.runStarWheelAndCPM(0);
+        RobotContainer.intakeSub.runIntake(0);
       // RobotContainer.intakeSub.intakeIn();      
     }
 

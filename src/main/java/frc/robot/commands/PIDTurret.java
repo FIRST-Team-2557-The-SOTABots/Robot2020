@@ -14,7 +14,7 @@ public class PIDTurret extends CommandBase {
   private static final double kP = 0.025;
   private static final double kI = 0;
   private static final double kD = 0;
-  private static final double tolerance = 10;
+  private static final double tolerance = 2;
 
   static double x;
   static double valid;
