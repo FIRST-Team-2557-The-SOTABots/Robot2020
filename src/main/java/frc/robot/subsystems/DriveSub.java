@@ -52,15 +52,15 @@ public class DriveSub extends SubsystemBase {
   public void teleDrive(){
 
     if(RobotContainer.dback.get()){//high
-      RobotContainer.climbLock.set(Value.kForward);
+      RobotContainer.dsL.set(Value.kForward);
     }else if(RobotContainer.dstart.get()){//low
-      RobotContainer.climbLock.set(Value.kReverse);
+      RobotContainer.dsL.set(Value.kReverse);
     }
 
    if(RobotContainer.dbumperLeft.get()){
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5, (RobotContainer.driver.getRawAxis(4) * 0.5));
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5, (-RobotContainer.driver.getRawAxis(4) * 0.5));
     } else {
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4));
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), -RobotContainer.driver.getRawAxis(4));
     }
 
 }

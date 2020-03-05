@@ -103,6 +103,18 @@ public class RobotContainer {
   public static JoystickButton mterribleLeft = new JoystickButton(manipulator, 9);
   public static JoystickButton mterribleRight = new JoystickButton(manipulator, 10);
 
+  public static Joystick testStick = new Joystick(2);
+	public static JoystickButton ta = new JoystickButton(testStick, 1);
+  public static JoystickButton tb = new JoystickButton(testStick, 2);
+  public static JoystickButton tx = new JoystickButton(testStick, 3);
+  public static JoystickButton ty = new JoystickButton(testStick, 4);
+  public static JoystickButton tbumperLeft = new JoystickButton(testStick, 5);
+  public static JoystickButton tbumperRight = new JoystickButton(testStick, 6);
+  public static JoystickButton tback = new JoystickButton(testStick, 7);
+  public static JoystickButton tstart = new JoystickButton(testStick, 8);
+  public static JoystickButton tterribleLeft = new JoystickButton(testStick, 9);
+  public static JoystickButton tterribleRight = new JoystickButton(testStick, 10);
+
   // The robot's subsystems
   public static final DriveSub driveSub = new DriveSub();
   public static final TurretSub turretSub = new TurretSub();

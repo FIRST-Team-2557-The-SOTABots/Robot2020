@@ -158,6 +158,22 @@ public class Robot extends TimedRobot {
     // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
 
+    if(RobotContainer.ta.get()){
+      RobotContainer.l1.set(1);
+    }
+
+    if(RobotContainer.tb.get()){
+      RobotContainer.l2.set(1);
+    }
+
+    if(RobotContainer.tx.get()){
+      RobotContainer.r1.set(1);
+    }
+
+    if(RobotContainer.ty.get()){
+      RobotContainer.r2.set(1);
+    }
+
     if(RobotContainer.mback.get()){
       RobotContainer.intakePistons.set(Value.kForward);
     }
@@ -234,7 +250,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("mani POV", RobotContainer.manipulator.getPOV());
 
     SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
-    SmartDashboard.putString("Color L", RobotContainer.cpmSub.getColorL());
+    // SmartDashboard.putString("Color L", RobotContainer.cpmSub.getColorL());
+
+    SmartDashboard.putBoolean("Climb lock", RobotContainer.climbLock.get() == Value.kForward);
+    SmartDashboard.putBoolean("Winch engage", RobotContainer.winchShift.get() == Value.kReverse);
 
     SmartDashboard.putBoolean("lift and x", RobotContainer.mx.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -16000);
     SmartDashboard.putBoolean("mx", RobotContainer.mx.get());

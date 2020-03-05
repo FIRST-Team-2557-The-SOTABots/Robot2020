@@ -36,38 +36,38 @@ public class ClimbSub extends SubsystemBase {
       RobotContainer.lift.set(0);
     }
 
-    if(RobotContainer.dback.get()){
-      lockClimb();
-    }
+    // if(RobotContainer.dback.get()){
+    //   lockClimb();
+    // }
 
-    if(RobotContainer.dstart.get()){
-      unlockClimb();
-    }
+    // if(RobotContainer.dstart.get()){
+    //   unlockClimb();
+    // }
 
-    if(RobotContainer.driver.getPOV() == 270){
-      lockWinch();
-    }
+    // if(RobotContainer.driver.getPOV() == 270){
+    //   engageWinch();
+    // }
 
-    if(RobotContainer.driver.getPOV() == 90){
-      unlockWinch();
-    }
+    // if(RobotContainer.driver.getPOV() == 90){
+    //   disengageWinch();
+    // }
 
   }
 
   public void lockClimb(){
-    RobotContainer.climbLock.set(Value.kForward);
-  }
-
-  public void unlockClimb(){
     RobotContainer.climbLock.set(Value.kReverse);
   }
 
-  public void lockWinch(){
-    RobotContainer.winchShift.set(Value.kForward);
+  public void unlockClimb(){
+    RobotContainer.climbLock.set(Value.kForward);
   }
 
-  public void unlockWinch(){
+  public void engageWinch(){
     RobotContainer.winchShift.set(Value.kReverse);
+  }
+
+  public void disengageWinch(){
+    RobotContainer.winchShift.set(Value.kForward);
   }
 
   @Override
