@@ -7,6 +7,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class CPMSub extends SubsystemBase {  
   
@@ -23,6 +24,8 @@ public class CPMSub extends SubsystemBase {
   public static final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   public static final Color kRedTarget = ColorMatch.makeColor(0.458, 0.375, 0.135);
   public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  
+  public static final double starWheelAndCPMSpeed = 0.6;
 
 
 
@@ -59,6 +62,11 @@ public class CPMSub extends SubsystemBase {
       return returnable;
       
   }
+  
+  public void runStarWheelAndCPM (double speed) {
+    RobotContainer.intake2.set(speed);
+  }
+
 
   public static String getColorR(){
     Color color = r_colorSensor.getColor();

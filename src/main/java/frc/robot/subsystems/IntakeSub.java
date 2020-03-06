@@ -7,7 +7,6 @@ import frc.robot.RobotContainer;
 public class IntakeSub extends SubsystemBase {
 
   public static final double intakeSpeed = 1;
-  public static final double starWheelAndCPMSpeed = 0.6;
   public static final double conveyorMotorSpeed = -1;
 
   public static int targetTS; //which touch sensor are we looking for?
@@ -40,9 +39,6 @@ public class IntakeSub extends SubsystemBase {
     RobotContainer.intakePistons.set(Value.kReverse);
   }
 
-  public void runStarWheelAndCPM (double speed) {
-    RobotContainer.intake2.set(speed);
-  }
 
   public void runConveyorBelt(double speed) {
     RobotContainer.intake3.set(speed);
