@@ -40,7 +40,7 @@ public class PIDFlywheel extends CommandBase {
   @Override
   public void execute() {
     double output = pidController.calculate(RobotContainer.flywheelSub.getFlywheelSpeed(), setpoint);
-    RobotContainer.flywheelSub.spinFlywheel(output);
+    RobotContainer.flywheelSub.spinFlywheels(output);
   }
 
   @Override

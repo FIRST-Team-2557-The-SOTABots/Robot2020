@@ -16,7 +16,6 @@ import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDTurret;
-import frc.robot.commands.TurretCommand;
 import frc.robot.commands.climb.ClimbCommand;
 import frc.robot.commands.climb.ClimbSequence1;
 import frc.robot.commands.climb.ClimbSequence2;
@@ -132,7 +131,6 @@ public class RobotContainer {
     driveSub.setDefaultCommand(new DriveCommand());
     intakeSub.setDefaultCommand(new IntakeCommand());
     hoodSub.setDefaultCommand(new HoodCommand());
-    turretSub.setDefaultCommand(new TurretCommand());
     flywheelSub.setDefaultCommand(new FlywheelCommand());
     climbSub.setDefaultCommand(new ClimbCommand());
     configureButtonBindings();
@@ -147,23 +145,11 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
 
-    da.whileHeld(new PIDTurret());
+    // ma.whileHeld(new PIDTurret());
 
-    ta.whileHeld(new ClimbSequence1());
-    tb.whileHeld(new ClimbSequence2());
-    tb.whenReleased(new LockClimb());
-
-  //   mb.whileHeld(
-  //     new AimCommand()
-  //   );
-
-  //   mx.whileHeld(
-  //     new ParallelCommandGroup(
-  //       new TurretFeeder(),
-  //       new PIDFlywheel()
-  //     )
-  //   );
-  
+    da.whileHeld(new ClimbSequence1());
+    db.whileHeld(new ClimbSequence2());
+    db.whenReleased(new LockClimb());
 
   }
 

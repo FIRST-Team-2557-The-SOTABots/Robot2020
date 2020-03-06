@@ -5,19 +5,20 @@ import frc.robot.RobotContainer;
 
 public class HoodSub extends SubsystemBase {
 
-  private static final double ticksPerRev = 0;
-  private static final double degreesPerEncoder = 0;
 
   public HoodSub() {
 
   }
-
+//10.3 - -1734
+//68.8 - 0
+//58.5
+//1734 / 58.5 = 29.641
   public void angleHood(double speed){
     RobotContainer.hoodMotor.set(speed);
   }
 
-  public double getHoodAngle() {
-    return RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition() * degreesPerEncoder;
+  public double getHoodPos() {
+    return -RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition();
   }
 
   @Override

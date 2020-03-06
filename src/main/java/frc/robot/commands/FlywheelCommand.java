@@ -27,8 +27,11 @@ public class FlywheelCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.flywheelMotor.set(RobotContainer.manipulator.getRawAxis(3));
-    RobotContainer.flywheelMotor2.set(RobotContainer.manipulator.getRawAxis(3));
+    if(RobotContainer.manipulator.getRawAxis(3) > 0.5){
+      RobotContainer.flywheelSub.spinFlywheels(1);
+    }else{
+      RobotContainer.flywheelSub.spinFlywheels(0);
+    }
   }
 
   // Called once the command ends or is interrupted.

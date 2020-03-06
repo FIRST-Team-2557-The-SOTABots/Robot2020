@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final double hoodFromTrench = 4000;
-    public static final double hoodClose = 4000;
+    public static final double hoodFromTrench = 600;
+    public static final double hoodTriangle = 800;
+    public static final double hoodAutoLine = 767;
     public static final double turretFromTrench = 6;
     public static final double turretClose = 0;
     public static final double ticksPerRevolutionLow = 19;

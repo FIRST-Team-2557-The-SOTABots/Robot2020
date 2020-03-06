@@ -19,8 +19,8 @@ public class BasicAuto extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new Forward(2),
         new PIDTurret(),
-        new PIDHood(Constants.hoodClose)),
-      new RunCommand( () -> RobotContainer.flywheelSub.spinFlywheel(1), RobotContainer.flywheelSub) 
+        new PIDHood(Constants.hoodTriangle)),
+      new RunCommand( () -> RobotContainer.flywheelSub.spinFlywheels(1), RobotContainer.flywheelSub) 
         );
 
   }

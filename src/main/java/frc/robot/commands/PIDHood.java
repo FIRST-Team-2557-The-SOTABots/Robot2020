@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -8,10 +9,10 @@ import frc.robot.RobotContainer;
 public class PIDHood extends CommandBase {
 
   PIDController pidController;
-  private final double kP = 0;
+  private final double kP = 0.0015;
   private final double kI = 0;
   private final double kD = 0;
-  private final double tolerance = 100;
+  private final double tolerance = 7;
   private double setpoint;
 
   public PIDHood(double setpoint) {
@@ -23,7 +24,9 @@ public class PIDHood extends CommandBase {
     if(RobotContainer.manipulator.getPOV() == 90){
       setpoint = Constants.hoodFromTrench;
     }else if(RobotContainer.manipulator.getPOV() == 180){
-      setpoint = Constants.hoodClose;
+      setpoint = Constants.hoodAutoLine;
+    }else if(RobotContainer.manipulator.getPOV() == 0){
+      setpoint = Constants.hoodTriangle;
     }
   }
 
@@ -40,7 +43,11 @@ public class PIDHood extends CommandBase {
   @Override
   public void execute() { 
     hoodPosition();
-    double output = pidController.calculate(RobotContainer.hoodSub.getHoodAngle(), setpoint);
+    System.out.println("going with the PID hood");
+    SmartDashboard.putNumber("Hood error!", pidController.getPositionError());
+    double output = -pidController.calculate(RobotContainer.hoodSub.getHoodPos(), setpoint);
+
+    SmartDashboard.putNumber("Hood PID output", output);
     RobotContainer.hoodSub.angleHood(output);
   }
 

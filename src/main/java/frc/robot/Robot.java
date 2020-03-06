@@ -232,12 +232,16 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("EncoderVelocity", DriveSub.encoder.getVelocity());
     // SmartDashboard.putBoolean("Exceeded RPM limit gear one", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) > DriveSub.limitRotSpdGear1 ? true : false);
     
+    SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
+
     SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
     SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed());
 
     SmartDashboard.putBoolean("Intake 1 touch", RobotContainer.touchOne.get());
     SmartDashboard.putBoolean("Intake 2 touch", RobotContainer.touchTwo.get());
     SmartDashboard.putBoolean("Intake 3 touch", RobotContainer.touchThree.get());
+    SmartDashboard.putBoolean("Intake cycling ball", IntakeSub.cyclingBall);
+  
     //hood is 4 
     //position three is ball 3 is digi 1intake 2 is digi two digi three is intake one
   }
@@ -283,11 +287,13 @@ public class Robot extends TimedRobot {
     RobotContainer.r2.setClosedLoopRampRate(ramprate);
     RobotContainer.r2.setOpenLoopRampRate(ramprate);
     RobotContainer.flywheelMotor.setSmartCurrentLimit(current);
-    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprate);
+    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprate+.75);
+    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprate+.75);
     RobotContainer.flywheelMotor2.setSmartCurrentLimit(current);
-    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprate);
+    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprate+.75);
+    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprate+.75);
+
+    RobotContainer.intakePistons.set(Value.kForward);
 
     // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
@@ -310,8 +316,8 @@ public class Robot extends TimedRobot {
   }
   
   public void shooter(){
-    if(RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180){
-      pt.schedule();
+    if(RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || RobotContainer.manipulator.getPOV() == 0){
+      // pt.schedule();
       ph.schedule();
     }
   }

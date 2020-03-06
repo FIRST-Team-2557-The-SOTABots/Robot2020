@@ -7,6 +7,7 @@ public class FlywheelSub extends SubsystemBase {
 
   public static final double flywheelRadius = 1; //meters
   private static final double encTicksPerRot = 0;
+  public static final double flywheelSpeed = -1;
 
   public FlywheelSub() {
 
@@ -18,14 +19,14 @@ public class FlywheelSub extends SubsystemBase {
     return (120 * velocity) / (2 * Math.PI * flywheelRadius);
   }
 
-  public void spinFlywheel(double speed) {
-    RobotContainer.flywheelMotor.set(-speed);
-    RobotContainer.flywheelMotor2.set(-speed);
+  public void spinFlywheels(double speed) {
+    RobotContainer.flywheelMotor.set(speed);
+    RobotContainer.flywheelMotor2.set(speed);
   }
 
   // returns RPM of flywheel
   public double getFlywheelSpeed() {
-    return (RobotContainer.flywheelMotor.getEncoder().getVelocity());
+    return (RobotContainer.flywheelMotor.getEncoder().getVelocity()*3);
 
   }
 
