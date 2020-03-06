@@ -33,11 +33,11 @@ public class IntakeSub extends SubsystemBase {
 
   public void intakeIn() {
     //Value.kForward is in
-    // RobotContainer.intakePistons.set(Value.kForward);
+    RobotContainer.intakePistons.set(Value.kForward);
   }
 
   public void intakeOut() {
-    // RobotContainer.intakePistons.set(Value.kReverse);
+    RobotContainer.intakePistons.set(Value.kReverse);
   }
 
   public void runStarWheelAndCPM (double speed) {
@@ -45,7 +45,7 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public void runConveyorBelt(final double speed) {
-    RobotContainer.intake3.set(speed);
+    // RobotContainer.intake3.set(speed);
   }
 
   @Override

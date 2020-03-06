@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import com.revrobotics.ColorMatch;
@@ -46,7 +39,7 @@ public class CPMSub extends SubsystemBase {
   
   }
 
-  public String getColorL(){
+  public static String getColorL(){
     Color color = l_colorSensor.getColor();
     ColorMatchResult result = l_colorMatcher.matchClosestColor(color);
     String returnable;
@@ -67,7 +60,7 @@ public class CPMSub extends SubsystemBase {
       
   }
 
-  public String getColorR(){
+  public static String getColorR(){
     Color color = r_colorSensor.getColor();
     ColorMatchResult result = r_colorMatcher.matchClosestColor(color);
     String returnable;
