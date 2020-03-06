@@ -30,7 +30,7 @@ public class PositionControlCommand extends CommandBase {
   @Override
   public void initialize() {
     target = DriverStation.getInstance().getGameSpecificMessage();
-    currentColor = getColorL();
+    currentColor = CPMSub.getColorL();
     if(target == "G" || target == "R") {
 
       numOfColorsAway = CPMSub.findMatchingColorIndex(colors1, target) - CPMSub.findMatchingColorIndex(colors1, currentColor);
@@ -62,7 +62,7 @@ public class PositionControlCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (CPMSub.getColorL() == target && getColorR() == target) {
+    if (CPMSub.getColorL() == target && CPMSub.getColorR() == target) {
       return true;
     }
     return false;

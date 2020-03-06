@@ -96,6 +96,15 @@ public class CPMSub extends SubsystemBase {
       return false;
   }
 
+  public static int findMatchingColorIndex(String[] arr, String key) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == key) {
+            return i;
+        }
+    }  
+    return arr.length + 1;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

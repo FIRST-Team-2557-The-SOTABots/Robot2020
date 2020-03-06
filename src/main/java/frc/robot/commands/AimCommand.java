@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.IntakeSub;
 
 public class AimCommand extends SequentialCommandGroup {
@@ -18,7 +19,7 @@ public class AimCommand extends SequentialCommandGroup {
       ),
       new ParallelCommandGroup(
         new RunCommand( () -> RobotContainer.intakeSub.runConveyorBelt(IntakeSub.conveyorMotorSpeed), RobotContainer.intakeSub),
-        new RunCommand( () -> RobotContainer.intakeSub.runStarWheelAndCPM(IntakeSub.starWheelAndCPMSpeed), RobotContainer.intakeSub),
+        new RunCommand( () -> RobotContainer.cpmSub.runStarWheelAndCPM(CPMSub.starWheelAndCPMSpeed), RobotContainer.intakeSub),
         new PIDFlywheel()
       )
 

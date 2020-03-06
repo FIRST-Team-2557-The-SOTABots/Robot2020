@@ -1,15 +1,14 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.IntakeSub;
 
 public class IntakeCommand extends CommandBase {
 
   public IntakeCommand() {
-    addRequirements(RobotContainer.intakeSub);
+    addRequirements(RobotContainer.intakeSub, RobotContainer.cpmSub);
   }
 
   @Override
@@ -41,10 +40,10 @@ public class IntakeCommand extends CommandBase {
       RobotContainer.intakeSub.intakeOut();
       if(IntakeSub.starWheelOff){
         System.out.println("2");
-        RobotContainer.intakeSub.runStarWheelAndCPM(0);
+        RobotContainer.cpmSub.runStarWheelAndCPM(0);
       }else{
         System.out.println("3");
-        RobotContainer.intakeSub.runStarWheelAndCPM(IntakeSub.intakeSpeed);
+        RobotContainer.cpmSub.runStarWheelAndCPM(IntakeSub.intakeSpeed);
       }
 
       if(RobotContainer.mb.get()){
@@ -56,7 +55,7 @@ public class IntakeCommand extends CommandBase {
       }
     } else if (!RobotContainer.ma.get()){
         System.out.println("6");
-        RobotContainer.intakeSub.runStarWheelAndCPM(0);
+        RobotContainer.cpmSub.runStarWheelAndCPM(0);
         RobotContainer.intakeSub.runIntake(0);
       // RobotContainer.intakeSub.intakeIn();      
     }
@@ -75,10 +74,10 @@ public class IntakeCommand extends CommandBase {
       if (IntakeSub.targetTS == 2) {
         if (!RobotContainer.touchTwo.get()) {
           RobotContainer.intakeSub.runConveyorBelt(IntakeSub.conveyorMotorSpeed);
-          if(!IntakeSub.starWheelOff) RobotContainer.intakeSub.runStarWheelAndCPM(IntakeSub.starWheelAndCPMSpeed);
+          if(!IntakeSub.starWheelOff) RobotContainer.cpmSub.runStarWheelAndCPM(CPMSub.starWheelAndCPMSpeed);
         } else {
           RobotContainer.intakeSub.runConveyorBelt(0);
-          RobotContainer.intakeSub.runStarWheelAndCPM(0);;
+          RobotContainer.cpmSub.runStarWheelAndCPM(0);;
           IntakeSub.targetTS = 3;
           IntakeSub.cyclingBall = false;
         }
