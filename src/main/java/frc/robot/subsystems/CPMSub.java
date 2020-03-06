@@ -98,9 +98,9 @@ public class CPMSub extends SubsystemBase {
 
   public static int findMatchingColorIndex(String[] arr, String key) {
     for (int i = 0; i < arr.length; i++) {
-        if (arr[i] == key) {
-            return i;
-        }
+      if (arr[i] == key) {
+         return i;
+      }
     }  
     return arr.length + 1;
   }
