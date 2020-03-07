@@ -15,7 +15,7 @@ public class Projectile {
         double d = RobotContainer.lidarSub.getDistance();
         return Math.sqrt((-(Math.pow(d, 2) * (2 * gravity * (outerTargetHeight - hoodHeight)))
          / Math.pow((outerTargetHeight - hoodHeight), 2) + 2 * (gravity * Math.pow(d, 2) / 2) / (outerTargetHeight - hoodHeight)
-        - Math.pow(2, 2) * gravity * (outerTargetHeight - hoodHeight)) / 2);
+        - 4 * gravity * (outerTargetHeight - hoodHeight)) / 2);
       }
 
     public static double getProjectileAngle(){

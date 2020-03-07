@@ -8,8 +8,8 @@ import frc.robot.subsystems.FlywheelSub;
 public class PIDFlywheel extends CommandBase {
   
   private static PIDController pidController;
-  private static final double kP = 0;
-  private static final double kI = 0;
+  private static final double kP = 0.00011;
+  private static final double kI = 0.0001;
   private static final double kD = 0;
   private static final double tolerance = 1;
   public double setpoint;
@@ -40,6 +40,7 @@ public class PIDFlywheel extends CommandBase {
   @Override
   public void execute() {
     double output = pidController.calculate(RobotContainer.flywheelSub.getFlywheelSpeed(), setpoint);
+    System.out.println(setpoint);
     RobotContainer.flywheelSub.spinFlywheels(output);
   }
 
@@ -49,11 +50,7 @@ public class PIDFlywheel extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    if(pidController.atSetpoint()) {
-      flywheelAtSetpoint = true;
-    } else {
-      flywheelAtSetpoint = false;
-    }
-    return pidController.atSetpoint();
+    // return pidController.atSetpoint();
+    return false;
   }
 }

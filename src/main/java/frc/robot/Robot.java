@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import java.io.IOException;
@@ -17,8 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.HoodCommand;
+import frc.robot.commands.PIDFlywheel;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
+import frc.robot.commands.auto.BasicAuto;
 import frc.robot.commands.auto.paths.BasicTurn;
 import frc.robot.commands.auto.paths.Chain;
 import frc.robot.commands.auto.paths.Example;
@@ -31,12 +27,6 @@ import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
 
-/**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   SendableChooser<Command> m_chooser;
@@ -44,12 +34,10 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static PIDTurret pt = new PIDTurret();
+  public static HoodCommand hc = new HoodCommand();
   public static PIDHood ph = new PIDHood(Constants.hoodFromTrench);
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
@@ -60,6 +48,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("reverse turn", new TurnReverse());
     m_chooser.addOption("basic turning", new BasicTurn());
     try {
+      m_chooser.addOption("basic auto", new BasicAuto());
       m_chooser.addOption("example", new Example());
       m_chooser.addOption("chain", new Chain());
       m_chooser.addOption("smiles", new Smiles());
@@ -75,26 +64,12 @@ public class Robot extends TimedRobot {
 
   }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before
-   * LiveWindow and SmartDashboard integrated updating.
-   */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     Smartdashboarding();
   }
 
-  /**
-   * This function is called once each time the robot enters Disabled mode.
-   */
   @Override
   public void disabledInit() {
   }
@@ -103,9 +78,6 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
   }
 
-  /**
-   * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
-   */
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
@@ -115,29 +87,21 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
   @Override
   public void autonomousPeriodic() {
   }
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
   }
 
-  /**
-   * This function is called periodically during operator control.
-   */
   @Override
   public void teleopPeriodic() {
+
+    // System.out.println(getRequiredRPM(20));
 
     // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
@@ -173,11 +137,12 @@ public class Robot extends TimedRobot {
 
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
   @Override
   public void testPeriodic() {
+  }
+
+  public static double getRequiredRPM(double vel){
+    return (120 * vel) / (2 * Math.PI * RobotContainer.flywheelSub.flywheelRadius);
   }
 
   public void Smartdashboarding(){
@@ -207,10 +172,9 @@ public class Robot extends TimedRobot {
     // }
     SmartDashboard.putNumber("R Dist", (RobotContainer.r2.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
     SmartDashboard.putNumber("R Vel", (RobotContainer.r2.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
-
-    // SmartDashboard.putNumber("axis 1", RobotContainer.driver.getRawAxis(1));
-    // SmartDashboard.putNumber("axis 4", RobotContainer.driver.getRawAxis(4));
-    // SmartDashboard.putString("Sol", RobotContainer.dsL.get().toString());
+    SmartDashboard.putNumber("Rotation speeds", RobotContainer.driveSub.getRotationSpeed());
+    SmartDashboard.putNumber("Wheel vels", RobotContainer.driveSub.getWheelVelocity());
+    
     SmartDashboard.putNumber("hood position",  RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("lift position", RobotContainer.lift.getSensorCollection().getQuadraturePosition());
@@ -249,10 +213,10 @@ public class Robot extends TimedRobot {
   public void configRobot(){
     RobotContainer.diffDrive.setSafetyEnabled(false);
 
-    RobotContainer.dsL.set(Value.kForward);
+    RobotContainer.dsL.set(Value.kReverse);
     RobotContainer.intake1.enableCurrentLimit(true);
     RobotContainer.intake1.configPeakCurrentDuration(0,0);
-    RobotContainer.intake1.configPeakCurrentLimit(30,0);
+    RobotContainer.intake1.configPeakCurrentLimit(50,0);
 
     RobotContainer.intake2.enableCurrentLimit(true);
     RobotContainer.intake2.configPeakCurrentDuration(0,0);
@@ -260,18 +224,14 @@ public class Robot extends TimedRobot {
   
     RobotContainer.intake3.enableCurrentLimit(true);
     RobotContainer.intake3.configPeakCurrentDuration(0,0);
-    RobotContainer.intake3.configPeakCurrentLimit(30,0);
+    RobotContainer.intake3.configPeakCurrentLimit(50,0);
 
-    RobotContainer.r1.setInverted(true);
-    RobotContainer.r2.setInverted(true);
     RobotContainer.r1.setIdleMode(IdleMode.kBrake);
     RobotContainer.r2.setIdleMode(IdleMode.kBrake);
     RobotContainer.l1.setIdleMode(IdleMode.kBrake);
     RobotContainer.l2.setIdleMode(IdleMode.kBrake);
     RobotContainer.flywheelMotor.setIdleMode(IdleMode.kCoast);
     RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
-    RobotContainer.l1.setInverted(true);
-    RobotContainer.l2.setInverted(true);
     final double ramprate = .25;
     final int current = 40;
     RobotContainer.l1.setSmartCurrentLimit(current);
@@ -294,6 +254,8 @@ public class Robot extends TimedRobot {
     RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprate+.75);
 
     RobotContainer.intakePistons.set(Value.kForward);
+    RobotContainer.climbSub.pullWinch();
+    RobotContainer.climbSub.lockClimb();
 
     // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
@@ -318,7 +280,24 @@ public class Robot extends TimedRobot {
   public void shooter(){
     if(RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || RobotContainer.manipulator.getPOV() == 0){
       // pt.schedule();
-      ph.schedule();
+      if(hc != null){
+        hc.cancel();
+      }
+      if(pt != null){
+        pt.cancel();
+      }
+      ph.schedule(true);
+      // pt.schedule(true);
+    }else{
+      if(ph != null){
+        ph.cancel();
+      } 
+      if(pt != null){
+        pt.cancel();
+      }
+      hc.schedule(true);
+      //pt.schedule(true);
+
     }
   }
 

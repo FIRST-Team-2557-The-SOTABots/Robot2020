@@ -8,11 +8,9 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
 import frc.robot.commands.auto.paths.Forward;
+import frc.robot.subsystems.FlywheelSub;
 
 public class BasicAuto extends SequentialCommandGroup {
-  /**
-   * Creates a new BasicAuto.
-   */
   public BasicAuto() {
 
     addCommands(
@@ -20,7 +18,7 @@ public class BasicAuto extends SequentialCommandGroup {
         new Forward(2),
         new PIDTurret(),
         new PIDHood(Constants.hoodTriangle)),
-      new RunCommand( () -> RobotContainer.flywheelSub.spinFlywheels(1), RobotContainer.flywheelSub) 
+      new RunCommand( () -> RobotContainer.flywheelSub.spinFlywheels(FlywheelSub.flywheelSpeed), RobotContainer.flywheelSub) 
         );
 
   }

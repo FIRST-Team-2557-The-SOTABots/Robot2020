@@ -9,7 +9,7 @@ import frc.robot.RobotContainer;
 public class PIDHood extends CommandBase {
 
   PIDController pidController;
-  private final double kP = 0.0015;
+  private final double kP = 0.0017;
   private final double kI = 0;
   private final double kD = 0;
   private final double tolerance = 7;

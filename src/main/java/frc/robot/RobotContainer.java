@@ -15,12 +15,11 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.PIDTurret;
 import frc.robot.commands.climb.ClimbCommand;
 import frc.robot.commands.climb.ClimbSequence1;
 import frc.robot.commands.climb.ClimbSequence2;
+import frc.robot.commands.climb.ClimbSequence3;
 import frc.robot.commands.climb.LockClimb;
-import frc.robot.commands.climb.UnlockClimb;
 import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveSub;
@@ -30,7 +29,6 @@ import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
 import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class RobotContainer {
@@ -150,6 +148,7 @@ public class RobotContainer {
     da.whileHeld(new ClimbSequence1());
     db.whileHeld(new ClimbSequence2());
     db.whenReleased(new LockClimb());
+    dstart.whileHeld(new ClimbSequence3());
 
   }
 

@@ -3,17 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
 public final class Constants {
     public static final double hoodFromTrench = 600;
-    public static final double hoodTriangle = 800;
+    public static final double hoodTriangle = 348;
     public static final double hoodAutoLine = 767;
     public static final double turretFromTrench = 6;
     public static final double turretClose = 0;
@@ -22,6 +14,14 @@ public final class Constants {
     public static final double ratioGearLow = 18.86;
     public static final double ratioGearHigh = 6.45;
     public static final double wheelCircumferenceMeters = 6*Math.PI*0.0254; 
+    //HoodTriangle:348
+    //HoodAuto:
+    //HoodTrench:
+
+    //is that guys name Howard??
+    // idk
+    //Seth's granpa
+
 
     public static final class DriveConstants {
         // public static boolean reverse = true;

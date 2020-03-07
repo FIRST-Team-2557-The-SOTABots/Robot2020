@@ -54,8 +54,8 @@ public double getDistance() {
 	 */
 
 	cm = (counter.getPeriod() * 1.0183 * 1000000.0 / 10.0) + CALIBRATION_OFFSET;	
-	SmartDashboard.putNumber("This is is the period you know", counter.getPeriod());
-	SmartDashboard.putString("This is counter", counter.toString());
+	// SmartDashboard.putNumber("This is is the period you know", counter.getPeriod());
+	// SmartDashboard.putString("This is counter", counter.toString());
 	SmartDashboard.putNumber("This is distance in cm", cm);
 	return cm;
 }
