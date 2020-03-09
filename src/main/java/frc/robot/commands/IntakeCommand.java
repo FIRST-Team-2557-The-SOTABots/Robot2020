@@ -40,10 +40,10 @@ public class IntakeCommand extends CommandBase {
       RobotContainer.intakeSub.intakeOut();
       if(IntakeSub.starWheelOff){
         System.out.println("2");
-        RobotContainer.cpmSub.runStarWheelAndCPM(0);
+        RobotContainer.cpmSub.runCPMAndIntake(0);
       }else{
         System.out.println("3");
-        RobotContainer.cpmSub.runStarWheelAndCPM(IntakeSub.intakeSpeed);
+        RobotContainer.cpmSub.runCPMAndIntake(IntakeSub.intakeSpeed);
       }
 
       if(RobotContainer.mb.get()){
@@ -55,7 +55,7 @@ public class IntakeCommand extends CommandBase {
       }
     } else if (!RobotContainer.ma.get()){
         System.out.println("6");
-        RobotContainer.cpmSub.runStarWheelAndCPM(0);
+        RobotContainer.cpmSub.runCPMAndIntake(0);
         RobotContainer.intakeSub.runIntake(0);
       // RobotContainer.intakeSub.intakeIn();      
     }
@@ -74,10 +74,10 @@ public class IntakeCommand extends CommandBase {
       if (IntakeSub.targetTS == 2) {
         if (!RobotContainer.touchTwo.get()) {
           RobotContainer.intakeSub.runConveyorBelt(IntakeSub.conveyorMotorSpeed);
-          if(!IntakeSub.starWheelOff) RobotContainer.cpmSub.runStarWheelAndCPM(CPMSub.starWheelAndCPMSpeed);
+          if(!IntakeSub.starWheelOff) RobotContainer.cpmSub.runCPMAndIntake(CPMSub.starWheelSpeed);
         } else {
           RobotContainer.intakeSub.runConveyorBelt(0);
-          RobotContainer.cpmSub.runStarWheelAndCPM(0);;
+          RobotContainer.cpmSub.runCPMAndIntake(0);;
           IntakeSub.targetTS = 3;
           IntakeSub.cyclingBall = false;
         }

@@ -29,7 +29,7 @@ public class PositionControlCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    target = DriverStation.getInstance().getGameSpecificMessage();
+    target = CPMSub.getTargetColor();
     currentColor = CPMSub.getColorL();
     if(target == "G" || target == "R") {
 
@@ -39,6 +39,8 @@ public class PositionControlCommand extends CommandBase {
 
       numOfColorsAway = CPMSub.findMatchingColorIndex(colors2, target) - CPMSub.findMatchingColorIndex(colors2, currentColor);
 
+    } else {
+      numOfColorsAway = 100000000;
     }
 
   }
@@ -46,10 +48,12 @@ public class PositionControlCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (numOfColorsAway <= 0) {
-      RobotContainer.cpmSub.runStarWheelAndCPM(CPMSub.starWheelAndCPMSpeed);
-    } else if (numOfColorsAway >= 0) {
-      RobotContainer.cpmSub.runStarWheelAndCPM(-CPMSub.starWheelAndCPMSpeed);
+    if (numOfColorsAway != 100000000){
+      if (numOfColorsAway <= 0) {
+        RobotContainer.cpmSub.runCPMAndIntake(CPMSub.CPMSpeed);
+      } else if (numOfColorsAway >= 0) {
+        RobotContainer.cpmSub.runCPMAndIntake(-CPMSub.CPMSpeed);
+      }
     }
   }
 

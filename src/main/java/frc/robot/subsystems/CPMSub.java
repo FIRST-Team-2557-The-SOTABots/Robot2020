@@ -4,6 +4,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,85 +26,98 @@ public class CPMSub extends SubsystemBase {
   public static final Color kRedTarget = ColorMatch.makeColor(0.458, 0.375, 0.135);
   public static final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
   
-  public static final double starWheelAndCPMSpeed = 0.6;
+  public static final double starWheelSpeed = 0.6;
+  public static final double CPMSpeed = 0.5;
 
-
+  public static final String[] colors1 = { "B", "G", "R", "Y" };
+  public static final String[] colors2 = { "R", "Y", "B", "G" };
 
   public CPMSub() {
     l_colorMatcher.addColorMatch(kBlueTarget);
     l_colorMatcher.addColorMatch(kGreenTarget);
     l_colorMatcher.addColorMatch(kRedTarget);
     l_colorMatcher.addColorMatch(kYellowTarget);
-  
+
     r_colorMatcher.addColorMatch(kBlueTarget);
     r_colorMatcher.addColorMatch(kGreenTarget);
     r_colorMatcher.addColorMatch(kRedTarget);
     r_colorMatcher.addColorMatch(kYellowTarget);
-  
+
   }
 
-  public static String getColorL(){
+  public static String getColorL() {
     Color color = l_colorSensor.getColor();
     ColorMatchResult result = l_colorMatcher.matchClosestColor(color);
     String returnable;
 
     if (result.color == kBlueTarget) {
-        returnable = "Blue";
-      } else if (result.color == kRedTarget) {
-        returnable = "Red";
-      } else if (result.color == kGreenTarget) {
-        returnable = "Green";
-      } else if (result.color == kYellowTarget) {
-        returnable = "Yellow";
-      } else {
-        returnable = "Unknown";
-      }
+      returnable = "Blue";
+    } else if (result.color == kRedTarget) {
+      returnable = "Red";
+    } else if (result.color == kGreenTarget) {
+      returnable = "Green";
+    } else if (result.color == kYellowTarget) {
+      returnable = "Yellow";
+    } else {
+      returnable = "Unknown";
+    }
 
-      return returnable;
-      
+    return returnable;
+
   }
-  
-  public void runStarWheelAndCPM (double speed) {
+
+  public void runCPMAndIntake(double speed) {
     RobotContainer.intake2.set(speed);
   }
 
-
-  public static String getColorR(){
+  public static String getColorR() {
     Color color = r_colorSensor.getColor();
     ColorMatchResult result = r_colorMatcher.matchClosestColor(color);
     String returnable;
 
     if (result.color == kBlueTarget) {
-        returnable = "Blue";
-      } else if (result.color == kRedTarget) {
-        returnable = "Red";
-      } else if (result.color == kGreenTarget) {
-        returnable = "Green";
-      } else if (result.color == kYellowTarget) {
-        returnable = "Yellow";
-      } else {
-        returnable = "Unknown";
-      }
+      returnable = "Blue";
+    } else if (result.color == kRedTarget) {
+      returnable = "Red";
+    } else if (result.color == kGreenTarget) {
+      returnable = "Green";
+    } else if (result.color == kYellowTarget) {
+      returnable = "Yellow";
+    } else {
+      returnable = "Unknown";
+    }
 
-      return returnable;
-      
+    return returnable;
+
   }
 
   public boolean onSameColor() {
-      if (getColorR() == getColorL()) {
-          return true;
-      }
-      return false;
+    if (getColorR() == getColorL()) {
+      return true;
+    }
+    return false;
   }
 
   public static int findMatchingColorIndex(String[] arr, String key) {
     for (int i = 0; i < arr.length; i++) {
       if (arr[i] == key) {
-         return i;
+        return i;
       }
-    }  
+    }
     return arr.length + 1;
   }
+
+  public static String getTargetColor() {
+    String target = DriverStation.getInstance().getGameSpecificMessage();
+
+    if (target == "R" || target == "Y") {
+      return colors1[findMatchingColorIndex(colors1, target) - 2];
+    } else if (target == "B" || target == "G"){
+      return colors2[findMatchingColorIndex(colors2, target) - 2];
+    }
+    return null;
+  }//returns a single character representing the color the color sensors should be 
+  //looking for to make the field sensor sense the proper target color
 
   @Override
   public void periodic() {

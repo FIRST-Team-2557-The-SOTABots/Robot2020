@@ -19,7 +19,7 @@ public class AimCommand extends SequentialCommandGroup {
       ),
       new ParallelCommandGroup(
         new RunCommand( () -> RobotContainer.intakeSub.runConveyorBelt(IntakeSub.conveyorMotorSpeed), RobotContainer.intakeSub),
-        new RunCommand( () -> RobotContainer.cpmSub.runStarWheelAndCPM(CPMSub.starWheelAndCPMSpeed), RobotContainer.intakeSub),
+        new RunCommand( () -> RobotContainer.cpmSub.runCPMAndIntake(CPMSub.starWheelSpeed), RobotContainer.cpmSub),
         new PIDFlywheel()
       )
 
