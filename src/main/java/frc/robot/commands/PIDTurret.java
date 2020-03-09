@@ -12,8 +12,8 @@ import frc.robot.RobotContainer;
 public class PIDTurret extends CommandBase {
 
   static PIDController pidController;
-  private static final double kP = 0.025;
-  private static final double kI = 0;
+  private static final double kP = 0.03;
+  private static final double kI = 0.0001;
   private static final double kD = 0;
   private static final double tolerance = 2;
 
@@ -22,7 +22,7 @@ public class PIDTurret extends CommandBase {
   static NetworkTable table;
   static NetworkTableEntry tx;
   static NetworkTableEntry tv;
-  private static double setpoint = 0;
+  private static double setpoint = -2;
 
   public PIDTurret() {
     table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -33,7 +33,9 @@ public class PIDTurret extends CommandBase {
     if(RobotContainer.manipulator.getPOV() == 90){
       setpoint = Constants.turretFromTrench;
     }else if(RobotContainer.manipulator.getPOV() == 180){
-      setpoint = Constants.turretClose;
+      setpoint = Constants.turretLine;
+    }else if(RobotContainer.manipulator.getPOV() == 0){
+      setpoint = Constants.turretTriangle;
     }
   }
 
@@ -62,6 +64,7 @@ public class PIDTurret extends CommandBase {
 
     SmartDashboard.putNumber("This is PID turret output", output);
     SmartDashboard.putNumber("This is PID turret error!!", pidController.getPositionError());
+    SmartDashboard.putNumber("This is PID turret setpoint!", pidController.getSetpoint());
   }
 
   @Override

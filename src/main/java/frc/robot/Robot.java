@@ -1,9 +1,7 @@
 package frc.robot;
 
 import java.io.IOException;
-
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -14,6 +12,7 @@ import frc.robot.commands.HoodCommand;
 import frc.robot.commands.PIDFlywheel;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
+import frc.robot.commands.TurretCommand;
 import frc.robot.commands.auto.BasicAuto;
 import frc.robot.commands.auto.paths.BasicTurn;
 import frc.robot.commands.auto.paths.Chain;
@@ -34,8 +33,10 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static PIDTurret pt = new PIDTurret();
-  public static HoodCommand hc = new HoodCommand();
+  public static TurretCommand tc = new TurretCommand();
   public static PIDHood ph = new PIDHood(Constants.hoodFromTrench);
+  public static HoodCommand hc = new HoodCommand();
+
 
 
   @Override
@@ -107,6 +108,7 @@ public class Robot extends TimedRobot {
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
 
     shooter();
+    // RobotContainer.turretMotor.set(RobotContainer.manipulator.getRawAxis(4));
 
     if(RobotContainer.mback.get()){
       RobotContainer.intakePistons.set(Value.kForward);
@@ -116,11 +118,11 @@ public class Robot extends TimedRobot {
       RobotContainer.intakePistons.set(Value.kReverse);
     }
 
-    if(RobotContainer.manipulator.getPOV() == 90){
+    if(RobotContainer.mterribleRight.get()){
       RobotContainer.CPMshift.set(Value.kForward);
     }
 
-    if(RobotContainer.manipulator.getPOV() == 270){
+    if(RobotContainer.mterribleLeft.get()){
       RobotContainer.CPMshift.set(Value.kReverse);
     }
 
@@ -177,7 +179,7 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("hood position",  RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition());
-    SmartDashboard.putNumber("lift position", RobotContainer.lift.getSensorCollection().getQuadraturePosition());
+    // SmartDashboard.putNumber("lift position", RobotContainer.lift.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("winch position 1", RobotContainer.winch1.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("winch position 2", RobotContainer.winch1.getSensorCollection().getQuadraturePosition());
 
@@ -189,7 +191,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Climb lock", RobotContainer.climbLock.get() == Value.kReverse);
     SmartDashboard.putBoolean("Winch pull", RobotContainer.winchShift.get() == Value.kReverse);
 
-    SmartDashboard.putBoolean("quad pos", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14000);
+    // SmartDashboard.putBoolean("quad pos", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14000);
     // SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
     // SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
     // SmartDashboard.putNumber("FtPerSecondOfRobot", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()) * (DriveSub.wheelDiameter * Math.PI) / 60);
@@ -200,6 +202,10 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
     SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed());
+    if(RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed()){
+      // RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
+
+    }
 
     SmartDashboard.putBoolean("Intake 1 touch", RobotContainer.touchOne.get());
     SmartDashboard.putBoolean("Intake 2 touch", RobotContainer.touchTwo.get());
@@ -218,13 +224,13 @@ public class Robot extends TimedRobot {
     RobotContainer.intake1.configPeakCurrentDuration(0,0);
     RobotContainer.intake1.configPeakCurrentLimit(50,0);
 
-    RobotContainer.intake2.enableCurrentLimit(true);
-    RobotContainer.intake2.configPeakCurrentDuration(0,0);
-    RobotContainer.intake2.configPeakCurrentLimit(30,0);   
+    // RobotContainer.intake2.enableCurrentLimit(true);
+    // RobotContainer.intake2.configPeakCurrentDuration(0,0);
+    // RobotContainer.intake2.configPeakCurrentLimit(50,0);   
   
-    RobotContainer.intake3.enableCurrentLimit(true);
-    RobotContainer.intake3.configPeakCurrentDuration(0,0);
-    RobotContainer.intake3.configPeakCurrentLimit(50,0);
+    // RobotContainer.intake3.enableCurrentLimit(true);
+    // RobotContainer.intake3.configPeakCurrentDuration(0,0);
+    // RobotContainer.intake3.configPeakCurrentLimit(30,0);
 
     RobotContainer.r1.setIdleMode(IdleMode.kBrake);
     RobotContainer.r2.setIdleMode(IdleMode.kBrake);
@@ -234,6 +240,7 @@ public class Robot extends TimedRobot {
     RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
     final double ramprate = .25;
     final int current = 40;
+    final double ramprateFW = 2.5;
     RobotContainer.l1.setSmartCurrentLimit(current);
     RobotContainer.l1.setClosedLoopRampRate(ramprate);
     RobotContainer.l1.setOpenLoopRampRate(ramprate);
@@ -246,27 +253,27 @@ public class Robot extends TimedRobot {
     RobotContainer.r2.setSmartCurrentLimit(current);
     RobotContainer.r2.setClosedLoopRampRate(ramprate);
     RobotContainer.r2.setOpenLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor.setSmartCurrentLimit(current);
-    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprate+.75);
-    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprate+.75);
-    RobotContainer.flywheelMotor2.setSmartCurrentLimit(current);
-    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprate+.75);
-    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprate+.75);
+    // RobotContainer.flywheelMotor.setSmartCurrentLimit(current);
+    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprateFW);
+    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprateFW);
+    // RobotContainer.flywheelMotor2.setSmartCurrentLimit(current);
+    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprateFW);
+    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprateFW);
 
     RobotContainer.intakePistons.set(Value.kForward);
-    RobotContainer.climbSub.pullWinch();
-    RobotContainer.climbSub.lockClimb();
+    // RobotContainer.climbSub.pullWinch();
+    RobotContainer.climbSub.freespinWinch();
+    RobotContainer.climbSub.unlockClimb();
 
-    // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
-    // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
-
+    RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
+    RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
   }
 
   public void resetTheSpaghet(){
     RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
      // RobotContainer.hoodEncoder.resetAccumulator();
-    RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
+    // RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.winch2.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.l1.getEncoder().setPosition(0);
     RobotContainer.l2.getEncoder().setPosition(0);
@@ -278,27 +285,31 @@ public class Robot extends TimedRobot {
   }
   
   public void shooter(){
-    if(RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || RobotContainer.manipulator.getPOV() == 0){
-      // pt.schedule();
+    if(RobotContainer.manipulator.getPOV() == 0 || RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180){ //RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || 
+      ph.schedule(true);
+      pt.schedule(true);
+      if(tc != null){
+        tc.cancel();
+      }
       if(hc != null){
         hc.cancel();
       }
-      if(pt != null){
-        pt.cancel();
-      }
-      ph.schedule(true);
-      // pt.schedule(true);
+    }else if(RobotContainer.my.get()){
+      ph.cancel();
+      pt.cancel();
+      hc.cancel();
+      tc.cancel();
+      RobotContainer.hoodMotor.set(RobotContainer.manipulator.getRawAxis(1)*.2);
     }else{
       if(ph != null){
         ph.cancel();
+        hc.schedule(true);
       } 
       if(pt != null){
         pt.cancel();
+        tc.schedule(true);
       }
-      hc.schedule(true);
-      //pt.schedule(true);
-
     }
   }
-
+  
 }

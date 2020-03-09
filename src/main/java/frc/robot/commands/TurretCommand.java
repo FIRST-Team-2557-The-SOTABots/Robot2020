@@ -2,12 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.IntakeSub;
 
-public class TurretFeeder extends CommandBase {
-
-  public TurretFeeder() {
-    addRequirements(RobotContainer.intakeSub);
+public class TurretCommand extends CommandBase {
+  public TurretCommand() {
+    addRequirements(RobotContainer.turretSub);
   }
 
   @Override
@@ -16,9 +14,7 @@ public class TurretFeeder extends CommandBase {
 
   @Override
   public void execute() {
-    if (PIDFlywheel.flywheelAtSetpoint) {
-      RobotContainer.intakeSub.runTurretFeeder(IntakeSub.conveyorMotorSpeed);
-    }
+    RobotContainer.turretMotor.set(-RobotContainer.manipulator.getRawAxis(4) * 0.2);
   }
 
   @Override

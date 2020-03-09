@@ -5,18 +5,19 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
 public final class Constants {
     public static final double hoodFromTrench = 600;
-    public static final double hoodTriangle = 348;
-    public static final double hoodAutoLine = 767;
-    public static final double turretFromTrench = 6;
-    public static final double turretClose = 0;
+    public static final double hoodTriangle = 120;
+    public static final double hoodAutoLine = 732;
+    public static final double turretFromTrench = -6;
+    public static final double turretLine = -2;
+    public static final double turretTriangle = 0;
     public static final double ticksPerRevolutionLow = 19;
     public static final double ticksPerRevolutionHigh = 6.4;
     public static final double ratioGearLow = 18.86;
     public static final double ratioGearHigh = 6.45;
     public static final double wheelCircumferenceMeters = 6*Math.PI*0.0254; 
     //HoodTriangle:348
-    //HoodAuto:
-    //HoodTrench:
+    //HoodLine: 732
+    //HoodTrench: 
 
     //is that guys name Howard??
     // idk

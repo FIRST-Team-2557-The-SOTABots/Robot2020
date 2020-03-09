@@ -61,8 +61,8 @@ public class DriveSub extends SubsystemBase {
     } else {
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4) * 0.8);
     }
-
-}
+    
+  }
 
   public void drive(double xSpeed, double rotation){
     RobotContainer.diffDrive.arcadeDrive(xSpeed, rotation);

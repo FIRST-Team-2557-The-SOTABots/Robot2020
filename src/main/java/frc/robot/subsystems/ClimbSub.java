@@ -12,23 +12,23 @@ public class ClimbSub extends SubsystemBase {
   }
 
   public void lift(double speed){
-    RobotContainer.lift.set(speed);
+    // RobotContainer.lift.set(speed);
   }
 
   public void autoLift(double count, boolean up){
-    SmartDashboard.putBoolean("lift condition for up", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -count);
-    SmartDashboard.putBoolean("this is up", up);
+    // SmartDashboard.putBoolean("lift condition for up", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -count);
+    // SmartDashboard.putBoolean("this is up", up);
 
-    if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -count && up){
-      System.out.println("climb up");
-      RobotContainer.lift.set(-.3);
-    }else if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() < -count && !up){
-      System.out.println("climb down");
-      RobotContainer.lift.set(.2);
-    }else{
-      System.out.println("climb no");
-      RobotContainer.lift.set(0);
-    }
+    // if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -count && up){
+    //   System.out.println("climb up");
+    //   RobotContainer.lift.set(-.3);
+    // }else if(RobotContainer.lift.getSensorCollection().getQuadraturePosition() < -count && !up){
+    //   System.out.println("climb down");
+    //   RobotContainer.lift.set(.2);
+    // }else{
+    //   System.out.println("climb no");
+    //   RobotContainer.lift.set(0);
+    // }
   }
 
   public void autoWinch(){
@@ -43,7 +43,7 @@ public class ClimbSub extends SubsystemBase {
     //all locks engaged
     //
 
-    if(RobotContainer.tbumperLeft.get()){
+    if(RobotContainer.ta.get()){
       RobotContainer.winch1.set(.3); //down positive
       RobotContainer.winch2.set(-.3); //down negative
     }else {
@@ -51,13 +51,13 @@ public class ClimbSub extends SubsystemBase {
       RobotContainer.winch2.set(0);
     }
 
-    if(RobotContainer.mbumperLeft.get()){//down
-      RobotContainer.lift.set(.3);
-    }else if(RobotContainer.mbumperRight.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14500){
-      RobotContainer.lift.set(-.3);
-    }else{
-      RobotContainer.lift.set(0);
-    }
+    // if(RobotContainer.tbumperLeft.get()){//down
+      // RobotContainer.lift.set(.3);
+    // }else if(RobotContainer.tbumperRight.get() && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14500){ // && RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14500
+      // RobotContainer.lift.set(-.3);
+    // }else{
+      // RobotContainer.lift.set(0);
+    // }
 
     if(RobotContainer.tback.get()){
       lockClimb();
