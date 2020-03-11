@@ -24,7 +24,7 @@ public class DriveSub extends SubsystemBase {
   public static final double ratioGear2 = 6;
   public static final double eTicksPerRev = 42; //ticks of 
 
-  public static final double wheelDiameter = 0.1524; //in meters
+  // public static final double wheelDiameter = 0.1524; //in meters
 
   public DriveSub() {
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
@@ -35,17 +35,28 @@ public class DriveSub extends SubsystemBase {
   }
 
   public double getAverageEncoderDistance(){
-    if(RobotContainer.dsL.get() == Value.kForward){
+    // if(RobotContainer.dsL.get() == Value.kForward){
+    //   return ((RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters
+    //   + (-RobotContainer.r2.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters) / 2.0;
+    // }else{
+    //   return ((RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters
+    //   + (-RobotContainer.r2.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters) / 2.0;
+    // }
+    if(RobotContainer.dsL.get() == Value.kReverse){
       return ((RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters
       + (-RobotContainer.r2.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters) / 2.0;
     }else{
-      return ((RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters
-      + (-RobotContainer.r2.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters) / 2.0;
+      return ((RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters
+      + (-RobotContainer.r2.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters) / 2.0;
     }
   }
 
   public double getTurnRate(){
-    return gyroReversed*RobotContainer.navX.getRate();
+    return -gyroReversed*RobotContainer.navX.getRate();
+  }
+
+  public void resetOdometry(){
+    resetOdometry(new Pose2d());
   }
 
   public void teleDrive(){
@@ -58,7 +69,9 @@ public class DriveSub extends SubsystemBase {
 
    if(RobotContainer.dbumperLeft.get()){
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5, (RobotContainer.driver.getRawAxis(4) * 0.5));
-    } else {
+    }else if(RobotContainer.dbumperRight.get()){
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), (RobotContainer.driver.getRawAxis(4)));
+    }else{
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4) * 0.8);
     }
     
@@ -69,14 +82,22 @@ public class DriveSub extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    // if(DriveConstants.reverse){
+    //   return new DifferentialDriveWheelSpeeds(
+    //     ((RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
+    //     ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters); //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
+    // }
+    // return new DifferentialDriveWheelSpeeds(
+    //   ((RobotContainer.l1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters, // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
+    //   ((-RobotContainer.r1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters); //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
     if(DriveConstants.reverse){
       return new DifferentialDriveWheelSpeeds(
         ((RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
         ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters); //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
     }
     return new DifferentialDriveWheelSpeeds(
-      ((RobotContainer.l1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters, // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
-      ((-RobotContainer.r1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters); //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
+      ((RobotContainer.l1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
+      ((-RobotContainer.r1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters); //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
   }
 
   public double getWheelVelocity() {
@@ -86,8 +107,17 @@ public class DriveSub extends SubsystemBase {
         + ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters)/2; //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
     }
     return
-      (((RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
-      + ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters)/2; //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
+      (((RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
+      + ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters)/2; //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
+    // if(DriveConstants.reverse){
+    //   return
+    //     (((-RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
+    //     + ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters)/2; //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
+    // }
+    // return
+    //   (((-RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters // (RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh) ) * Constants.wheelCircumferenceMeters, 
+    //   + ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters)/2; //(RobotContainer.dsL.get() == Value.kForward ? Constants.ticksPerRevolutionLow : Constants.ticksPerRevolutionHigh)) * Constants.wheelCircumferenceMeters);
+
   }
 
   public double getRotationSpeed(){
@@ -99,8 +129,8 @@ public class DriveSub extends SubsystemBase {
   double maxVolt = 12;
   public void tankDriveVolts(double leftVolts,double rightVolts) {
     if(DriveConstants.reverse){
-      RobotContainer.left.setVoltage(MathUtil.clamp(-rightVolts, -maxVolt, maxVolt));
-      RobotContainer.right.setVoltage(MathUtil.clamp(leftVolts, -maxVolt, maxVolt));
+      RobotContainer.left.setVoltage(MathUtil.clamp(rightVolts, -maxVolt, maxVolt));
+      RobotContainer.right.setVoltage(MathUtil.clamp(-leftVolts, -maxVolt, maxVolt));
     }else{
       RobotContainer.left.setVoltage(MathUtil.clamp(rightVolts, -maxVolt, maxVolt));
       RobotContainer.right.setVoltage(MathUtil.clamp(-leftVolts, -maxVolt, maxVolt));
@@ -138,8 +168,29 @@ public class DriveSub extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // if(DriveConstants.reverse){
+    //   if(RobotContainer.dsL.get() == Value.kReverse){
+    //     m_odometry.update(Rotation2d.fromDegrees(-getHeading()), 
+    //     (RobotContainer.r1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, //encoder * rev/ticks = rev * circ = dist
+    //     (-RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+    //   }else{
+    //     m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
+    //     (RobotContainer.r1.getEncoder().getPosition()/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters, 
+    //     (-RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
+    //   }
+    // }else{
+    //   if(RobotContainer.dsL.get() == Value.kReverse){
+    //     m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
+    //     (RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, //encoder * rev/ticks = rev * circ = dist
+    //     (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+    //   }else{
+    //     m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
+    //     (RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters, 
+    //     (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
+    //   }
+    // }
     if(DriveConstants.reverse){
-      if(RobotContainer.dsL.get() == Value.kForward){
+      if(RobotContainer.dsL.get() == Value.kReverse){
         m_odometry.update(Rotation2d.fromDegrees(-getHeading()), 
         (RobotContainer.r1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, //encoder * rev/ticks = rev * circ = dist
         (-RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
@@ -149,7 +200,7 @@ public class DriveSub extends SubsystemBase {
         (-RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
       }
     }else{
-      if(RobotContainer.dsL.get() == Value.kForward){
+      if(RobotContainer.dsL.get() == Value.kReverse){
         m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
         (RobotContainer.l1.getEncoder().getPosition()/ Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters, //encoder * rev/ticks = rev * circ = dist
         (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);

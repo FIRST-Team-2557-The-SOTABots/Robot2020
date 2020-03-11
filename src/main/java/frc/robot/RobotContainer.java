@@ -15,6 +15,8 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.PositionControlCommand;
+import frc.robot.commands.RotationControlCommand;
 import frc.robot.commands.TurretCommand;
 import frc.robot.commands.climb.ClimbCommand;
 import frc.robot.commands.climb.ClimbSequence1;
@@ -146,6 +148,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // ma.whileHeld(new PIDTurret());
+
+    my.whileHeld(new PositionControlCommand());
+    mx.whileHeld(new RotationControlCommand());
 
     da.whileHeld(new ClimbSequence1());
     db.whileHeld(new ClimbSequence2());

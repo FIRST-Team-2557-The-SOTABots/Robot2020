@@ -16,7 +16,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 
-public class Forward extends CommandBase {
+public class Move extends CommandBase {
   public static double commandTime = 0;
   double dist = 1;
   DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
@@ -51,15 +51,15 @@ public class Forward extends CommandBase {
     RobotContainer.driveSub
   );
 
-  public Forward(double dist) {
+  public Move(double dist, boolean reverse) {
     this.dist = dist;
     commandTime = exampleTrajectory.getTotalTimeSeconds();
     addRequirements(RobotContainer.driveSub);
+    DriveConstants.reverse = reverse;
   }
 
   @Override
   public void initialize() {
-    DriveConstants.reverse = false;
     gordonRamsete.schedule();
   }
 

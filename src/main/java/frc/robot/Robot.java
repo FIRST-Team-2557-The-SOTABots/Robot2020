@@ -18,7 +18,7 @@ import frc.robot.commands.auto.paths.BasicTurn;
 import frc.robot.commands.auto.paths.Chain;
 import frc.robot.commands.auto.paths.Example;
 import frc.robot.commands.auto.paths.Fiveball;
-import frc.robot.commands.auto.paths.Forward;
+import frc.robot.commands.auto.paths.Move;
 import frc.robot.commands.auto.paths.Secondary;
 import frc.robot.commands.auto.paths.Smiles;
 import frc.robot.commands.auto.paths.TurnReverse;
@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   public static PIDHood ph = new PIDHood(Constants.hoodFromTrench);
   public static HoodCommand hc = new HoodCommand();
 
-
+  public static boolean auto;
 
   @Override
   public void robotInit() {
@@ -45,7 +45,8 @@ public class Robot extends TimedRobot {
     configRobot();
 
     m_chooser = new SendableChooser<>();
-    m_chooser.addOption("forward", new Forward(1));
+    m_chooser.addOption("forward", new Move(1, false));
+    m_chooser.addOption("reverse", new Move(1, true));
     m_chooser.addOption("reverse turn", new TurnReverse());
     m_chooser.addOption("basic turning", new BasicTurn());
     try {
@@ -82,6 +83,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
+    auto = true;
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -94,6 +97,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    auto = false;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -109,6 +113,14 @@ public class Robot extends TimedRobot {
 
     shooter();
     // RobotContainer.turretMotor.set(RobotContainer.manipulator.getRawAxis(4));
+    
+    if(RobotContainer.mbumperLeft.get()){
+      RobotContainer.CPMshift.set(Value.kForward);
+    }
+
+    if(RobotContainer.mbumperRight.get()){
+      RobotContainer.CPMshift.set(Value.kReverse);
+    }
 
     if(RobotContainer.mback.get()){
       RobotContainer.intakePistons.set(Value.kForward);
@@ -150,22 +162,22 @@ public class Robot extends TimedRobot {
   public void Smartdashboarding(){
     // SmartDashboard.putNumber("Current Gear", RobotContainer.driveSub.getCurrentGear());
 
-    // SmartDashboard.putString("Wheel Speeds", RobotContainer.driveSub.getWheelSpeeds().toString());
-    // SmartDashboard.putNumber("l1",RobotContainer.l1.getEncoder().getPosition());
+    SmartDashboard.putString("Wheel Speeds", RobotContainer.driveSub.getWheelSpeeds().toString());
+    SmartDashboard.putNumber("l1",RobotContainer.l1.getEncoder().getPosition());
     // SmartDashboard.putNumber("l2",RobotContainer.l2.getEncoder().getPosition());
-    // SmartDashboard.putNumber("r1",-RobotContainer.r1.getEncoder().getPosition());
+    SmartDashboard.putNumber("r1",-RobotContainer.r1.getEncoder().getPosition());
     // SmartDashboard.putNumber("r2",-RobotContainer.r2.getEncoder().getPosition());
-    // SmartDashboard.putNumber("Gyro Heading", RobotContainer.driveSub.getHeading());
-    // SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
-    // SmartDashboard.putString("Pose", RobotContainer.driveSub.getPose().toString());
+    SmartDashboard.putNumber("Gyro Heading", RobotContainer.driveSub.getHeading());
+    SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
+    SmartDashboard.putString("Pose", RobotContainer.driveSub.getPose().toString());
     // SmartDashboard.putString("Pose Rot", RobotContainer.driveSub.getPose().getRotation().toString());
     // SmartDashboard.putString("Pose Dist", RobotContainer.driveSub.getPose().getTranslation().toString());
     // SmartDashboard.putNumber("Average encoder distance", RobotContainer.driveSub.getAverageEncoderDistance());
     // if(RobotContainer.dsL.get() == Value.kForward){
       SmartDashboard.putNumber("R Dist", (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
-    //   SmartDashboard.putNumber("L Dist", (RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("L Dist", (RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
       SmartDashboard.putNumber("R Vel", (-RobotContainer.r1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
-    //   SmartDashboard.putNumber("L Vel", (RobotContainer.l1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
+      SmartDashboard.putNumber("L Vel", (RobotContainer.l1.getEncoder().getVelocity()/60 / Constants.ticksPerRevolutionLow) * Constants.wheelCircumferenceMeters);
     // }else{
     //   SmartDashboard.putNumber("R Dist", (-RobotContainer.r1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
     //   SmartDashboard.putNumber("L Dist", (RobotContainer.l1.getEncoder().getPosition() / Constants.ticksPerRevolutionHigh) * Constants.wheelCircumferenceMeters);
@@ -180,10 +192,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("hood position",  RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition());
     // SmartDashboard.putNumber("lift position", RobotContainer.lift.getSensorCollection().getQuadraturePosition());
-    SmartDashboard.putNumber("winch position 1", RobotContainer.winch1.getSensorCollection().getQuadraturePosition());
-    SmartDashboard.putNumber("winch position 2", RobotContainer.winch1.getSensorCollection().getQuadraturePosition());
-
-    SmartDashboard.putNumber("mani POV", RobotContainer.manipulator.getPOV());
 
     SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     // SmartDashboard.putString("Color L", RobotContainer.cpmSub.getColorL());
@@ -202,10 +210,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
     SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed());
-    if(RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed()){
-      // RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
-
-    }
 
     SmartDashboard.putBoolean("Intake 1 touch", RobotContainer.touchOne.get());
     SmartDashboard.putBoolean("Intake 2 touch", RobotContainer.touchTwo.get());
@@ -240,7 +244,8 @@ public class Robot extends TimedRobot {
     RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
     final double ramprate = .25;
     final int current = 40;
-    final double ramprateFW = 2.5;
+    final double ramprateFW = 5;
+    final int currentFW = 40;
     RobotContainer.l1.setSmartCurrentLimit(current);
     RobotContainer.l1.setClosedLoopRampRate(ramprate);
     RobotContainer.l1.setOpenLoopRampRate(ramprate);
@@ -253,10 +258,10 @@ public class Robot extends TimedRobot {
     RobotContainer.r2.setSmartCurrentLimit(current);
     RobotContainer.r2.setClosedLoopRampRate(ramprate);
     RobotContainer.r2.setOpenLoopRampRate(ramprate);
-    // RobotContainer.flywheelMotor.setSmartCurrentLimit(current);
+    RobotContainer.flywheelMotor.setSmartCurrentLimit(currentFW);
     RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprateFW);
     RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprateFW);
-    // RobotContainer.flywheelMotor2.setSmartCurrentLimit(current);
+    RobotContainer.flywheelMotor2.setSmartCurrentLimit(currentFW);
     RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprateFW);
     RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprateFW);
 
@@ -275,13 +280,11 @@ public class Robot extends TimedRobot {
      // RobotContainer.hoodEncoder.resetAccumulator();
     // RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.winch2.getSensorCollection().setQuadraturePosition(0, 10);
-    RobotContainer.l1.getEncoder().setPosition(0);
-    RobotContainer.l2.getEncoder().setPosition(0);
-    RobotContainer.r1.getEncoder().setPosition(0);
-    RobotContainer.r2.getEncoder().setPosition(0);
+    RobotContainer.driveSub.resetEncoders();
     RobotContainer.flywheelMotor.getEncoder().setPosition(0);
     RobotContainer.flywheelMotor2.getEncoder().setPosition(0);
     RobotContainer.navX.reset();
+    RobotContainer.driveSub.resetOdometry();
   }
   
   public void shooter(){
@@ -294,12 +297,6 @@ public class Robot extends TimedRobot {
       if(hc != null){
         hc.cancel();
       }
-    }else if(RobotContainer.my.get()){
-      ph.cancel();
-      pt.cancel();
-      hc.cancel();
-      tc.cancel();
-      RobotContainer.hoodMotor.set(RobotContainer.manipulator.getRawAxis(1)*.2);
     }else{
       if(ph != null){
         ph.cancel();

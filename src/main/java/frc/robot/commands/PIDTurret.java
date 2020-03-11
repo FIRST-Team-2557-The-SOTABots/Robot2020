@@ -29,6 +29,12 @@ public class PIDTurret extends CommandBase {
     addRequirements(RobotContainer.turretSub);
   }
 
+  public PIDTurret(double setpoint) {
+    table = NetworkTableInstance.getDefault().getTable("limelight");
+    addRequirements(RobotContainer.turretSub);
+    this.setpoint = setpoint;
+  }
+
   public void turretPosition(){
     if(RobotContainer.manipulator.getPOV() == 90){
       setpoint = Constants.turretFromTrench;

@@ -24,7 +24,7 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if(RobotContainer.flywheelSub.getFlywheelSpeed() > 15000) shoot = true;
+    if(RobotContainer.flywheelSub.getFlywheelSpeed() > 16000) shoot = true;
     else shoot = false;
     double axis2 = RobotContainer.manipulator.getRawAxis(2);
 
