@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 public final class Constants {
     public static final double hoodFromTrench = 930;
     public static final double hoodTriangle = 550;
-    public static final double hoodAutoLine = 1117
-    ;
+    public static final double hoodAutoLine = 1075;
     public static final double turretFromTrench = -6;
     public static final double turretLine = -7;
     public static final double turretTriangle = 0;

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.AutoIntakeIntake;
 import frc.robot.commands.AutoShootIntake;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
@@ -17,11 +18,10 @@ public class BasicAuto extends SequentialCommandGroup {
   public BasicAuto() {
     addCommands(
       new ParallelDeadlineGroup(
-        new AutoShootIntake(false),
+        new AutoShootIntake(false).withInterrupt(() -> AutoShootIntake.finished),
         new PIDTurret(Constants.turretLine),
         new PIDHood(Constants.hoodAutoLine)
-      ),
-      new Move(1, true)
+      )
     );
   }
 }

@@ -1,6 +1,8 @@
 package frc.robot.commands.auto.paths;
 
 import java.util.List;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -15,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.IntakeSub;
 
 public class Move extends CommandBase {
   public static double commandTime = 0;
@@ -60,21 +63,24 @@ public class Move extends CommandBase {
 
   @Override
   public void initialize() {
+    RobotContainer.intakePistons.set(Value.kReverse);
+    RobotContainer.intake1.set(IntakeSub.intakeSpeed);
     gordonRamsete.schedule();
   }
 
   @Override
   public void execute() {
+    RobotContainer.intake1.set(IntakeSub.intakeSpeed);
     // System.out.println("LEFT:    " + gordonRamsete.leftSpeedSetpoint);
     // System.out.println("RIGHT:    " + gordonRamsete.rightSpeedSetpoint);
-    // System.out.println("SPEEDS:    " + Robot.driveSub.getWheelSpeeds().toString());
+    System.out.println("SPEEDS:    " + RobotContainer.driveSub.getWheelSpeeds().toString());
   }
 
    @Override
    public void end(boolean interrupted) {
     RobotContainer.left.set(0);
     RobotContainer.right.set(0);
-   }
+  }
  
    @Override
    public boolean isFinished() {

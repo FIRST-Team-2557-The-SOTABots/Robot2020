@@ -25,6 +25,7 @@ public class DriveSub extends SubsystemBase {
   public static final double eTicksPerRev = 42; //ticks of 
 
   // public static final double wheelDiameter = 0.1524; //in meters
+  public double reverseDrive = 1;
 
   public DriveSub() {
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
@@ -66,15 +67,19 @@ public class DriveSub extends SubsystemBase {
     // }else if(RobotContainer.dstart.get()){//low
     //   RobotContainer.dsL.set(Value.kReverse);
     // }
+    if((RobotContainer.driver.getRawAxis(2) > 0.5) && (RobotContainer.driver.getRawAxis(3) > 0.5)){
+      reverseDrive = -1;
+    }else{
+      reverseDrive = 1;
+    }
 
    if(RobotContainer.dbumperLeft.get()){
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5, (RobotContainer.driver.getRawAxis(4) * 0.5));
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
     }else if(RobotContainer.dbumperRight.get()){
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), (RobotContainer.driver.getRawAxis(4)));
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, (RobotContainer.driver.getRawAxis(4)));
     }else{
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1), RobotContainer.driver.getRawAxis(4) * 0.8);
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, RobotContainer.driver.getRawAxis(4) * 0.8);
     }
-    
   }
 
   public void drive(double xSpeed, double rotation){

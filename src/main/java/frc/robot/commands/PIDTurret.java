@@ -12,7 +12,7 @@ import frc.robot.RobotContainer;
 public class PIDTurret extends CommandBase {
 
   static PIDController pidController;
-  private static final double kP = 0.03;
+  private static final double kP = 0.025;
   private static final double kI = 0.0001;
   private static final double kD = 0;
   private static final double tolerance = 2;

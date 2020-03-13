@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.CPMSub;
@@ -29,7 +30,17 @@ public class RotationControlCommand extends CommandBase {
   @Override
   public void execute() {
 
+    RobotContainer.cpmSub.printGetting();
+
+    SmartDashboard.putString("Get Color L",  CPMSub.getColorL().toString());
+    SmartDashboard.putString("Get Color R",  CPMSub.getColorR().toString());
+
+    // SmartDashboard.putString("Get Target Color",  CPMSub.getTargetColor());
+    
+    SmartDashboard.putNumber("Nymber of revs", numberOfRevs);
+
     if(numberOfRevs < 3){
+      RobotContainer.intake2.set(0.3);
       //spin cpm motor
     }
     if (t.hasElapsed(timeout) && CPMSub.getColorL() == startingColor) {

@@ -13,7 +13,9 @@ import frc.robot.commands.PIDFlywheel;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
 import frc.robot.commands.TurretCommand;
+import frc.robot.commands.auto.AutoIntaking;
 import frc.robot.commands.auto.BasicAuto;
+import frc.robot.commands.auto.ThisIsDumb;
 import frc.robot.commands.auto.paths.BasicTurn;
 import frc.robot.commands.auto.paths.Chain;
 import frc.robot.commands.auto.paths.Example;
@@ -45,12 +47,15 @@ public class Robot extends TimedRobot {
     configRobot();
 
     m_chooser = new SendableChooser<>();
-    m_chooser.addOption("forward", new Move(1, false));
+    m_chooser.addOption("forward", new Move(4, false));
     m_chooser.addOption("reverse", new Move(1, true));
     m_chooser.addOption("reverse turn", new TurnReverse());
     m_chooser.addOption("basic turning", new BasicTurn());
     try {
       m_chooser.addOption("basic auto", new BasicAuto());
+      m_chooser.addOption("Intake intakes", new AutoIntaking());
+      m_chooser.addOption("Just Testing Fwd", new ThisIsDumb());
+
       m_chooser.addOption("example", new Example());
       m_chooser.addOption("chain", new Chain());
       m_chooser.addOption("smiles", new Smiles());
@@ -62,7 +67,7 @@ public class Robot extends TimedRobot {
     } catch (final IOException e1) {
       e1.printStackTrace();
     }
-    SmartDashboard.putData("Auto choochooer", m_chooser);
+    SmartDashboard.putData("Auto chooBchooser", m_chooser);
 
   }
 
