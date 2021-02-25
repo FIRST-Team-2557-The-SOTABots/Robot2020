@@ -14,7 +14,7 @@ public class Chain extends SequentialCommandGroup {
    */
   public Chain() throws IOException {
     addCommands(
-      new Forward(1).withTimeout(Forward.commandTime),
+      new Move(1,false).withTimeout(Move.commandTime),
       new TurnReverse()
     );
   }

@@ -17,7 +17,7 @@ public class TurretFeeder extends CommandBase {
   @Override
   public void execute() {
     if (PIDFlywheel.flywheelAtSetpoint) {
-      RobotContainer.intakeSub.runConveyorBelt(IntakeSub.conveyorMotorSpeed);
+      RobotContainer.intakeSub.runTurretFeeder(IntakeSub.conveyorMotorSpeed);
     }
   }
 

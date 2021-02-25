@@ -5,22 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drive;
+package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveSub;
 
-public class DriveCommand extends CommandBase {
+public class AutoDistanceDriveCommand extends CommandBase {
+  private double distance;
 
-  public DriveCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public AutoDistanceDriveCommand() {
     addRequirements(RobotContainer.driveSub);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -28,14 +25,8 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    RobotContainer.driveSub.teleDrive();
-
-    // if (RobotContainer.sol1.get() == Value.kForward && Math.abs(Robot.driveSub.getWheelVelocity()) > 2.3) {
-    //   RobotContainer.sol1.set(Value.kReverse);
-    // } else if (RobotContainer.sol1.get() == Value.kReverse && Math.abs(Robot.driveSub.getWheelVelocity()) < 3) {
-    //   RobotContainer.sol1.set(Value.kForward);
-    // }
+    SmartDashboard.putNumber("this is the encoder of  r1", RobotContainer.r1.getEncoder().getPosition());
+    RobotContainer.driveSub.drive(0.5, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -46,6 +37,9 @@ public class DriveCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(RobotContainer.r1.getEncoder().getPosition() > 35){
+      return true;
+    }
     return false;
   }
 }

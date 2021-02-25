@@ -9,21 +9,20 @@ public class TurretSub extends SubsystemBase {
  // actual 
  //4825 tickers per revers
 
-  private static int encoderLowLimit = -8000;
+  private static int encoderLowLimit = 10000;
   private static int encoderHighLimit = 0;
   private static double degreesOfFreedom = 90;
   private static double angleAtLowLimit = -45;
   private static double angleAtHighLimit = 45;
   private static final double degreesPerTick = degreesOfFreedom / encoderHighLimit;
 
-
-
   public TurretSub() {
 
   }
 
   public void rotate(double speed){
-    if (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() > encoderHighLimit-100 && speed > 0){
+    if (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) > encoderHighLimit-encoderHighLimit*.05 && speed < 0 || 
+       (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) < encoderHighLimit*.05 && speed > 0)){
       RobotContainer.turretMotor.set(0);
     }
     
@@ -33,6 +32,7 @@ public class TurretSub extends SubsystemBase {
     //   RobotContainer.turretMotor.set(0);
     // } else {
       RobotContainer.turretMotor.set(speed);
+      //right clockwise, left clockwise, negatived stick
     // }
   }
 

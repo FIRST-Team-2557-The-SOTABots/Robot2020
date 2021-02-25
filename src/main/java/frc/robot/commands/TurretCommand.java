@@ -3,9 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class HoodCommand extends CommandBase {
-  public HoodCommand() {
-    addRequirements(RobotContainer.hoodSub);
+public class TurretCommand extends CommandBase {
+  public TurretCommand() {
+    addRequirements(RobotContainer.turretSub);
   }
 
   @Override
@@ -14,7 +14,7 @@ public class HoodCommand extends CommandBase {
 
   @Override
   public void execute() {
-    RobotContainer.hoodMotor.set(RobotContainer.manipulator.getRawAxis(1));
+    RobotContainer.turretMotor.set(-RobotContainer.manipulator.getRawAxis(4) * 0.2);
   }
 
   @Override

@@ -1,6 +1,8 @@
 package frc.robot.commands.auto.paths;
 
 import java.util.List;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -15,8 +17,9 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.IntakeSub;
 
-public class Forward extends CommandBase {
+public class Move extends CommandBase {
   public static double commandTime = 0;
   double dist = 1;
   DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
@@ -51,30 +54,33 @@ public class Forward extends CommandBase {
     RobotContainer.driveSub
   );
 
-  public Forward(double dist) {
+  public Move(double dist, boolean reverse) {
     this.dist = dist;
     commandTime = exampleTrajectory.getTotalTimeSeconds();
     addRequirements(RobotContainer.driveSub);
+    DriveConstants.reverse = reverse;
   }
 
   @Override
   public void initialize() {
-    DriveConstants.reverse = false;
+    RobotContainer.intakePistons.set(Value.kReverse);
+    RobotContainer.intake1.set(IntakeSub.intakeSpeed);
     gordonRamsete.schedule();
   }
 
   @Override
   public void execute() {
+    RobotContainer.intake1.set(IntakeSub.intakeSpeed);
     // System.out.println("LEFT:    " + gordonRamsete.leftSpeedSetpoint);
     // System.out.println("RIGHT:    " + gordonRamsete.rightSpeedSetpoint);
-    // System.out.println("SPEEDS:    " + Robot.driveSub.getWheelSpeeds().toString());
+    System.out.println("SPEEDS:    " + RobotContainer.driveSub.getWheelSpeeds().toString());
   }
 
    @Override
    public void end(boolean interrupted) {
     RobotContainer.left.set(0);
     RobotContainer.right.set(0);
-   }
+  }
  
    @Override
    public boolean isFinished() {

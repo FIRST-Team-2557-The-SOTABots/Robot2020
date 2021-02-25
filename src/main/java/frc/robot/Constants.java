@@ -3,40 +3,41 @@ package frc.robot;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
 public final class Constants {
-    public static final double hoodFromTrench = 600;
-    public static final double hoodTriangle = 800;
-    public static final double hoodAutoLine = 767;
-    public static final double turretFromTrench = 6;
-    public static final double turretClose = 0;
-    public static final double ticksPerRevolutionLow = 19;
+    public static final double hoodFromTrench = 930;
+    public static final double hoodTriangle = 550;
+    public static final double hoodAutoLine = 1075;
+    public static final double turretFromTrench = -6;
+    public static final double turretLine = -7;
+    public static final double turretTriangle = 0;
+    public static final double ticksPerRevolutionLow = 18.6;
     public static final double ticksPerRevolutionHigh = 6.4;
     public static final double ratioGearLow = 18.86;
     public static final double ratioGearHigh = 6.45;
     public static final double wheelCircumferenceMeters = 6*Math.PI*0.0254; 
+    //HoodTriangle: 590
+    //HoodLine: 1117
+    //HoodTrench: 
+
+    //is that guys name Howard??
+    // idk
+    //Seth's granpa
+
 
     public static final class DriveConstants {
         // public static boolean reverse = true;
         public static boolean reverse = false;
 
-        public static final double kTrackWidth =  0.584;
-        // public static final double kTrackWidth =  0.5;
+        public static final double kTrackWidth =  0.584/1.5;
+        // public static final double kTrackWidth =  0.0000001;
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackWidth);
 
-        public static final double ksVoltsLow = 0.147;
+        public static final double ksVoltsLow = 0.174;
         // public static final double kvVoltSecondsPerMeterLow = 1.88;  //estimate
-        public static final double kvVoltSecondsPerMeterLow = 4.47;  //characterize
-        public static final double kaVoltSecondsSquaredPerMeterLow = 0.552; //0.1225
+        public static final double kvVoltSecondsPerMeterLow = 4.74;  //characterize
+        public static final double kaVoltSecondsSquaredPerMeterLow = 0.6;
 
-        public static final double kPDriveVelLow = 16.3; 
+        public static final double kPDriveVelLow = 3; 
 
         public static final double ksVoltsHigh = 0.122;
         public static final double kvVoltSecondsPerMeterHigh = 0.64; //estimate

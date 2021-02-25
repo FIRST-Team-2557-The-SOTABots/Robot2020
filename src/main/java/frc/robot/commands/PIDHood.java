@@ -9,8 +9,8 @@ import frc.robot.RobotContainer;
 public class PIDHood extends CommandBase {
 
   PIDController pidController;
-  private final double kP = 0.0015;
-  private final double kI = 0;
+  private final double kP = 0.0014;
+  private final double kI = 0.0013;
   private final double kD = 0;
   private final double tolerance = 7;
   private double setpoint;
@@ -45,6 +45,7 @@ public class PIDHood extends CommandBase {
     hoodPosition();
     System.out.println("going with the PID hood");
     SmartDashboard.putNumber("Hood error!", pidController.getPositionError());
+    SmartDashboard.putNumber("Hood setpoint", pidController.getSetpoint());
     double output = -pidController.calculate(RobotContainer.hoodSub.getHoodPos(), setpoint);
 
     SmartDashboard.putNumber("Hood PID output", output);

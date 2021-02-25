@@ -5,8 +5,7 @@ import frc.robot.RobotContainer;
 
 public class FlywheelSub extends SubsystemBase {
 
-  public static final double flywheelRadius = 1; //meters
-  private static final double encTicksPerRot = 0;
+  public static final double flywheelRadius = .25;//feet
   public static final double flywheelSpeed = -1;
 
   public FlywheelSub() {
