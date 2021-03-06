@@ -2,11 +2,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.IntakeSub;
 
 public class AutoShootIntake extends CommandBase {

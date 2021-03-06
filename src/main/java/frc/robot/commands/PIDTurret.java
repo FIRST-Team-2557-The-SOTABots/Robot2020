@@ -12,10 +12,10 @@ import frc.robot.RobotContainer;
 public class PIDTurret extends CommandBase {
 
   static PIDController pidController;
-  private static final double kP = 0.025;
-  private static final double kI = 0.0001;
-  private static final double kD = 0;
-  private static final double tolerance = 2;
+  private static double kP = 0.025;
+  private static double kI = 0.0001;
+  private static double kD = 0;
+  private static final double TOLERANCE = 2;
 
   static double x;
   static double valid;
@@ -49,7 +49,7 @@ public class PIDTurret extends CommandBase {
   public void initialize() {
     pidController = new PIDController(kP, kI, kD);
     pidController.disableContinuousInput();
-    pidController.setTolerance(tolerance); 
+    pidController.setTolerance(TOLERANCE); 
     pidController.reset();
   }
 

@@ -12,8 +12,8 @@ public class TurretSub extends SubsystemBase {
   private static final int ENCODERLOWLIMIT = 10000;
   private static final int ENCODERHIGHLIMIT = 0;
   private static final double DEGREESOFFREEDOM = 90;
-  private static final double ANGLEATLOWLIMIT = -45;
-  private static final double ANGLEATHIGHLIMIT = 45;
+  // private static final double ANGLEATLOWLIMIT = -45;
+  // private static final double ANGLEATHIGHLIMIT = 45;
   private static final double DEGREESPERTICK = DEGREESOFFREEDOM / ENCODERLOWLIMIT;
 
   public TurretSub() {

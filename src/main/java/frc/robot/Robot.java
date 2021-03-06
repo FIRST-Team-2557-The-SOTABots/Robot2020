@@ -1,6 +1,5 @@
 package frc.robot;
 
-import java.io.IOException;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -9,12 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.HoodCommand;
-import frc.robot.commands.PIDFlywheel;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
 import frc.robot.commands.TurretCommand;
-import frc.robot.subsystems.IntakeSub;
-import frc.robot.subsystems.LidarSub;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
