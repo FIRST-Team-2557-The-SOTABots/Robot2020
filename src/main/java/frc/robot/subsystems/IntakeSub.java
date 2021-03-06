@@ -6,16 +6,11 @@ import frc.robot.RobotContainer;
 
 public class IntakeSub extends SubsystemBase {
 
-  public static final double intakeSpeed = 1;
-  public static final double starWheelAndCPMSpeed = 0.8;
-  public static final double conveyorMotorSpeed = -1;
-
-  public static int targetTS; //which touch sensor are we looking for?
-  public static boolean cyclingBall; 
+  public static final double INTAKESPEED = 1;
+  public static final double STARWHEELSPEED = 0.8;
+  public static final double CONVEYORMOTORSPEED = -1;
 
   public IntakeSub() {
-    targetTS = 3;
-    cyclingBall = false;
   }
 
   public void runIntake(double speed) {

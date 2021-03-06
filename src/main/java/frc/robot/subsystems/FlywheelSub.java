@@ -5,8 +5,8 @@ import frc.robot.RobotContainer;
 
 public class FlywheelSub extends SubsystemBase {
 
-  public static final double flywheelRadius = .25;//feet
-  public static final double flywheelSpeed = -1;
+  public static final double FLYWHEELRADIUS = .25;//feet
+  public static final double FLYWHEELSPEED = -1;
 
   public FlywheelSub() {
 
@@ -15,7 +15,7 @@ public class FlywheelSub extends SubsystemBase {
   // returns RPM the flywheel should spin at to hit target
   public static double getRequiredRPM(){
     double velocity = Projectile.getProjectileVelocity(); // required velocity of projectile
-    return (120 * velocity) / (2 * Math.PI * flywheelRadius);
+    return (120 * velocity) / (2 * Math.PI * FLYWHEELRADIUS);
   }
 
   public void spinFlywheels(double speed) {

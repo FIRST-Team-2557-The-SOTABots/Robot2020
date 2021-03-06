@@ -35,7 +35,7 @@ public class AutoIntakeIntake extends CommandBase {
     SmartDashboard.putBoolean("Exist  Execute", true);
     System.out.println("Intake intake Command exe");
     RobotContainer.intakeSub.intakeOut();
-    RobotContainer.intakeSub.runIntake(IntakeSub.intakeSpeed);
+    RobotContainer.intakeSub.runIntake(IntakeSub.INTAKESPEED);
   }
 
   // Called once the command ends or is interrupted.

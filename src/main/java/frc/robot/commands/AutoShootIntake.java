@@ -55,12 +55,12 @@ public class AutoShootIntake extends CommandBase {
       }
 
       if(shoot){
-        RobotContainer.intakeSub.runConveyorAndCPM(IntakeSub.starWheelAndCPMSpeed);
-        RobotContainer.intakeSub.runTurretFeeder(IntakeSub.conveyorMotorSpeed);
+        RobotContainer.intakeSub.runConveyorAndCPM(IntakeSub.STARWHEELSPEED);
+        RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYORMOTORSPEED);
       }
     }else{
       RobotContainer.intakeSub.intakeOut();
-      RobotContainer.intakeSub.runIntake(IntakeSub.intakeSpeed);
+      RobotContainer.intakeSub.runIntake(IntakeSub.INTAKESPEED);
     }
     if(t.get() != 0){
       System.out.println("Timer is:  " + t.get());
