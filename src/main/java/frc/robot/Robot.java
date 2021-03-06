@@ -24,7 +24,6 @@ import frc.robot.commands.auto.paths.Move;
 import frc.robot.commands.auto.paths.Secondary;
 import frc.robot.commands.auto.paths.Smiles;
 import frc.robot.commands.auto.paths.TurnReverse;
-import frc.robot.subsystems.CPMSub;
 import frc.robot.subsystems.IntakeSub;
 import frc.robot.subsystems.LidarSub;
 
@@ -120,11 +119,9 @@ public class Robot extends TimedRobot {
     // RobotContainer.turretMotor.set(RobotContainer.manipulator.getRawAxis(4));
     
     if(RobotContainer.mbumperLeft.get()){
-      RobotContainer.CPMshift.set(Value.kForward);
     }
 
     if(RobotContainer.mbumperRight.get()){
-      RobotContainer.CPMshift.set(Value.kReverse);
     }
 
     if(RobotContainer.mback.get()){
@@ -136,11 +133,9 @@ public class Robot extends TimedRobot {
     }
 
     if(RobotContainer.mterribleRight.get()){
-      RobotContainer.CPMshift.set(Value.kForward);
     }
 
     if(RobotContainer.mterribleLeft.get()){
-      RobotContainer.CPMshift.set(Value.kReverse);
     }
 
     if(RobotContainer.dx.get()){
@@ -201,9 +196,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     // SmartDashboard.putString("Color L", RobotContainer.cpmSub.getColorL());
 
-    SmartDashboard.putBoolean("Climb lock", RobotContainer.climbLock.get() == Value.kReverse);
-    SmartDashboard.putBoolean("Winch pull", RobotContainer.winchShift.get() == Value.kReverse);
-
     // SmartDashboard.putBoolean("quad pos", RobotContainer.lift.getSensorCollection().getQuadraturePosition() > -14000);
     // SmartDashboard.putNumber("Rotation Speed of Wheel", RobotContainer.driveSub.getRotationSpeed(RobotContainer.driveSub.getCurrentGear()));
     // SmartDashboard.putNumber("RPM limit gear one", DriveSub.limitRotSpdGear1);
@@ -215,14 +207,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
     SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed());
-
-    SmartDashboard.putBoolean("Intake 1 touch", RobotContainer.touchOne.get());
-    SmartDashboard.putBoolean("Intake 2 touch", RobotContainer.touchTwo.get());
-    SmartDashboard.putBoolean("Intake 3 touch", RobotContainer.touchThree.get());
-    SmartDashboard.putBoolean("Intake cycling ball", IntakeSub.cyclingBall);
-  
-    //hood is 4 
-    //position three is ball 3 is digi 1intake 2 is digi two digi three is intake one
   }
 
   public void configRobot(){
@@ -271,9 +255,6 @@ public class Robot extends TimedRobot {
     RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprateFW);
 
     RobotContainer.intakePistons.set(Value.kForward);
-    // RobotContainer.climbSub.pullWinch();
-    RobotContainer.climbSub.freespinWinch();
-    RobotContainer.climbSub.unlockClimb();
 
     RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
     RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
@@ -282,8 +263,6 @@ public class Robot extends TimedRobot {
   public void resetTheSpaghet(){
     RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
-     // RobotContainer.hoodEncoder.resetAccumulator();
-    // RobotContainer.lift.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.winch2.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.driveSub.resetEncoders();
     RobotContainer.flywheelMotor.getEncoder().setPosition(0);

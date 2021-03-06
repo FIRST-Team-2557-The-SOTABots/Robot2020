@@ -19,11 +19,16 @@ public class AutoShootIntake extends CommandBase {
   boolean startTimer = false;
   double tim = 0;
   Timer t = new Timer();
-  public static boolean finished = false;
+  private boolean finished = false;
 
   public AutoShootIntake(boolean intaking) {
     addRequirements(RobotContainer.intakeSub, RobotContainer.flywheelSub);
     this.intaking = intaking;
+  }
+
+  public void setFinished(boolean b){
+    if(b) finished = true;
+    finished = false;
   }
 
   @Override
@@ -31,7 +36,7 @@ public class AutoShootIntake extends CommandBase {
     t.reset();
     shoot = false;
     countBalls = 0;
-    finished = false;
+    setFinished(false);
     RobotContainer.intakeSub.intakeIn();
   }
 
@@ -68,26 +73,14 @@ public class AutoShootIntake extends CommandBase {
     RobotContainer.intakeSub.runConveyorAndCPM(0);
     RobotContainer.intakeSub.runTurretFeeder(0);
     RobotContainer.intakeSub.intakeOut();
-    finished = true;
+    setFinished(true);
   }
 
   @Override
   public boolean isFinished() {
-    return countBalls()>=3 || t.get()>5 || DriverStation.getInstance().getMatchTime()-tim > 5;
+    return true;
   }
 
   int countBalls = 0;
   boolean prevTrue = false;
-  public int countBalls(){
-    if(!prevTrue && RobotContainer.touchThree.get()){
-      countBalls++;
-    }
-
-    if(!RobotContainer.touchThree.get()) prevTrue = false;
-    else prevTrue = true;
-
-    System.out.println("counting: " + countBalls);
-    System.out.println("prevTrue: " + prevTrue);
-    return countBalls;
-  }
 }

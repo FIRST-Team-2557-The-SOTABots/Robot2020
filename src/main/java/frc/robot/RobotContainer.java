@@ -15,16 +15,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.PositionControlCommand;
-import frc.robot.commands.RotationControlCommand;
 import frc.robot.commands.TurretCommand;
-import frc.robot.commands.climb.ClimbCommand;
-import frc.robot.commands.climb.ClimbSequence1;
-import frc.robot.commands.climb.ClimbSequence2;
-import frc.robot.commands.climb.ClimbSequence3;
-import frc.robot.commands.climb.LockClimb;
-import frc.robot.subsystems.CPMSub;
-import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
@@ -68,13 +59,10 @@ public class RobotContainer {
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(0, 0, 1);
   public static DoubleSolenoid intakePistons = new DoubleSolenoid(0, 2, 3);
-  public static DoubleSolenoid winchShift = new DoubleSolenoid(0, 4, 5);
-  public static DoubleSolenoid climbLock = new DoubleSolenoid(0, 6, 7);
-  public static DoubleSolenoid CPMshift = new DoubleSolenoid(1, 0, 1);
 
-  public static DigitalInput touchThree = new DigitalInput(1);
-  public static DigitalInput touchTwo = new DigitalInput(2); 
-  public static DigitalInput touchOne = new DigitalInput(3); 
+  // public static DigitalInput touchThree = new DigitalInput(1);
+  // public static DigitalInput touchTwo = new DigitalInput(2); 
+  // public static DigitalInput touchOne = new DigitalInput(3); 
 
   // public static AnalogInput ani = new AnalogInput(70);
   // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));
@@ -125,15 +113,12 @@ public class RobotContainer {
   public static final FlywheelSub flywheelSub = new FlywheelSub();
   public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
   public static final IntakeSub intakeSub = new IntakeSub();
-  public static final ClimbSub climbSub = new ClimbSub();
-  public static final CPMSub cpmSub = new CPMSub();
 
   public RobotContainer() {
     driveSub.setDefaultCommand(new DriveCommand());
     intakeSub.setDefaultCommand(new IntakeCommand());
     hoodSub.setDefaultCommand(new HoodCommand());
     flywheelSub.setDefaultCommand(new FlywheelCommand());
-    climbSub.setDefaultCommand(new ClimbCommand());
     turretSub.setDefaultCommand(new TurretCommand());
 
     configureButtonBindings();
@@ -148,14 +133,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // ma.whileHeld(new PIDTurret());
-
-    my.whileHeld(new PositionControlCommand());
-    mx.whileHeld(new RotationControlCommand());
-
-    da.whileHeld(new ClimbSequence1());
-    db.whileHeld(new ClimbSequence2());
-    db.whenReleased(new LockClimb());
-    dstart.whileHeld(new ClimbSequence3());
 
   }
 

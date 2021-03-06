@@ -9,6 +9,7 @@ public class DriveCommand extends CommandBase {
 
   boolean autoShift = true;
 
+
   public DriveCommand() {
     addRequirements(RobotContainer.driveSub);
   }
@@ -19,7 +20,6 @@ public class DriveCommand extends CommandBase {
 
   @Override
   public void execute() {
-    
     RobotContainer.driveSub.teleDrive();
 
     if(RobotContainer.driver.getPOV() == 180){

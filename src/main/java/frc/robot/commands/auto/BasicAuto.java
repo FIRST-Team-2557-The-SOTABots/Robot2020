@@ -18,7 +18,7 @@ public class BasicAuto extends SequentialCommandGroup {
   public BasicAuto() {
     addCommands(
       new ParallelDeadlineGroup(
-        new AutoShootIntake(false).withInterrupt(() -> AutoShootIntake.finished),
+        // new AutoShootIntake(false).withInterrupt(() -> AutoShootIntake.finished),
         new PIDTurret(Constants.turretLine),
         new PIDHood(Constants.hoodAutoLine)
       )
