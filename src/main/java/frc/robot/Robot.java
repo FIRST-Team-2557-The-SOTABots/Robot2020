@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
   }
 
   public static double getRequiredRPM(double vel){
-    return (120 * vel) / (2 * Math.PI * RobotContainer.flywheelSub.flywheelRadius);
+    return (120 * vel) / (2 * Math.PI * RobotContainer.flywheelSub.FLYWHEELRADIUS);
   }
 
   public void Smartdashboarding(){
