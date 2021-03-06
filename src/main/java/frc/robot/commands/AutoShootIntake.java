@@ -11,24 +11,15 @@ import frc.robot.subsystems.IntakeSub;
 
 public class AutoShootIntake extends CommandBase {
 
-  boolean runConveyor = false;
-  boolean finalBall = false;
-  int numBall = 0;
   boolean shoot;
   boolean intaking;
   boolean startTimer = false;
   double tim = 0;
   Timer t = new Timer();
-  private boolean finished = false;
 
   public AutoShootIntake(boolean intaking) {
     addRequirements(RobotContainer.intakeSub, RobotContainer.flywheelSub);
     this.intaking = intaking;
-  }
-
-  public void setFinished(boolean b){
-    if(b) finished = true;
-    finished = false;
   }
 
   @Override
@@ -36,7 +27,6 @@ public class AutoShootIntake extends CommandBase {
     t.reset();
     shoot = false;
     countBalls = 0;
-    setFinished(false);
     RobotContainer.intakeSub.intakeIn();
   }
 
@@ -73,12 +63,11 @@ public class AutoShootIntake extends CommandBase {
     RobotContainer.intakeSub.runConveyorAndCPM(0);
     RobotContainer.intakeSub.runTurretFeeder(0);
     RobotContainer.intakeSub.intakeOut();
-    setFinished(true);
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return true; //temp
   }
 
   int countBalls = 0;
