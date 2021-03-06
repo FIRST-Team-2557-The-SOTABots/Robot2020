@@ -23,8 +23,6 @@ public class Robot extends TimedRobot {
   public static PIDHood ph = new PIDHood(Constants.HOOD_FROM_TRENCH);
   public static HoodCommand hc = new HoodCommand();
 
-  public static boolean auto;
-
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
@@ -52,7 +50,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
-    auto = true;
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -66,7 +63,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    auto = false;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
