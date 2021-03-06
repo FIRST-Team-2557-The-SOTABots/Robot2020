@@ -129,7 +129,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Gyro Heading", RobotContainer.driveSub.getHeading());
     SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
-    SmartDashboard.putString("Pose", RobotContainer.driveSub.getPose().toString());
     
     SmartDashboard.putNumber("hood position",  RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition());
@@ -201,7 +200,6 @@ public class Robot extends TimedRobot {
     RobotContainer.flywheelMotor.getEncoder().setPosition(0);
     RobotContainer.flywheelMotor2.getEncoder().setPosition(0);
     RobotContainer.navX.reset();
-    RobotContainer.driveSub.resetOdometry();
   }
   
   public void shooter(){

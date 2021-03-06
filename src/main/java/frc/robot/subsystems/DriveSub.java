@@ -13,7 +13,6 @@ import frc.robot.Constants.DriveConstants;
 
 public class DriveSub extends SubsystemBase {
 
-  DifferentialDriveOdometry m_odometry;
   private double gyroReversed = 1;
   public static final double LIMIT_METER_PER_SEC_GEAR1 = 1.8288; //in meters per second
   public static final double LIMIT_ROT_SPD_GEAR1 = 
@@ -28,11 +27,8 @@ public class DriveSub extends SubsystemBase {
   public double reverseDrive = 1;
 
   public DriveSub() {
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-
     resetEncoders();
     zeroHeading();
-    resetOdometry(new Pose2d());
   }
 
   public double getAverageEncoderDistance(){
@@ -54,10 +50,6 @@ public class DriveSub extends SubsystemBase {
 
   public double getTurnRate(){
     return -gyroReversed*RobotContainer.navX.getRate();
-  }
-
-  public void resetOdometry(){
-    resetOdometry(new Pose2d());
   }
 
   public void teleDrive(){
@@ -142,19 +134,6 @@ public class DriveSub extends SubsystemBase {
     }
   }
 
-  public Pose2d getPose(){
-    return m_odometry.getPoseMeters();
-  }
-
-  public void resetOdometry(Pose2d pose){
-    m_odometry.resetPosition(pose, getAngle());
-  }
-
-
-  public Rotation2d getAngle(){
-    return Rotation2d.fromDegrees(gyroReversed*RobotContainer.navX.getAngle());
-  }
-
   //robot's heading in degrees from -180 to 180
   public double getHeading(){
     return Math.IEEEremainder(gyroReversed*RobotContainer.navX.getAngle(), 360);
@@ -173,48 +152,6 @@ public class DriveSub extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // if(DriveConstants.reverse){
-    //   if(RobotContainer.dsL.get() == Value.kReverse){
-    //     m_odometry.update(Rotation2d.fromDegrees(-getHeading()), 
-    //     (RobotContainer.r1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS, //encoder * rev/ticks = rev * circ = dist
-    //     (-RobotContainer.l1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-    //   }else{
-    //     m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
-    //     (RobotContainer.r1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS, 
-    //     (-RobotContainer.l1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-    //   }
-    // }else{
-    //   if(RobotContainer.dsL.get() == Value.kReverse){
-    //     m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
-    //     (RobotContainer.l1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS, //encoder * rev/ticks = rev * circ = dist
-    //     (-RobotContainer.r1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-    //   }else{
-    //     m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
-    //     (RobotContainer.l1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS, 
-    //     (-RobotContainer.r1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-    //   }
-    // }
-    if(DriveConstants.reverse){
-      if(RobotContainer.dsL.get() == Value.kReverse){
-        m_odometry.update(Rotation2d.fromDegrees(-getHeading()), 
-        (RobotContainer.r1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS, //encoder * rev/ticks = rev * circ = dist
-        (-RobotContainer.l1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-      }else{
-        m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
-        (RobotContainer.r1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS, 
-        (-RobotContainer.l1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-      }
-    }else{
-      if(RobotContainer.dsL.get() == Value.kReverse){
-        m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
-        (RobotContainer.l1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS, //encoder * rev/ticks = rev * circ = dist
-        (-RobotContainer.r1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-      }else{
-        m_odometry.update(Rotation2d.fromDegrees(getHeading()), 
-        (RobotContainer.l1.getEncoder().getPosition()/ Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS, 
-        (-RobotContainer.r1.getEncoder().getPosition() / Constants.TICKS_PER_REVOLUTION_HIGH) * Constants.WHEEL_CIRCUMFERENCE_METERS);
-      }
-    }
   }
 
   // public void shift() {
