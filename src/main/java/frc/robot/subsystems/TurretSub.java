@@ -9,20 +9,20 @@ public class TurretSub extends SubsystemBase {
  // actual 
  //4825 tickers per revers
 
-  private static final int ENCODERLOWLIMIT = 10000;
-  private static final int ENCODERHIGHLIMIT = 0;
-  private static final double DEGREESOFFREEDOM = 90;
+  private static final int ENCODER_LOW_LIMIT = 10000;
+  private static final int ENCODER_HIGH_LIMIT = 0;
+  private static final double DEGREES_OF_FREEDOM = 90;
   // private static final double ANGLEATLOWLIMIT = -45;
   // private static final double ANGLEATHIGHLIMIT = 45;
-  private static final double DEGREESPERTICK = DEGREESOFFREEDOM / ENCODERLOWLIMIT;
+  private static final double DEGREESPERTICK = DEGREES_OF_FREEDOM / ENCODER_LOW_LIMIT;
 
   public TurretSub() {
 
   }
 
   public void rotate(double speed){
-    if (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) > ENCODERHIGHLIMIT*.95 && speed < 0 || 
-       (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) < ENCODERHIGHLIMIT*.05 && speed > 0)){
+    if (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) > ENCODER_HIGH_LIMIT*.95 && speed < 0 || 
+       (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) < ENCODER_HIGH_LIMIT*.05 && speed > 0)){
       RobotContainer.turretMotor.set(0);
     }
     
@@ -37,7 +37,7 @@ public class TurretSub extends SubsystemBase {
   }
 
   public double getAngle() {
-    return (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() - (ENCODERHIGHLIMIT / 2)) * DEGREESPERTICK;
+    return (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() - (ENCODER_HIGH_LIMIT / 2)) * DEGREESPERTICK;
   }
 
   @Override

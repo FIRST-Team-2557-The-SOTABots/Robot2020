@@ -25,15 +25,15 @@ public class IntakeCommand extends CommandBase {
     if(RobotContainer.ma.get()){
       RobotContainer.intakeSub.intakeOut();
       if(RobotContainer.mb.get()){
-        RobotContainer.intakeSub.runConveyorAndCPM(IntakeSub.INTAKESPEED*-.5);
+        RobotContainer.intakeSub.runConveyorAndCPM(IntakeSub.INTAKE_SPEED*-.5);
       }else{
         RobotContainer.intakeSub.runConveyorAndCPM(0);
       }
 
       if(RobotContainer.mb.get()){
-        RobotContainer.intakeSub.runIntake(-IntakeSub.INTAKESPEED);
+        RobotContainer.intakeSub.runIntake(-IntakeSub.INTAKE_SPEED);
       }else{
-        RobotContainer.intakeSub.runIntake(IntakeSub.INTAKESPEED);
+        RobotContainer.intakeSub.runIntake(IntakeSub.INTAKE_SPEED);
       }
     } else if (!RobotContainer.ma.get()){
         RobotContainer.intakeSub.runConveyorAndCPM(0);
@@ -41,7 +41,7 @@ public class IntakeCommand extends CommandBase {
     }
 
     if(axis2 > 0.5 && shoot){ //&& RobotContainer.flywheelSub.getFlywheelSpeed() > 15000
-      RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYORMOTORSPEED);
+      RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYOR_MOTOR_SPEED);
     }
 
   }

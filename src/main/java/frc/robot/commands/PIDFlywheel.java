@@ -8,27 +8,27 @@ import frc.robot.subsystems.FlywheelSub;
 public class PIDFlywheel extends CommandBase {
   
   private static PIDController pidController;
-  private static final double kP = 0.00011;
-  private static final double kI = 0.0001;
-  private static final double kD = 0;
-  private static final double tolerance = 1;
+  private static final double KP = 0.00011;
+  private static final double KI = 0.0001;
+  private static final double KD = 0;
+  private static final double TOLERANCE = 1;
   public double setpoint;
   public static boolean flywheelAtSetpoint;
 
   public PIDFlywheel() {
-    pidController = new PIDController(kP, kI, kD);
+    pidController = new PIDController(KP, KI, KD);
     pidController.reset();
     pidController.disableContinuousInput();
-    pidController.setTolerance(tolerance);
+    pidController.setTolerance(TOLERANCE);
     addRequirements(RobotContainer.flywheelSub);
     setpoint = FlywheelSub.getRequiredRPM();
   }
 
   public PIDFlywheel(double setpoint) {
-    pidController = new PIDController(kP, kI, kD);
+    pidController = new PIDController(KP, KI, KD);
     pidController.reset();
     pidController.disableContinuousInput();
-    pidController.setTolerance(tolerance);
+    pidController.setTolerance(TOLERANCE);
     addRequirements(RobotContainer.flywheelSub);
     this.setpoint = setpoint;
   }

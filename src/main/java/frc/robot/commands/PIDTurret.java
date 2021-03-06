@@ -12,9 +12,9 @@ import frc.robot.RobotContainer;
 public class PIDTurret extends CommandBase {
 
   static PIDController pidController;
-  private static double kP = 0.025;
-  private static double kI = 0.0001;
-  private static double kD = 0;
+  private static double KP = 0.025;
+  private static double KI = 0.0001;
+  private static double KD = 0;
   private static final double TOLERANCE = 2;
 
   static double x;
@@ -37,17 +37,17 @@ public class PIDTurret extends CommandBase {
 
   public void turretPosition(){
     if(RobotContainer.manipulator.getPOV() == 90){
-      setpoint = Constants.turretFromTrench;
+      setpoint = Constants.TURRET_FROM_TRENCH;
     }else if(RobotContainer.manipulator.getPOV() == 180){
-      setpoint = Constants.turretLine;
+      setpoint = Constants.TURRET_LINE;
     }else if(RobotContainer.manipulator.getPOV() == 0){
-      setpoint = Constants.turretTriangle;
+      setpoint = Constants.TURRET_TRIANGLE;
     }
   }
 
   @Override
   public void initialize() {
-    pidController = new PIDController(kP, kI, kD);
+    pidController = new PIDController(KP, KI, KD);
     pidController.disableContinuousInput();
     pidController.setTolerance(TOLERANCE); 
     pidController.reset();

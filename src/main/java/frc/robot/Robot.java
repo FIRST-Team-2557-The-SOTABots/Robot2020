@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
 
   public static PIDTurret pt = new PIDTurret();
   public static TurretCommand tc = new TurretCommand();
-  public static PIDHood ph = new PIDHood(Constants.hoodFromTrench);
+  public static PIDHood ph = new PIDHood(Constants.HOOD_FROM_TRENCH);
   public static HoodCommand hc = new HoodCommand();
 
   public static boolean auto;
@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
   }
 
   public static double getRequiredRPM(double vel){
-    return (120 * vel) / (2 * Math.PI * RobotContainer.flywheelSub.FLYWHEELRADIUS);
+    return (120 * vel) / (2 * Math.PI * RobotContainer.flywheelSub.FLY_WHEEL_RADIUS);
   }
 
   public void Smartdashboarding(){
@@ -164,28 +164,29 @@ public class Robot extends TimedRobot {
     RobotContainer.l2.setIdleMode(IdleMode.kBrake);
     RobotContainer.flywheelMotor.setIdleMode(IdleMode.kCoast);
     RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
-    final double ramprate = .25;
-    final int current = 40;
-    final double ramprateFW = 5;
-    final int currentFW = 40;
-    RobotContainer.l1.setSmartCurrentLimit(current);
-    RobotContainer.l1.setClosedLoopRampRate(ramprate);
-    RobotContainer.l1.setOpenLoopRampRate(ramprate);
-    RobotContainer.l2.setSmartCurrentLimit(current);
-    RobotContainer.l2.setClosedLoopRampRate(ramprate);
-    RobotContainer.l2.setOpenLoopRampRate(ramprate);
-    RobotContainer.r1.setSmartCurrentLimit(current);
-    RobotContainer.r1.setClosedLoopRampRate(ramprate);
-    RobotContainer.r1.setOpenLoopRampRate(ramprate);
-    RobotContainer.r2.setSmartCurrentLimit(current);
-    RobotContainer.r2.setClosedLoopRampRate(ramprate);
-    RobotContainer.r2.setOpenLoopRampRate(ramprate);
-    RobotContainer.flywheelMotor.setSmartCurrentLimit(currentFW);
-    RobotContainer.flywheelMotor.setClosedLoopRampRate(ramprateFW);
-    RobotContainer.flywheelMotor.setOpenLoopRampRate(ramprateFW);
-    RobotContainer.flywheelMotor2.setSmartCurrentLimit(currentFW);
-    RobotContainer.flywheelMotor2.setClosedLoopRampRate(ramprateFW);
-    RobotContainer.flywheelMotor2.setOpenLoopRampRate(ramprateFW);
+    final double RAMPRATE = .25;
+    final int CURRENT = 40;
+    final double RAMPRATE_FW = 5;
+    final int CURRENT_FW = 40;
+    RobotContainer.l1.setSmartCurrentLimit(CURRENT);
+    RobotContainer.l1.setClosedLoopRampRate(RAMPRATE);
+    RobotContainer.l1.setOpenLoopRampRate(RAMPRATE);
+    RobotContainer.l2.setSmartCurrentLimit(CURRENT);
+    RobotContainer.l2.setClosedLoopRampRate(RAMPRATE);
+    RobotContainer.l2.setOpenLoopRampRate(RAMPRATE);
+    RobotContainer.r1.setSmartCurrentLimit(CURRENT);
+    RobotContainer.r1.setClosedLoopRampRate(RAMPRATE);
+    RobotContainer.r1.setOpenLoopRampRate(RAMPRATE);
+    RobotContainer.r2.setSmartCurrentLimit(CURRENT);
+    RobotContainer.r2.setClosedLoopRampRate(RAMPRATE);
+    RobotContainer.r2.setOpenLoopRampRate(RAMPRATE);
+
+    RobotContainer.flywheelMotor.setSmartCurrentLimit(CURRENT_FW);
+    RobotContainer.flywheelMotor.setClosedLoopRampRate(RAMPRATE_FW);
+    RobotContainer.flywheelMotor.setOpenLoopRampRate(RAMPRATE_FW);
+    RobotContainer.flywheelMotor2.setSmartCurrentLimit(CURRENT_FW);
+    RobotContainer.flywheelMotor2.setClosedLoopRampRate(RAMPRATE_FW);
+    RobotContainer.flywheelMotor2.setOpenLoopRampRate(RAMPRATE_FW);
 
     RobotContainer.intakePistons.set(Value.kForward);
 
@@ -196,7 +197,6 @@ public class Robot extends TimedRobot {
   public void resetTheSpaghet(){
     RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
-    RobotContainer.winch2.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.driveSub.resetEncoders();
     RobotContainer.flywheelMotor.getEncoder().setPosition(0);
     RobotContainer.flywheelMotor2.getEncoder().setPosition(0);

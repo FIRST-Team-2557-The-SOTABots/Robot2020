@@ -6,9 +6,9 @@ import frc.robot.RobotContainer;
 
 public class IntakeSub extends SubsystemBase {
 
-  public static final double INTAKESPEED = 1;
-  public static final double STARWHEELSPEED = 0.8;
-  public static final double CONVEYORMOTORSPEED = -1;
+  public static final double INTAKE_SPEED = 1;
+  public static final double STAR_WHEEL_SPEED = 0.8;
+  public static final double CONVEYOR_MOTOR_SPEED = -1;
 
   public IntakeSub() {
   }

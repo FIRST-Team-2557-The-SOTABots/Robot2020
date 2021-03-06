@@ -43,11 +43,6 @@ public class RobotContainer {
   public static WPI_TalonSRX intake2 = new WPI_TalonSRX(5);//cpm
   public static WPI_TalonSRX intake3 = new WPI_TalonSRX(6);
 
-  public static WPI_TalonSRX winch1 = new WPI_TalonSRX(7);
-  // public static WPI_TalonSRX lift = new WPI_TalonSRX(8);
-  public static WPI_TalonSRX winch2 = new WPI_TalonSRX(9);
-  //lift to -14000 for 12in\]]
-
   public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(0);
   public static WPI_TalonSRX hoodMotor = new WPI_TalonSRX(3);
 

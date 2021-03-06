@@ -9,10 +9,10 @@ import frc.robot.RobotContainer;
 public class PIDHood extends CommandBase {
 
   PIDController pidController;
-  private final double kP = 0.0014;
-  private final double kI = 0.0013;
-  private final double kD = 0;
-  private final double tolerance = 7;
+  private final double KP = 0.0014;
+  private final double KI = 0.0013;
+  private final double KD = 0;
+  private final double TOLERANCE = 7;
   private double setpoint;
 
   public PIDHood(double setpoint) {
@@ -22,19 +22,19 @@ public class PIDHood extends CommandBase {
 
   public void hoodPosition(){
     if(RobotContainer.manipulator.getPOV() == 90){
-      setpoint = Constants.hoodFromTrench;
+      setpoint = Constants.HOOD_FROM_TRENCH;
     }else if(RobotContainer.manipulator.getPOV() == 180){
-      setpoint = Constants.hoodAutoLine;
+      setpoint = Constants.HOOD_AUTO_LINE;
     }else if(RobotContainer.manipulator.getPOV() == 0){
-      setpoint = Constants.hoodTriangle;
+      setpoint = Constants.HOOD_TRIANGLE;
     }
   }
 
   @Override
   public void initialize() {
-    pidController = new PIDController(kP, kI, kD);
+    pidController = new PIDController(KP, KI, KD);
     pidController.disableContinuousInput(); 
-    pidController.setTolerance(tolerance);
+    pidController.setTolerance(TOLERANCE);
     pidController.reset();
 
     // setpoint = Projectile.getProjectileAngle();
