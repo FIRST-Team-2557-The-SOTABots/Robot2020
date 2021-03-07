@@ -39,12 +39,10 @@ public class RobotContainer {
   public static CANSparkMax flywheelMotor = new CANSparkMax(1, MotorType.kBrushless);
   public static CANSparkMax flywheelMotor2 = new CANSparkMax(2, MotorType.kBrushless);
 
-  public static WPI_TalonSRX intake1 = new WPI_TalonSRX(4);
-  public static WPI_TalonSRX intake2 = new WPI_TalonSRX(5);//cpm
-  public static WPI_TalonSRX intake3 = new WPI_TalonSRX(6);
-
-  public static WPI_TalonSRX turretMotor = new WPI_TalonSRX(0);
-  public static WPI_TalonSRX hoodMotor = new WPI_TalonSRX(3);
+  public static WPI_TalonSRX turret = new WPI_TalonSRX(0);
+  public static WPI_TalonSRX hood = new WPI_TalonSRX(1);
+  public static WPI_TalonSRX delivery = new WPI_TalonSRX(2);
+  public static WPI_TalonSRX intake = new WPI_TalonSRX(3);
 
 //  CPM:kReverse=up,kForward=down
 //  climbLock:kReverse=lock,kForward=unlock

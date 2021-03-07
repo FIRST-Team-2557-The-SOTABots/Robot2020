@@ -19,8 +19,8 @@ public class FlywheelSub extends SubsystemBase {
   }
 
   public void spinFlywheels(double speed) {
-    RobotContainer.flywheelMotor.set(speed);
-    RobotContainer.flywheelMotor2.set(speed);
+    // RobotContainer.flywheelMotor.set(speed);
+    // RobotContainer.flywheelMotor2.set(speed);
   }
 
   // returns RPM of flywheel

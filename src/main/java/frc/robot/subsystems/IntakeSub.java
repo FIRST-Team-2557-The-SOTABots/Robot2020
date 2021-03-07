@@ -14,32 +14,28 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public void runIntake(double speed) {
-    RobotContainer.intake1.set(speed);
+    // RobotContainer.intake.set(speed);
   }
 
   public void angleIntake() {
-    if (RobotContainer.intakePistons.get() == Value.kForward) {
-      RobotContainer.intakePistons.set(Value.kReverse);
-    } else if (RobotContainer.intakePistons.get() == Value.kReverse) {
-      RobotContainer.intakePistons.set(Value.kForward);
-    }
+    // if (RobotContainer.intakePistons.get() == Value.kForward) {
+    //   RobotContainer.intakePistons.set(Value.kReverse);
+    // } else if (RobotContainer.intakePistons.get() == Value.kReverse) {
+    //   RobotContainer.intakePistons.set(Value.kForward);
+    // }
   }
 
   public void intakeIn() {
     //Value.kForward is in
-    RobotContainer.intakePistons.set(Value.kForward);
+    // RobotContainer.intakePistons.set(Value.kForward);
   }
 
   public void intakeOut() {
-    RobotContainer.intakePistons.set(Value.kReverse);
-  }
-
-  public void runConveyorAndCPM (double speed) {
-    RobotContainer.intake2.set(speed);
+    // RobotContainer.intakePistons.set(Value.kReverse);
   }
 
   public void runTurretFeeder(double speed) {
-    RobotContainer.intake3.set(speed);
+    // RobotContainer.delivery.set(speed);
   }
 
   @Override

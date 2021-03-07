@@ -21,23 +21,23 @@ public class TurretSub extends SubsystemBase {
   }
 
   public void rotate(double speed){
-    if (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) > ENCODER_HIGH_LIMIT*.95 && speed < 0 || 
-       (Math.abs(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition()) < ENCODER_HIGH_LIMIT*.05 && speed > 0)){
-      RobotContainer.turretMotor.set(0);
-    }
-    
-    // if (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() > encoderHighLimit-10 && speed > 0) {
-    //   RobotContainer.turretMotor.set(0);
-    // } else if(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() <= encoderLowLimit+10 && speed < 0){
-    //   RobotContainer.turretMotor.set(0);
-    // } else {
-      RobotContainer.turretMotor.set(speed);
-      //right clockwise, left clockwise, negatived stick
+    // if (Math.abs(RobotContainer.turret.getSensorCollection().getQuadraturePosition()) > ENCODER_HIGH_LIMIT*.95 && speed < 0 || 
+    //    (Math.abs(RobotContainer.turret.getSensorCollection().getQuadraturePosition()) < ENCODER_HIGH_LIMIT*.05 && speed > 0)){
+    //   RobotContainer.turret.set(0);
     // }
+    
+    // // if (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() > encoderHighLimit-10 && speed > 0) {
+    // //   RobotContainer.turretMotor.set(0);
+    // // } else if(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() <= encoderLowLimit+10 && speed < 0){
+    // //   RobotContainer.turretMotor.set(0);
+    // // } else {
+    //   RobotContainer.turret.set(speed);
+    //   //right clockwise, left clockwise, negatived stick
+    // // }
   }
 
   public double getAngle() {
-    return (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() - (ENCODER_HIGH_LIMIT / 2)) * DEGREESPERTICK;
+    return (RobotContainer.turret.getSensorCollection().getQuadraturePosition() - (ENCODER_HIGH_LIMIT / 2)) * DEGREESPERTICK;
   }
 
   @Override

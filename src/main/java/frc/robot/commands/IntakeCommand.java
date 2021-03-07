@@ -24,11 +24,6 @@ public class IntakeCommand extends CommandBase {
 
     if(RobotContainer.ma.get()){
       RobotContainer.intakeSub.intakeOut();
-      if(RobotContainer.mb.get()){
-        RobotContainer.intakeSub.runConveyorAndCPM(IntakeSub.INTAKE_SPEED*-.5);
-      }else{
-        RobotContainer.intakeSub.runConveyorAndCPM(0);
-      }
 
       if(RobotContainer.mb.get()){
         RobotContainer.intakeSub.runIntake(-IntakeSub.INTAKE_SPEED);
@@ -36,7 +31,6 @@ public class IntakeCommand extends CommandBase {
         RobotContainer.intakeSub.runIntake(IntakeSub.INTAKE_SPEED);
       }
     } else if (!RobotContainer.ma.get()){
-        RobotContainer.intakeSub.runConveyorAndCPM(0);
         RobotContainer.intakeSub.runIntake(0);
     }
 

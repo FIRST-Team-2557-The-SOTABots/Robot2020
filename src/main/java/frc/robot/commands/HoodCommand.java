@@ -14,7 +14,7 @@ public class HoodCommand extends CommandBase {
 
   @Override
   public void execute() {
-    RobotContainer.hoodMotor.set(RobotContainer.manipulator.getRawAxis(1));
+    RobotContainer.hood.set(RobotContainer.manipulator.getRawAxis(1));
   }
 
   @Override

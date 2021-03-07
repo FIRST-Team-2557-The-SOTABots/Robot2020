@@ -126,24 +126,24 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Gyro Heading", RobotContainer.driveSub.getHeading());
     SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
     
-    SmartDashboard.putNumber("hood position",  RobotContainer.hoodMotor.getSensorCollection().getQuadraturePosition());
-    SmartDashboard.putNumber("turret position", RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition());
+    SmartDashboard.putNumber("hood position",  RobotContainer.hood.getSensorCollection().getQuadraturePosition());
+    SmartDashboard.putNumber("turret position", RobotContainer.turret.getSensorCollection().getQuadraturePosition());
 
     SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     
     SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
 
-    SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turretMotor.getSensorCollection().isFwdLimitSwitchClosed());
-    SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turretMotor.getSensorCollection().isRevLimitSwitchClosed());
+    SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turret.getSensorCollection().isFwdLimitSwitchClosed());
+    SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turret.getSensorCollection().isRevLimitSwitchClosed());
   }
 
   public void configRobot(){
     RobotContainer.diffDrive.setSafetyEnabled(false);
 
     RobotContainer.dsL.set(Value.kReverse);
-    RobotContainer.intake1.enableCurrentLimit(true);
-    RobotContainer.intake1.configPeakCurrentDuration(0,0);
-    RobotContainer.intake1.configPeakCurrentLimit(50,0);
+    RobotContainer.intake.enableCurrentLimit(true);
+    RobotContainer.intake.configPeakCurrentDuration(0,0);
+    RobotContainer.intake.configPeakCurrentLimit(50,0);
 
     // RobotContainer.intake2.enableCurrentLimit(true);
     // RobotContainer.intake2.configPeakCurrentDuration(0,0);
@@ -185,13 +185,13 @@ public class Robot extends TimedRobot {
 
     RobotContainer.intakePistons.set(Value.kForward);
 
-    RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
-    RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
+    RobotContainer.turret.overrideLimitSwitchesEnable(false);
+    RobotContainer.turret.overrideSoftLimitsEnable(false);
   }
 
   public void resetTheSpaghet(){
-    RobotContainer.turretMotor.getSensorCollection().setQuadraturePosition(0, 10);
-    RobotContainer.hoodMotor.getSensorCollection().setQuadraturePosition(0, 10);
+    RobotContainer.turret.getSensorCollection().setQuadraturePosition(0, 10);
+    RobotContainer.hood.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.driveSub.resetEncoders();
     RobotContainer.flywheelMotor.getEncoder().setPosition(0);
     RobotContainer.flywheelMotor2.getEncoder().setPosition(0);
