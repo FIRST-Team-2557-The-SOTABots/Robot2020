@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.HoodCommand;
+import frc.robot.commands.LowerHood;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
 import frc.robot.commands.TurretCommand;
@@ -22,6 +23,7 @@ public class Robot extends TimedRobot {
   public static TurretCommand tc = new TurretCommand();
   public static PIDHood ph = new PIDHood(Constants.HOOD_FROM_TRENCH);
   public static HoodCommand hc = new HoodCommand();
+  public static LowerHood lh = new LowerHood(RobotContainer.hoodSub);
 
   @Override
   public void robotInit() {
@@ -30,7 +32,7 @@ public class Robot extends TimedRobot {
 
     m_chooser = new SendableChooser<>();
     SmartDashboard.putData("Auto chooBchooser", m_chooser);
-
+    
   }
 
   @Override
@@ -66,6 +68,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    lh.schedule();
   }
 
   @Override
