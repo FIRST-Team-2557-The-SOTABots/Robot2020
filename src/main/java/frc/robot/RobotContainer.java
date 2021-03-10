@@ -29,15 +29,15 @@ public class RobotContainer {
 
   public static CANSparkMax l1 = new CANSparkMax(16, MotorType.kBrushless);
   public static CANSparkMax l2 = new CANSparkMax(17, MotorType.kBrushless);
-  public static CANSparkMax r1 = new CANSparkMax(14, MotorType.kBrushless);//11
+  public static CANSparkMax r1 = new CANSparkMax(14, MotorType.kBrushless);
   public static CANSparkMax r2 = new CANSparkMax(10, MotorType.kBrushless);
   public static SpeedControllerGroup left = new SpeedControllerGroup(l1, l2);
   public static SpeedControllerGroup right = new SpeedControllerGroup(r1, r2);
   public static DifferentialDrive diffDrive = new DifferentialDrive(left, right);
   public static AHRS navX = new AHRS(SPI.Port.kMXP);
 
-  public static CANSparkMax flywheelMotor = new CANSparkMax(1, MotorType.kBrushless);
-  public static CANSparkMax flywheelMotor2 = new CANSparkMax(2, MotorType.kBrushless);
+  public static CANSparkMax flywheelMotor = new CANSparkMax(13, MotorType.kBrushless);
+  public static CANSparkMax flywheelMotor2 = new CANSparkMax(12, MotorType.kBrushless);
 
   public static WPI_TalonSRX turret = new WPI_TalonSRX(0);
   public static WPI_TalonSRX hood = new WPI_TalonSRX(1);
