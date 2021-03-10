@@ -23,7 +23,6 @@ public class DriveSub extends SubsystemBase {
   public static final double RATIO_GEAR2 = 6;
   public static final double E_TICKS_PER_REV = 42; //ticks of 
 
-  // public static final double wheelDiameter = 0.1524; //in meters
   public double reverseDrive = 1;
 
   public DriveSub() {

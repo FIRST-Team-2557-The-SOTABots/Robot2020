@@ -15,15 +15,6 @@ public class PIDFlywheel extends CommandBase {
   public double setpoint;
   public static boolean flywheelAtSetpoint;
 
-  public PIDFlywheel() {
-    pidController = new PIDController(KP, KI, KD);
-    pidController.reset();
-    pidController.disableContinuousInput();
-    pidController.setTolerance(TOLERANCE);
-    addRequirements(RobotContainer.flywheelSub);
-    setpoint = FlywheelSub.getRequiredRPM();
-  }
-
   public PIDFlywheel(double setpoint) {
     pidController = new PIDController(KP, KI, KD);
     pidController.reset();

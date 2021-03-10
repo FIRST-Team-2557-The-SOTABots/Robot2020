@@ -12,15 +12,13 @@ public class FlywheelSub extends SubsystemBase {
 
   }
 
-  // returns RPM the flywheel should spin at to hit target
-  public static double getRequiredRPM(){
-    double velocity = Projectile.getProjectileVelocity(); // required velocity of projectile
-    return (120 * velocity) / (2 * Math.PI * FLY_WHEEL_RADIUS);
+  public void spinFlywheels(double speed) {
+    RobotContainer.flywheelMotor.set(speed);
+    RobotContainer.flywheelMotor2.set(speed);
   }
 
-  public void spinFlywheels(double speed) {
-    // RobotContainer.flywheelMotor.set(speed);
-    // RobotContainer.flywheelMotor2.set(speed);
+  public void delivery(double speed){
+    RobotContainer.delivery.set(-speed);
   }
 
   // returns RPM of flywheel

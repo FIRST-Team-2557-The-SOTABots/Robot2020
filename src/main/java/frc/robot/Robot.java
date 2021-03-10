@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("hood position",  RobotContainer.hood.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turret.getSensorCollection().getQuadraturePosition());
 
-    SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
+    // SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     
     SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
 
@@ -166,6 +166,8 @@ public class Robot extends TimedRobot {
     final int CURRENT = 40;
     final double RAMPRATE_FW = 5;
     final int CURRENT_FW = 40;
+    // final double RAMPRATE_FW = 1;
+    // final int CURRENT_FW = 120;
     RobotContainer.l1.setSmartCurrentLimit(CURRENT);
     RobotContainer.l1.setClosedLoopRampRate(RAMPRATE);
     RobotContainer.l1.setOpenLoopRampRate(RAMPRATE);

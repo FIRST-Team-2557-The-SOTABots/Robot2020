@@ -17,7 +17,6 @@ public class TurretSub extends SubsystemBase {
   private static final double DEGREESPERTICK = DEGREES_OF_FREEDOM / ENCODER_LOW_LIMIT;
 
   public TurretSub() {
-
   }
 
   public void rotate(double speed){
@@ -37,7 +36,7 @@ public class TurretSub extends SubsystemBase {
   }
 
   public double getAngle() {
-    return (RobotContainer.turret.getSensorCollection().getQuadraturePosition() - (ENCODER_HIGH_LIMIT / 2)) * DEGREESPERTICK;
+    return 0; //(RobotContainer.turret.getSensorCollection().getQuadraturePosition() - (ENCODER_HIGH_LIMIT / 2)) * DEGREESPERTICK;
   }
 
   @Override
