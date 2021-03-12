@@ -22,6 +22,10 @@ public class IntakeCommand extends CommandBase {
     else shoot = false;
     double axis2 = RobotContainer.manipulator.getRawAxis(2);
 
+    if(RobotContainer.mx.get()){
+      RobotContainer.intakeSub.intakeIn();
+    }
+
     if(RobotContainer.ma.get()){
       RobotContainer.intakeSub.intakeOut();
 
@@ -35,7 +39,7 @@ public class IntakeCommand extends CommandBase {
     }
 
     if(axis2 > 0.5 && shoot){ //&& RobotContainer.flywheelSub.getFlywheelSpeed() > 15000
-      RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYOR_MOTOR_SPEED);
+      // RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYOR_MOTOR_SPEED);
     }
 
   }

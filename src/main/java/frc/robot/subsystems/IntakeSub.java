@@ -14,7 +14,7 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public void runIntake(double speed) {
-    // RobotContainer.intake.set(speed);
+    RobotContainer.intake.set(speed);
   }
 
   public void angleIntake() {
@@ -27,15 +27,11 @@ public class IntakeSub extends SubsystemBase {
 
   public void intakeIn() {
     //Value.kForward is in
-    // RobotContainer.intakePistons.set(Value.kForward);
+    RobotContainer.intakePistons.set(Value.kForward);
   }
 
   public void intakeOut() {
-    // RobotContainer.intakePistons.set(Value.kReverse);
-  }
-
-  public void runTurretFeeder(double speed) {
-    // RobotContainer.delivery.set(speed);
+    RobotContainer.intakePistons.set(Value.kReverse);
   }
 
   @Override

@@ -26,17 +26,17 @@ public class DriveCommand extends CommandBase {
     } else if(RobotContainer.driver.getPOV() == 0){
       autoShift = true;
     }
-    if(autoShift){
-      if (RobotContainer.dsL.get() == Value.kReverse && Math.abs(RobotContainer.driveSub.getWheelVelocity())>2.1){ //1.8
-        RobotContainer.dsL.set(Value.kForward);
-      } else if (RobotContainer.dsL.get() == Value.kForward && Math.abs(RobotContainer.driveSub.getWheelVelocity()) < 0.8) { //1.2
+    if(autoShift){//swapped because we found it was shifting from high gear to low. If bad, flip kfor & krev
+      if (RobotContainer.dsL.get() == Value.kForward && Math.abs(RobotContainer.driveSub.getWheelVelocity())>2.1){ //1.8
         RobotContainer.dsL.set(Value.kReverse);
+      } else if (RobotContainer.dsL.get() == Value.kReverse && Math.abs(RobotContainer.driveSub.getWheelVelocity()) < 0.8) { //1.2
+        RobotContainer.dsL.set(Value.kForward);
       }
     }else{
       if(RobotContainer.driver.getPOV() == 90){
-        RobotContainer.dsL.set(Value.kForward);
-      } else if(RobotContainer.driver.getPOV() == 270){
         RobotContainer.dsL.set(Value.kReverse);
+      } else if(RobotContainer.driver.getPOV() == 270){
+        RobotContainer.dsL.set(Value.kForward);
       }
     }
 

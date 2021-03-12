@@ -9,24 +9,24 @@ import frc.robot.RobotContainer;
 public class PIDHood extends CommandBase {
 
   PIDController pidController;
-  private final double KP = 0.0014;
-  private final double KI = 0.0013;
+  private final double KP = 0.00025;
+  private final double KI = 0.000075;
   private final double KD = 0;
   private final double TOLERANCE = 7;
   private double setpoint;
 
   public PIDHood(double setpoint) {
     addRequirements(RobotContainer.hoodSub);
-    this.setpoint = setpoint;
+    this.setpoint = setpoint; //from 0 to 3200
   }
 
   public void hoodPosition(){
-    if(RobotContainer.manipulator.getPOV() == 90){
-      setpoint = Constants.HOOD_FROM_TRENCH;
+    if(RobotContainer.manipulator.getPOV() == 0){
+      setpoint = Constants.HOOD_NEAR;
+    }else if(RobotContainer.manipulator.getPOV() == 90){
+      setpoint = Constants.HOOD_MID;
     }else if(RobotContainer.manipulator.getPOV() == 180){
-      setpoint = Constants.HOOD_AUTO_LINE;
-    }else if(RobotContainer.manipulator.getPOV() == 0){
-      setpoint = Constants.HOOD_TRIANGLE;
+      setpoint = Constants.HOOD_FAR;
     }
   }
 
@@ -43,10 +43,12 @@ public class PIDHood extends CommandBase {
   @Override
   public void execute() { 
     hoodPosition();
-    System.out.println("going with the PID hood");
+    // System.out.println("going with the PID hood");
+    System.out.println("hoodpos: " + RobotContainer.hoodSub.getHoodPos());
     SmartDashboard.putNumber("Hood error!", pidController.getPositionError());
     SmartDashboard.putNumber("Hood setpoint", pidController.getSetpoint());
-    double output = -pidController.calculate(RobotContainer.hoodSub.getHoodPos(), setpoint);
+    SmartDashboard.putBoolean("Hood at setpoint", pidController.atSetpoint());
+    double output = pidController.calculate(RobotContainer.hoodSub.getHoodPos(), setpoint);
 
     SmartDashboard.putNumber("Hood PID output", output);
     RobotContainer.hoodSub.angleHood(output);

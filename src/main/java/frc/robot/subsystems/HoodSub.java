@@ -11,12 +11,9 @@ public class HoodSub extends SubsystemBase {
   public HoodSub() {
 
   }
-//10.3 - -1734
-//68.8 - 0
-//58.5
-//1734 / 58.5 = 29.641
+
   public void angleHood(double speed){
-    // RobotContainer.hood.set(speed);
+    RobotContainer.hood.set(speed);
   }
 
   public boolean isClosed() {
@@ -24,7 +21,7 @@ public class HoodSub extends SubsystemBase {
   }
 
   public double getHoodPos() {
-    return -RobotContainer.hood.getSensorCollection().getQuadraturePosition();
+    return RobotContainer.hood.getSensorCollection().getQuadraturePosition();
   }
 
   @Override

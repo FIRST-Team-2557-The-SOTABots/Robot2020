@@ -42,7 +42,7 @@ public class AutoShootIntake extends CommandBase {
       }
 
       if(shoot){
-        RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYOR_MOTOR_SPEED);
+        // RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYOR_MOTOR_SPEED);
       }
     }else{
       RobotContainer.intakeSub.intakeOut();
@@ -56,7 +56,7 @@ public class AutoShootIntake extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.intakeSub.runTurretFeeder(0);
+    // RobotContainer.intakeSub.runTurretFeeder(0);
     RobotContainer.intakeSub.intakeOut();
   }
 

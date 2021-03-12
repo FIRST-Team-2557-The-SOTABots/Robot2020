@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
 public final class Constants {
-    public static final double HOOD_FROM_TRENCH = 930;
-    public static final double HOOD_TRIANGLE = 550;
-    public static final double HOOD_AUTO_LINE = 1075;
+    public static final double HOOD_NEAR = 948; //
+    public static final double HOOD_MID = 750;
+    public static final double HOOD_FAR = 1075;
     public static final double TURRET_FROM_TRENCH = -6;
     public static final double TURRET_LINE = -7;
     public static final double TURRET_TRIANGLE = 0;

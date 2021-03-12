@@ -21,7 +21,7 @@ public class Robot extends TimedRobot {
 
   public static PIDTurret pt = new PIDTurret();
   public static TurretCommand tc = new TurretCommand();
-  public static PIDHood ph = new PIDHood(Constants.HOOD_FROM_TRENCH);
+  public static PIDHood ph = new PIDHood(Constants.HOOD_NEAR);
   public static HoodCommand hc = new HoodCommand();
   public static LowerHood lh = new LowerHood(RobotContainer.hoodSub);
 
@@ -130,6 +130,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
     
     SmartDashboard.putNumber("hood position",  RobotContainer.hood.getSensorCollection().getQuadraturePosition());
+    SmartDashboard.putNumber("hood position PID",  -RobotContainer.hood.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("turret position", RobotContainer.turret.getSensorCollection().getQuadraturePosition());
 
     // SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
