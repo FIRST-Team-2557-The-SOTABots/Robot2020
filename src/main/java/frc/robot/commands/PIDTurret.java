@@ -36,12 +36,12 @@ public class PIDTurret extends CommandBase {
   }
 
   public void turretPosition(){
-    if(RobotContainer.manipulator.getPOV() == 90){
-      setpoint = Constants.TURRET_FROM_TRENCH;
+    if(RobotContainer.manipulator.getPOV() == 0){
+      setpoint = Constants.TURRET_NEAR;
+    }else if(RobotContainer.manipulator.getPOV() == 90){
+      setpoint = Constants.TURRET_MID;
     }else if(RobotContainer.manipulator.getPOV() == 180){
-      setpoint = Constants.TURRET_LINE;
-    }else if(RobotContainer.manipulator.getPOV() == 0){
-      setpoint = Constants.TURRET_TRIANGLE;
+      setpoint = Constants.TURRET_FAR;
     }
   }
 

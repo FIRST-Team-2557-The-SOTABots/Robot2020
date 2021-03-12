@@ -7,9 +7,9 @@ public final class Constants {
     public static final double HOOD_NEAR = 948; //
     public static final double HOOD_MID = 750;
     public static final double HOOD_FAR = 1075;
-    public static final double TURRET_FROM_TRENCH = -6;
-    public static final double TURRET_LINE = -7;
-    public static final double TURRET_TRIANGLE = 0;
+    public static final double TURRET_NEAR = -6;
+    public static final double TURRET_MID = -7;
+    public static final double TURRET_FAR = 0;
     public static final double TICKS_PER_REVOLUTION_LOW = 18.6;
     public static final double TICKS_PER_REVOLUTION_HIGH = 6.4;
     public static final double RATIO_GEAR_LOW = 18.86;
