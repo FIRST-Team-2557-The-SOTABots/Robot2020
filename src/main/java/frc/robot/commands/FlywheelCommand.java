@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class FlywheelCommand extends CommandBase {
@@ -20,14 +22,16 @@ public class FlywheelCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.manipulator.getRawAxis(3) > 0.5){
+    if(RobotContainer.manipulator.getRawAxis(3) > 0.5 && Robot.ph.getHoodSetpoint() != Constants.HOOD_LOW){
       RobotContainer.flywheelSub.spinFlywheels(1);
+    }else if(RobotContainer.manipulator.getRawAxis(3) > 0.5 && Robot.ph.getHoodSetpoint() == Constants.HOOD_LOW){
+      RobotContainer.flywheelSub.spinFlywheels(.5);
     }else{
       RobotContainer.flywheelSub.spinFlywheels(0);
     }
     
     if(RobotContainer.manipulator.getRawAxis(2) > 0.5){
-      RobotContainer.flywheelSub.delivery(1);
+      RobotContainer.flywheelSub.delivery(0.5);
     }else{
       RobotContainer.flywheelSub.delivery(0);
     }

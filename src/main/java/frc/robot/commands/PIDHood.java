@@ -9,15 +9,19 @@ import frc.robot.RobotContainer;
 public class PIDHood extends CommandBase {
 
   PIDController pidController;
-  private final double KP = 0.00025;
-  private final double KI = 0.000075;
-  private final double KD = 0;
+  private final double KP = 0.000265;
+  private final double KI = 0.00007;
+  private final double KD = 0.000002;
   private final double TOLERANCE = 7;
   private double setpoint;
 
   public PIDHood(double setpoint) {
     addRequirements(RobotContainer.hoodSub);
     this.setpoint = setpoint; //from 0 to 3200
+  }
+
+  public double getHoodSetpoint(){
+    return setpoint;
   }
 
   public void hoodPosition(){
@@ -27,6 +31,8 @@ public class PIDHood extends CommandBase {
       setpoint = Constants.HOOD_MID;
     }else if(RobotContainer.manipulator.getPOV() == 180){
       setpoint = Constants.HOOD_FAR;
+    }else if(RobotContainer.manipulator.getPOV() == 270){
+      setpoint = Constants.HOOD_LOW;
     }
   }
 

@@ -71,6 +71,13 @@ public class DriveSub extends SubsystemBase {
     }else{
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, RobotContainer.driver.getRawAxis(4) * 0.8);
     }
+  // if(RobotContainer.dbumperLeft.get()){
+  //   RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(1) * 0.5));
+  // }else if(RobotContainer.dbumperRight.get()){
+  //   RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * reverseDrive, (RobotContainer.driver.getRawAxis(1)));
+  // }else{
+  //   RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * reverseDrive, RobotContainer.driver.getRawAxis(1) * 0.8);
+  // }
   }
 
   public void drive(double xSpeed, double rotation){

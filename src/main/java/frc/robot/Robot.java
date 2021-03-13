@@ -157,6 +157,8 @@ public class Robot extends TimedRobot {
     // RobotContainer.intake3.configPeakCurrentDuration(0,0);
     // RobotContainer.intake3.configPeakCurrentLimit(30,0);
 
+
+
     RobotContainer.r1.setIdleMode(IdleMode.kBrake);
     RobotContainer.r2.setIdleMode(IdleMode.kBrake);
     RobotContainer.l1.setIdleMode(IdleMode.kBrake);
@@ -193,6 +195,9 @@ public class Robot extends TimedRobot {
 
     RobotContainer.turret.overrideLimitSwitchesEnable(false);
     RobotContainer.turret.overrideSoftLimitsEnable(false);
+    
+    RobotContainer.delivery.enableCurrentLimit(true);
+    RobotContainer.delivery.configContinuousCurrentLimit(20);
   }
 
   public void resetTheSpaghet(){
@@ -205,7 +210,7 @@ public class Robot extends TimedRobot {
   }
   
   public void shooter(){
-    if(RobotContainer.manipulator.getPOV() == 0 || RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180){ //RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || 
+    if(RobotContainer.manipulator.getPOV() == 0 || RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || RobotContainer.manipulator.getPOV() == 270){
       ph.schedule(true);
       pt.schedule(true);
       if(tc != null){
