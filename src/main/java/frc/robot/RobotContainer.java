@@ -54,8 +54,10 @@ public class RobotContainer {
   public static DoubleSolenoid intakePistons = new DoubleSolenoid(0, 2, 3);
 
   // public static DigitalInput touchThree = new DigitalInput(1);
-  // public static DigitalInput touchTwo = new DigitalInput(2); 
-  // public static DigitalInput touchOne = new DigitalInput(3); 
+
+  // consider the turret side of robot front
+  public static DigitalInput rightTurretLimit = new DigitalInput(2); 
+  public static DigitalInput leftTurretLimit = new DigitalInput(3); 
 
   // public static AnalogInput ani = new AnalogInput(70);
   // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));

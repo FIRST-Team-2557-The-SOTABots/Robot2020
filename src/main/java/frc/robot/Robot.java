@@ -80,7 +80,6 @@ public class Robot extends TimedRobot {
     // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
 
     shooter();
-    // RobotContainer.turretMotor.set(RobotContainer.manipulator.getRawAxis(4));
     
     if(RobotContainer.mbumperLeft.get()){
     }
@@ -137,8 +136,8 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
 
-    SmartDashboard.putBoolean("Turret limit 1", RobotContainer.turret.getSensorCollection().isFwdLimitSwitchClosed());
-    SmartDashboard.putBoolean("Turret limit 2", RobotContainer.turret.getSensorCollection().isRevLimitSwitchClosed());
+    SmartDashboard.putBoolean("Left Turret Limit", RobotContainer.leftTurretLimit.get());
+    SmartDashboard.putBoolean("Right Turret Limit", RobotContainer.rightTurretLimit.get());
   }
 
   public void configRobot(){

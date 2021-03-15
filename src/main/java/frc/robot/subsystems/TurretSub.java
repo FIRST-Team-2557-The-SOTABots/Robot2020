@@ -12,6 +12,7 @@ public class TurretSub extends SubsystemBase {
   private static final int ENCODER_LOW_LIMIT = 10000;
   private static final int ENCODER_HIGH_LIMIT = 0;
   private static final double DEGREES_OF_FREEDOM = 90;
+  private static final double MAX_SPEED = 0.2;
   // private static final double ANGLEATLOWLIMIT = -45;
   // private static final double ANGLEATHIGHLIMIT = 45;
   private static final double DEGREESPERTICK = DEGREES_OF_FREEDOM / ENCODER_LOW_LIMIT;
@@ -19,20 +20,16 @@ public class TurretSub extends SubsystemBase {
   public TurretSub() {
   }
 
+  // positive is ccw
   public void rotate(double speed){
-    // if (Math.abs(RobotContainer.turret.getSensorCollection().getQuadraturePosition()) > ENCODER_HIGH_LIMIT*.95 && speed < 0 || 
-    //    (Math.abs(RobotContainer.turret.getSensorCollection().getQuadraturePosition()) < ENCODER_HIGH_LIMIT*.05 && speed > 0)){
-    //   RobotContainer.turret.set(0);
-    // }
-    
-    // // if (RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() > encoderHighLimit-10 && speed > 0) {
-    // //   RobotContainer.turretMotor.set(0);
-    // // } else if(RobotContainer.turretMotor.getSensorCollection().getQuadraturePosition() <= encoderLowLimit+10 && speed < 0){
-    // //   RobotContainer.turretMotor.set(0);
-    // // } else {
-    //   RobotContainer.turret.set(speed);
-    //   //right clockwise, left clockwise, negatived stick
-    // // }
+    if (RobotContainer.leftTurretLimit.get()) {
+      speed = Math.min(speed, 0);
+    } else if (RobotContainer.rightTurretLimit.get()) {
+      speed = Math.max(speed, 0);
+    }
+    if (speed > MAX_SPEED) speed = MAX_SPEED;
+    else if (speed < -MAX_SPEED) speed = -MAX_SPEED;
+    RobotContainer.turret.set(speed);
   }
 
   public double getAngle() {
