@@ -22,7 +22,7 @@ public class PIDTurret extends CommandBase {
   static NetworkTable table;
   static NetworkTableEntry tx;
   static NetworkTableEntry tv;
-  private static double setpoint = -2;
+  private static double setpoint = 0;
 
   public PIDTurret() {
     table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -63,10 +63,9 @@ public class PIDTurret extends CommandBase {
 
   @Override
   public void execute() {
-    turretPosition();
     getCamData();
     double output = pidController.calculate(x, setpoint);
-    RobotContainer.turretSub.rotate(output);
+    RobotContainer.turretSub.rotateAFAP(output);
 
     SmartDashboard.putNumber("This is PID turret output", output);
     SmartDashboard.putNumber("This is PID turret error!!", pidController.getPositionError());

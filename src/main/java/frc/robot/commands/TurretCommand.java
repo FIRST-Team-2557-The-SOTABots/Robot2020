@@ -14,7 +14,7 @@ public class TurretCommand extends CommandBase {
 
   @Override
   public void execute() {
-    RobotContainer.turretSub.rotate(RobotContainer.manipulator.getRawAxis(4) * -1);
+    RobotContainer.turretSub.rotateAFAP(RobotContainer.manipulator.getRawAxis(4) * -1);
   }
 
   @Override

@@ -130,7 +130,6 @@ public class Robot extends TimedRobot {
     
     SmartDashboard.putNumber("hood position",  RobotContainer.hood.getSensorCollection().getQuadraturePosition());
     SmartDashboard.putNumber("hood position PID",  -RobotContainer.hood.getSensorCollection().getQuadraturePosition());
-    SmartDashboard.putNumber("turret position", RobotContainer.turret.getSensorCollection().getQuadraturePosition());
 
     // SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     
@@ -138,6 +137,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Left Turret Limit", RobotContainer.leftTurretLimit.get());
     SmartDashboard.putBoolean("Right Turret Limit", RobotContainer.rightTurretLimit.get());
+    SmartDashboard.putNumber("Turret Position", RobotContainer.turretSub.getEncoderValue());
   }
 
   public void configRobot(){
@@ -200,7 +200,6 @@ public class Robot extends TimedRobot {
   }
 
   public void resetTheSpaghet(){
-    RobotContainer.turret.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.hood.getSensorCollection().setQuadraturePosition(0, 10);
     RobotContainer.driveSub.resetEncoders();
     RobotContainer.flywheelMotor.getEncoder().setPosition(0);
