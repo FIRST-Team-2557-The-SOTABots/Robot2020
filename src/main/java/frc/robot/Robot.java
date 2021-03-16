@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.LowerHood;
+import frc.robot.commands.PIDCenterTurret;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
 import frc.robot.commands.TurretCommand;
@@ -20,6 +21,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static PIDTurret pt = new PIDTurret();
+  public static PIDCenterTurret pct = new PIDCenterTurret();
   public static TurretCommand tc = new TurretCommand();
   public static PIDHood ph = new PIDHood(Constants.HOOD_NEAR);
   public static HoodCommand hc = new HoodCommand();
@@ -128,7 +130,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Gyro Heading", RobotContainer.driveSub.getHeading());
     SmartDashboard.putNumber("Raw gyro", RobotContainer.navX.getAngle());
     
-    SmartDashboard.putNumber("hood position",  RobotContainer.hood.getSensorCollection().getQuadraturePosition());
+    SmartDashboard.putNumber("hood position",  RobotContainer.hoodSub.getHoodPos());
     SmartDashboard.putNumber("hood position PID",  -RobotContainer.hood.getSensorCollection().getQuadraturePosition());
 
     // SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
@@ -210,7 +212,11 @@ public class Robot extends TimedRobot {
   public void shooter(){
     if(RobotContainer.manipulator.getPOV() == 0 || RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || RobotContainer.manipulator.getPOV() == 270){
       ph.schedule(true);
-      pt.schedule(true);
+      if (RobotContainer.manipulator.getPOV() == 270) {
+        pct.schedule(true);
+      } else {
+        pt.schedule(true);
+      }
       if(tc != null){
         tc.cancel();
       }
@@ -224,6 +230,10 @@ public class Robot extends TimedRobot {
       } 
       if(pt != null){
         pt.cancel();
+        tc.schedule(true);
+      }
+      if (pct != null) {
+        pct.cancel();
         tc.schedule(true);
       }
     }
