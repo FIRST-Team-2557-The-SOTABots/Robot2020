@@ -22,13 +22,19 @@ public class TurretSub extends SubsystemBase {
 
   // positive is ccw
   public void rotate(double speed){
+    // check whether either limit switch is activated
+    // the turret may only move to the right if the left limit is activated
+    // the turret may only move to the left if the right limit is activated
     if (RobotContainer.leftTurretLimit.get()) {
       speed = Math.min(speed, 0);
     } else if (RobotContainer.rightTurretLimit.get()) {
       speed = Math.max(speed, 0);
     }
+    // clamp speed to within the allowed speed range
+    // speed can't be less than the -max, or greater than the max
     if (speed > MAX_SPEED) speed = MAX_SPEED;
     else if (speed < -MAX_SPEED) speed = -MAX_SPEED;
+    // set the turret motor to the speed
     RobotContainer.turret.set(speed);
   }
 
