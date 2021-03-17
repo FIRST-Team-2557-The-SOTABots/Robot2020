@@ -1,11 +1,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
 public final class Constants {
     public static final double HOOD_LOW = 3000;
-    public static final double HOOD_NEAR = 800; //
+    public static final double HOOD_NEAR = 800; 
     public static final double HOOD_MID = 1550;
     public static final double HOOD_FAR = 1650;
     public static final double TURRET_NEAR = -6;

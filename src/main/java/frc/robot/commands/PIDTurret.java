@@ -65,7 +65,7 @@ public class PIDTurret extends CommandBase {
   public void execute() {
     getCamData();
     double output = pidController.calculate(x, setpoint);
-    RobotContainer.turretSub.rotateAFAP(output);
+    RobotContainer.turretSub.rotateMax(output);
 
     SmartDashboard.putNumber("This is PID turret output", output);
     SmartDashboard.putNumber("This is PID turret error!!", pidController.getPositionError());

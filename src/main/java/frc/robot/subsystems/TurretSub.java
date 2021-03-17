@@ -13,8 +13,6 @@ public class TurretSub extends SubsystemBase {
   private static final int ENCODER_HIGH_LIMIT = -9960;
   private static final double DEGREES_OF_FREEDOM = 90;
   private static final double MAX_SPEED = 0.6;
-  // private static final double ANGLEATLOWLIMIT = -45;
-  // private static final double ANGLEATHIGHLIMIT = 45;
 
   public TurretSub() {
   }
@@ -22,49 +20,42 @@ public class TurretSub extends SubsystemBase {
   // positive is ccw
   public void rotate(double speed){
     // check whether either limit switch is activated
-    // the turret may only move to the right if the left limit is activated
-    // the turret may only move to the left if the right limit is activated
-    if (RobotContainer.leftTurretLimit.get()) {
-      speed = Math.min(speed, 0);
-    } else if (RobotContainer.rightTurretLimit.get()) {
-      speed = Math.max(speed, 0);
-    }
+    // the turret may only move away from the limit switch if it's activated
+    if (RobotContainer.leftTurretLimit.get()) speed = Math.min(speed, 0);
+    else if (RobotContainer.rightTurretLimit.get()) speed = Math.max(speed, 0);
     // clamp speed to within the allowed speed range
-    // speed can't be less than the -max, or greater than the max
-    if (speed > MAX_SPEED) speed = MAX_SPEED;
-    else if (speed < -MAX_SPEED) speed = -MAX_SPEED;
+    speed = Math.max(-MAX_SPEED, Math.min(MAX_SPEED, speed));
     // set the turret motor to the speed
     RobotContainer.turret.set(speed);
   }
 
   // rotate as fast as possible! still limit position and speed, but now speed limit adapts based on
   // direction and position
-  public void rotateAFAP(double speed) {
+  public void rotateMax(double speed) {
     // check whether either limit switch is activated
-    // the turret may only move to the right if the left limit is activated
-    // the turret may only move to the left if the right limit is activated
-    if (RobotContainer.leftTurretLimit.get()) {
-      speed = Math.min(speed, 0);
-    } else if (RobotContainer.rightTurretLimit.get()) {
-      speed = Math.max(speed, 0);
-    }
+    // the turret may only move away from the limit switch if it's activated
+    if (RobotContainer.leftTurretLimit.get()) speed = Math.min(speed, 0);
+    else if (RobotContainer.rightTurretLimit.get()) speed = Math.max(speed, 0);
+    
     // plug the speed into a function that calculates the max value based on encoder value
     // function fit parameters
     double a = 1000;
     double b = 0.2;
     double c = a / (MAX_SPEED - b);
-    IntFunction<Double> maxSpeedFunction = (int encoderValue) -> {
-      return a / (encoderValue + c) + b;
-    };
-    double calculatedMaxSpeed = 0;
-    int currentEncoderPosition = this.getEncoderValue();
+    
+    IntFunction<Double> findMaxSpeed = (int encoderValue) -> a / (encoderValue + c) + b;
+    
+    double maxSpeed = 0;
+    int encoderPos = this.getEncoderValue();
+    
     if (speed > 0) {
-      calculatedMaxSpeed = maxSpeedFunction.apply(currentEncoderPosition);
-      if (speed > calculatedMaxSpeed) speed = calculatedMaxSpeed;
+      maxSpeed = findMaxSpeed.apply(encoderPos);
+      if (speed > maxSpeed) speed = maxSpeed;
     } else {
-      calculatedMaxSpeed = -maxSpeedFunction.apply(-ENCODER_HIGH_LIMIT - currentEncoderPosition);
-      if (speed < calculatedMaxSpeed) speed = calculatedMaxSpeed;
+      maxSpeed = -findMaxSpeed.apply(-ENCODER_HIGH_LIMIT - encoderPos);
+      if (speed < maxSpeed) speed = maxSpeed;
     }
+    
     RobotContainer.turret.set(speed);
   }
 
@@ -81,14 +72,9 @@ public class TurretSub extends SubsystemBase {
   @Override
   public void periodic() {
 
-    if (RobotContainer.rightTurretLimit.get()) {
-      RobotContainer.turret.getSensorCollection().setQuadraturePosition(0, 10);
-    }
+    if (RobotContainer.rightTurretLimit.get()) RobotContainer.turret.getSensorCollection().setQuadraturePosition(0, 10);
     
-    if (RobotContainer.leftTurretLimit.get()) {
-
-      RobotContainer.turret.getSensorCollection().setQuadraturePosition(ENCODER_HIGH_LIMIT, 10);
-    }
-    // This method will be called once per scheduler run
+    
+    if (RobotContainer.leftTurretLimit.get()) RobotContainer.turret.getSensorCollection().setQuadraturePosition(ENCODER_HIGH_LIMIT, 10);
   }
 }

@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -65,13 +62,14 @@ public class DriveSub extends SubsystemBase {
     }
 
    if(RobotContainer.dbumperLeft.get()){
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
-    }else if(RobotContainer.dbumperRight.get()){
+    // RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
+    RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * 0.5, (RobotContainer.driver.getRawAxis(1) * 0.5));
+  }else if(RobotContainer.dbumperRight.get()){
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, (RobotContainer.driver.getRawAxis(4)));
-    }else{
-      // RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, RobotContainer.driver.getRawAxis(4) * 0.8);
-      RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5), RobotContainer.driver.getRawAxis(1));
-    }
+  }else{
+    // RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, RobotContainer.driver.getRawAxis(4) * 0.8);
+    RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5), RobotContainer.driver.getRawAxis(1));
+  }
   // if(RobotContainer.dbumperLeft.get()){
   //   RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(1) * 0.5));
   // }else if(RobotContainer.dbumperRight.get()){
@@ -170,11 +168,8 @@ public class DriveSub extends SubsystemBase {
   // }
 
   public int getCurrentGear() {
-    if (RobotContainer.dsL.get() == Value.kForward) {
-      return GEAR_WHEN_FORWARD;
-    } else {
-      return GEAR_WHEN_REVERSE;
-    }
+    if (RobotContainer.dsL.get() == Value.kForward) return GEAR_WHEN_FORWARD;
+    else return GEAR_WHEN_REVERSE;
   }
 
   // returns rotation speed of wheel in rotations per minute

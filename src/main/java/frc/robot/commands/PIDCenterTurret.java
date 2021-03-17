@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class PIDCenterTurret extends CommandBase {
-  private static int TURRET_MIDPOINT_ENCODER_VALUE = 3942;
-  private static double KP = 0.0001; 
-  private static double KI = 0; 
-  private static double KD = 0;
-  private static int TOLERANCE = 0;
+  private static final int TURRET_MIDPOINT_ENCODER_VALUE = 3942;
+  private static final double KP = 0.0001; 
+  private static final double KI = 0; 
+  private static final double KD = 0;
+  private static final int TOLERANCE = 0;
   private static PIDController pidController =  new PIDController(KP, KI, KD);
 
   /** Creates a new PIDCenterTurret. */
@@ -34,7 +34,7 @@ public class PIDCenterTurret extends CommandBase {
   public void execute() {
     int input = RobotContainer.turretSub.getEncoderValue();
     double output = pidController.calculate(input, TURRET_MIDPOINT_ENCODER_VALUE);
-    RobotContainer.turretSub.rotateAFAP(output);
+    RobotContainer.turretSub.rotateMax(output);
   }
 
   // Called once the command ends or is interrupted.
