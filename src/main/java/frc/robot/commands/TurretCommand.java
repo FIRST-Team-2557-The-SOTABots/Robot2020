@@ -14,7 +14,9 @@ public class TurretCommand extends CommandBase {
 
   @Override
   public void execute() {
-    RobotContainer.turretSub.rotateMax(RobotContainer.manipulator.getRawAxis(4) * -1);
+    if (Math.abs(RobotContainer.manipulator.getRawAxis(4)) > 0.05) {
+      RobotContainer.turretSub.rotateMax(RobotContainer.manipulator.getRawAxis(4) * -1);
+    } else RobotContainer.turretSub.rotateMax(0);
   }
 
   @Override

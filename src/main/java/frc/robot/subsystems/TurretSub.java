@@ -13,6 +13,7 @@ public class TurretSub extends SubsystemBase {
   private static final int ENCODER_HIGH_LIMIT = -9960;
   private static final double DEGREES_OF_FREEDOM = 90;
   private static final double MAX_SPEED = 0.6;
+  private static final double END_SPEED = 0.2;
 
   public TurretSub() {
   }
@@ -24,7 +25,7 @@ public class TurretSub extends SubsystemBase {
     if (RobotContainer.leftTurretLimit.get()) speed = Math.min(speed, 0);
     else if (RobotContainer.rightTurretLimit.get()) speed = Math.max(speed, 0);
     // clamp speed to within the allowed speed range
-    speed = Math.max(-MAX_SPEED, Math.min(MAX_SPEED, speed));
+    speed = Math.max(-END_SPEED, Math.min(END_SPEED, speed));
     // set the turret motor to the speed
     RobotContainer.turret.set(speed);
   }
