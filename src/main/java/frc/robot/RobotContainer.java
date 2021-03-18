@@ -50,7 +50,7 @@ public class RobotContainer {
 //  intakePistons:kReverse=in,kForward=out
 //  dSl:kReverse=low,kForward=high
   public static Compressor compressor = new Compressor(1);
-  public static DoubleSolenoid dsL = new DoubleSolenoid(0, 0, 1); 
+  public static DoubleSolenoid dsL = new DoubleSolenoid(0, 4, 5); 
   public static DoubleSolenoid intakePistons = new DoubleSolenoid(0, 2, 3);
 
   // public static DigitalInput touchThree = new DigitalInput(1);

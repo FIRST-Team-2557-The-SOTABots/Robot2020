@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import java.util.function.IntFunction;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -27,7 +29,16 @@ public class TurretSub extends SubsystemBase {
     // clamp speed to within the allowed speed range
     speed = Math.max(-END_SPEED, Math.min(END_SPEED, speed));
     // set the turret motor to the speed
-    RobotContainer.turret.set(speed);
+
+    SmartDashboard.putNumber("turret Speed", speed);
+
+    if(speed > MAX_SPEED) {
+      speed = 0;
+      System.out.println("IT DID A BAD");
+    }
+
+    RobotContainer.turret.set(0);
+    // RobotContainer.turret.set(speed/5);
   }
 
   // rotate as fast as possible! still limit position and speed, but now speed limit adapts based on
@@ -46,18 +57,26 @@ public class TurretSub extends SubsystemBase {
     
     IntFunction<Double> findMaxSpeed = (int encoderValue) -> a / (encoderValue + c) + b;
     
-    double maxSpeed = 0;
+    double calcMaxSpeed = 0;
     int encoderPos = this.getEncoderValue();
     
     if (speed > 0) {
-      maxSpeed = findMaxSpeed.apply(encoderPos);
-      if (speed > maxSpeed) speed = maxSpeed;
+      calcMaxSpeed = findMaxSpeed.apply(encoderPos);
+      if (speed > calcMaxSpeed) speed = calcMaxSpeed;
     } else {
-      maxSpeed = -findMaxSpeed.apply(-ENCODER_HIGH_LIMIT - encoderPos);
-      if (speed < maxSpeed) speed = maxSpeed;
+      calcMaxSpeed = -findMaxSpeed.apply(-ENCODER_HIGH_LIMIT - encoderPos);
+      if (speed < calcMaxSpeed) speed = calcMaxSpeed;
     }
     
-    RobotContainer.turret.set(speed);
+    SmartDashboard.putNumber("turret Speed", speed);
+    
+    if(speed > MAX_SPEED) {
+      speed = 0;
+      System.out.println("IT DID A BAD");
+    }
+
+    RobotContainer.turret.set(0);
+    // RobotContainer.turret.set(speed/5);
   }
 
   // encoder value of turret motor

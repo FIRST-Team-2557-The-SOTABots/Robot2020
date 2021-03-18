@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DriveCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.LowerHood;
 import frc.robot.commands.PIDCenterTurret;
@@ -135,6 +136,8 @@ public class Robot extends TimedRobot {
 
     // SmartDashboard.putNumber("LiDAR dist", RobotContainer.lidarSub.getDistance());
     
+    SmartDashboard.putNumber("Wheel Vels", RobotContainer.driveSub.getWheelVelocity());
+
     SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
 
     SmartDashboard.putBoolean("Left Turret Limit", RobotContainer.leftTurretLimit.get());
@@ -157,8 +160,6 @@ public class Robot extends TimedRobot {
     // RobotContainer.intake3.enableCurrentLimit(true);
     // RobotContainer.intake3.configPeakCurrentDuration(0,0);
     // RobotContainer.intake3.configPeakCurrentLimit(30,0);
-
-
 
     RobotContainer.r1.setIdleMode(IdleMode.kBrake);
     RobotContainer.r2.setIdleMode(IdleMode.kBrake);

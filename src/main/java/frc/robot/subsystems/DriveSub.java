@@ -62,14 +62,12 @@ public class DriveSub extends SubsystemBase {
     }
 
    if(RobotContainer.dbumperLeft.get()){
-    // RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
-    RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * 0.5, (RobotContainer.driver.getRawAxis(1) * 0.5));
-  }else if(RobotContainer.dbumperRight.get()){
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
+   }else if(RobotContainer.dbumperRight.get()){
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, (RobotContainer.driver.getRawAxis(4)));
-  }else{
-    // RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, RobotContainer.driver.getRawAxis(4) * 0.8);
-    RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5), RobotContainer.driver.getRawAxis(1));
-  }
+   }else{
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, RobotContainer.driver.getRawAxis(4) * 0.8);
+   }
   // if(RobotContainer.dbumperLeft.get()){
   //   RobotContainer.diffDrive.tankDrive(RobotContainer.driver.getRawAxis(5) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(1) * 0.5));
   // }else if(RobotContainer.dbumperRight.get()){
