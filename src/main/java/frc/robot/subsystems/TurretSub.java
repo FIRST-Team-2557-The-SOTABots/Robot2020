@@ -70,13 +70,12 @@ public class TurretSub extends SubsystemBase {
     
     SmartDashboard.putNumber("turret Speed", speed);
     
-    if(speed > MAX_SPEED) {
+    if(Math.abs(speed) > MAX_SPEED) {
+      System.out.println("SPEED EXCEEDED ALLOWED VALUE:" + speed);
       speed = 0;
-      System.out.println("IT DID A BAD");
     }
 
-    RobotContainer.turret.set(0);
-    // RobotContainer.turret.set(speed/5);
+    RobotContainer.turret.set(speed);
   }
 
   // encoder value of turret motor
