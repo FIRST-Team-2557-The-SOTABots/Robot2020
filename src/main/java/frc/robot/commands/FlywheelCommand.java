@@ -25,7 +25,7 @@ public class FlywheelCommand extends CommandBase {
     if(RobotContainer.manipulator.getRawAxis(3) > 0.5 && Robot.ph.getHoodSetpoint() != Constants.HOOD_LOW){
       RobotContainer.flywheelSub.spinFlywheels(1);
     }else if(RobotContainer.manipulator.getRawAxis(3) > 0.5 && Robot.ph.getHoodSetpoint() == Constants.HOOD_LOW){
-      RobotContainer.flywheelSub.spinFlywheels(.5);
+      RobotContainer.flywheelSub.spinFlywheels(0.3);
     }else{
       RobotContainer.flywheelSub.spinFlywheels(0);
     }

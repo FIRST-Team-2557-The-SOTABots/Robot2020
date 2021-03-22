@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public final class Constants {
     public static final double HOOD_LOW = 3000;
-    public static final double HOOD_NEAR = 1425; 
-    public static final double HOOD_MID = 1550;
+    public static final double HOOD_NEAR = 1225; 
+    public static final double HOOD_MID = 1600;
     public static final double HOOD_FAR = 1650;
     public static final double TURRET_NEAR = -6;
     public static final double TURRET_MID = -7;

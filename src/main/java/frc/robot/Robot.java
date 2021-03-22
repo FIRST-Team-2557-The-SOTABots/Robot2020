@@ -167,7 +167,7 @@ public class Robot extends TimedRobot {
     RobotContainer.l2.setIdleMode(IdleMode.kBrake);
     RobotContainer.flywheelMotor.setIdleMode(IdleMode.kCoast);
     RobotContainer.flywheelMotor2.setIdleMode(IdleMode.kCoast);
-    final double RAMPRATE = .25;
+    final double RAMPRATE = .5;
     final int CURRENT = 40;
     final double RAMPRATE_FW = 5;
     final int CURRENT_FW = 40;
@@ -215,7 +215,7 @@ public class Robot extends TimedRobot {
       ph.schedule(true);
       if (RobotContainer.manipulator.getPOV() == 270) {
         pct.schedule(true);
-      } else {
+      } else if (RobotContainer.manipulator.getRawAxis(2) <= 0.5) { // if delivery running, don't do pid turret
         pt.schedule(true);
       }
       if(tc != null){
