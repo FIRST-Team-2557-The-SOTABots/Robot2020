@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 
 public class DriveCommand extends CommandBase {
 
-  boolean autoShift = true;
+  boolean autoShift = false;
 
 
   public DriveCommand() {
@@ -33,9 +33,9 @@ public class DriveCommand extends CommandBase {
         RobotContainer.dsL.set(Value.kForward);
       }
     }else{
-      if(RobotContainer.driver.getPOV() == 90){
+      if(RobotContainer.driver.getRawAxis(2)>.5){
         RobotContainer.dsL.set(Value.kReverse);
-      } else if(RobotContainer.driver.getPOV() == 270){
+      } else if(RobotContainer.driver.getRawAxis(3)>.5){
         RobotContainer.dsL.set(Value.kForward);
       }
     }
