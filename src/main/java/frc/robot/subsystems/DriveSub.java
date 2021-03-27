@@ -55,11 +55,11 @@ public class DriveSub extends SubsystemBase {
     // }else if(RobotContainer.dstart.get()){//low
     //   RobotContainer.dsL.set(Value.kReverse);
     // }
-    if((RobotContainer.driver.getRawAxis(2) > 0.5) && (RobotContainer.driver.getRawAxis(3) > 0.5)){
-      reverseDrive = -1;
-    }else{
-      reverseDrive = 1;
-    }
+    // if((RobotContainer.driver.getRawAxis(2) > 0.5) && (RobotContainer.driver.getRawAxis(3) > 0.5)){
+    //   reverseDrive = -1;
+    // }else{
+    //   reverseDrive = 1;
+    // }
 
    if(RobotContainer.dbumperLeft.get()){
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
