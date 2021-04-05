@@ -13,7 +13,6 @@ public class TurretSub extends SubsystemBase {
  //4825 tickers per revers
 
   private static final int ENCODER_HIGH_LIMIT = -9960;
-  private static final double DEGREES_OF_FREEDOM = 90;
   private static final double MAX_SPEED = 0.6;
   private static final double END_SPEED = 0.2;
 
