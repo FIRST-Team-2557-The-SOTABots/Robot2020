@@ -12,17 +12,17 @@ import frc.robot.RobotContainer;
 public class PIDTurret extends CommandBase {
 
   static PIDController pidController;
-  private static double KP = 0.025;
-  private static double KI = 0.0001;
+  private static double KP = 0.035;
+  private static double KI = 0.0005;
   private static double KD = 0;
-  private static final double TOLERANCE = 2;
+  private static final double TOLERANCE = .5;
 
   static double x;
   static double valid;
   static NetworkTable table;
   static NetworkTableEntry tx;
   static NetworkTableEntry tv;
-  private static double setpoint = 0;
+  private static double setpoint = -0.25;
 
   public PIDTurret() {
     table = NetworkTableInstance.getDefault().getTable("limelight");

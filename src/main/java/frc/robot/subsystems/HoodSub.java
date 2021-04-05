@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -13,7 +14,9 @@ public class HoodSub extends SubsystemBase {
   }
 
   public void angleHood(double speed){
-    // RobotContainer.hood.set(speed); //for fast shooting only
+    if(RobotContainer.hoodLock.get() == Value.kForward){
+      RobotContainer.hood.set(speed);
+    }else RobotContainer.hood.set(0);
   }
 
   public boolean isClosed() {

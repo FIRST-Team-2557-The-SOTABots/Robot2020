@@ -151,6 +151,8 @@ public class Robot extends TimedRobot {
     RobotContainer.intake.configPeakCurrentDuration(0,0);
     RobotContainer.intake.configPeakCurrentLimit(50,0);
 
+    RobotContainer.dsL.set(Value.kReverse);
+
     // RobotContainer.intake2.enableCurrentLimit(true);
     // RobotContainer.intake2.configPeakCurrentDuration(0,0);
     // RobotContainer.intake2.configPeakCurrentLimit(50,0);   
@@ -210,13 +212,11 @@ public class Robot extends TimedRobot {
   
   public void shooter(){
     if(RobotContainer.manipulator.getPOV() == 0 || RobotContainer.manipulator.getPOV() == 90 || RobotContainer.manipulator.getPOV() == 180 || RobotContainer.manipulator.getPOV() == 270){
-      // ph.schedule(true);
+      ph.schedule(true);
       if (RobotContainer.manipulator.getPOV() == 270) {
         pct.schedule(true);
-      } else pt.schedule(true);     
-      // } else if (RobotContainer.manipulator.getRawAxis(2) <= 0.5) { // if delivery running, don't do pid turret
-      //   pt.schedule(true);
-      // }
+      } else pt.schedule(true); //it's better than nothing 
+
       if(tc != null){
         tc.cancel();
       }
@@ -226,7 +226,7 @@ public class Robot extends TimedRobot {
     }else{
       if(ph != null){
         ph.cancel();
-        // hc.schedule(true);
+        hc.schedule(true);
       } 
       if(pt != null){
         pt.cancel();
