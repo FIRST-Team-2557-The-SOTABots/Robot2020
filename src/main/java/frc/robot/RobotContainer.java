@@ -20,7 +20,6 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
 import frc.robot.subsystems.IntakeSub;
-import frc.robot.subsystems.LidarSub;
 import frc.robot.subsystems.TurretSub;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -107,7 +106,6 @@ public class RobotContainer {
   public static final TurretSub turretSub = new TurretSub();
   public static final HoodSub hoodSub =new HoodSub();
   public static final FlywheelSub flywheelSub = new FlywheelSub();
-  // public static final LidarSub lidarSub = new LidarSub(new DigitalInput(0));
   public static final IntakeSub intakeSub = new IntakeSub();
 
   public RobotContainer() {

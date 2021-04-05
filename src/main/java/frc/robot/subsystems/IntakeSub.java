@@ -17,14 +17,6 @@ public class IntakeSub extends SubsystemBase {
     RobotContainer.intake.set(speed);
   }
 
-  public void angleIntake() {
-    // if (RobotContainer.intakePistons.get() == Value.kForward) {
-    //   RobotContainer.intakePistons.set(Value.kReverse);
-    // } else if (RobotContainer.intakePistons.get() == Value.kReverse) {
-    //   RobotContainer.intakePistons.set(Value.kForward);
-    // }
-  }
-
   public void intakeIn() {
     //Value.kForward is in
     RobotContainer.intakePistons.set(Value.kForward);
