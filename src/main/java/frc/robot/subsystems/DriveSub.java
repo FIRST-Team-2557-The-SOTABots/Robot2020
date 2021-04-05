@@ -62,7 +62,7 @@ public class DriveSub extends SubsystemBase {
     // }
 
    if(RobotContainer.dbumperLeft.get()){
-      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.5 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
+      RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * 0.7 * reverseDrive, (RobotContainer.driver.getRawAxis(4) * 0.5));
    }else if(RobotContainer.dbumperRight.get()){
       RobotContainer.diffDrive.arcadeDrive(RobotContainer.driver.getRawAxis(1) * reverseDrive, (RobotContainer.driver.getRawAxis(4)));
    }else{

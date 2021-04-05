@@ -13,7 +13,7 @@ public class HoodSub extends SubsystemBase {
   }
 
   public void angleHood(double speed){
-    RobotContainer.hood.set(speed);
+    // RobotContainer.hood.set(speed); //for fast shooting only
   }
 
   public boolean isClosed() {

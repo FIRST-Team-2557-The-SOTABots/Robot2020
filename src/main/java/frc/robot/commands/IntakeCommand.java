@@ -26,15 +26,14 @@ public class IntakeCommand extends CommandBase {
       RobotContainer.intakeSub.intakeIn();
     }
 
-    if(RobotContainer.ma.get()){
+    if(RobotContainer.ma.get() || RobotContainer.mb.get()){
       RobotContainer.intakeSub.intakeOut();
-
-      if(RobotContainer.mb.get()){
-        RobotContainer.intakeSub.runIntake(-IntakeSub.INTAKE_SPEED);
-      }else{
+    }
+    if(RobotContainer.ma.get()){
         RobotContainer.intakeSub.runIntake(IntakeSub.INTAKE_SPEED);
-      }
-    } else if (!RobotContainer.ma.get()){
+    }else if(RobotContainer.mb.get()){
+        RobotContainer.intakeSub.runIntake(-IntakeSub.INTAKE_SPEED);
+    } else {
         RobotContainer.intakeSub.runIntake(0);
     }
 

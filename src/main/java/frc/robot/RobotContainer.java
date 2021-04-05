@@ -52,6 +52,7 @@ public class RobotContainer {
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(0, 4, 5); 
   public static DoubleSolenoid intakePistons = new DoubleSolenoid(0, 2, 3);
+  public static DoubleSolenoid hoodLock = new DoubleSolenoid(0, 6, 7);
 
   // public static DigitalInput touchThree = new DigitalInput(1);
 
