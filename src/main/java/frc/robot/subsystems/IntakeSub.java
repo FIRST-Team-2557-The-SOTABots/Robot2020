@@ -18,7 +18,6 @@ public class IntakeSub extends SubsystemBase {
   }
 
   public void intakeIn() {
-    //Value.kForward is in
     RobotContainer.intakePistons.set(Value.kForward);
   }
 

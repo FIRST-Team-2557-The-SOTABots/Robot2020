@@ -42,14 +42,11 @@ public class PIDHood extends CommandBase {
     pidController.disableContinuousInput(); 
     pidController.setTolerance(TOLERANCE);
     pidController.reset();
-
-    // setpoint = Projectile.getProjectileAngle();
   }
 
   @Override
   public void execute() { 
     hoodPosition();
-    // System.out.println("going with the PID hood");
     System.out.println("hoodpos: " + RobotContainer.hoodSub.getHoodPos());
     SmartDashboard.putNumber("Hood error!", pidController.getPositionError());
     SmartDashboard.putNumber("Hood setpoint", pidController.getSetpoint());

@@ -6,10 +6,8 @@ import frc.robot.subsystems.IntakeSub;
 
 public class IntakeCommand extends CommandBase {
 
-  boolean shoot;
   public IntakeCommand() {
     addRequirements(RobotContainer.intakeSub);
-    shoot=false;
   }
 
   @Override
@@ -18,10 +16,6 @@ public class IntakeCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if(RobotContainer.flywheelSub.getFlywheelSpeed() > 16000) shoot = true;//16000
-    else shoot = false;
-    double axis2 = RobotContainer.manipulator.getRawAxis(2);
-
     if(RobotContainer.mx.get()){
       RobotContainer.intakeSub.intakeIn();
     }
@@ -36,11 +30,6 @@ public class IntakeCommand extends CommandBase {
     } else {
         RobotContainer.intakeSub.runIntake(0);
     }
-
-    if(axis2 > 0.5 && shoot){ //&& RobotContainer.flywheelSub.getFlywheelSpeed() > 15000
-      // RobotContainer.intakeSub.runTurretFeeder(IntakeSub.CONVEYOR_MOTOR_SPEED);
-    }
-
   }
 
   @Override

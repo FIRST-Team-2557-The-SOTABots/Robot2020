@@ -43,26 +43,14 @@ public class RobotContainer {
   public static WPI_TalonSRX delivery = new WPI_TalonSRX(2);
   public static WPI_TalonSRX intake = new WPI_TalonSRX(3);
 
-//  CPM:kReverse=up,kForward=down
-//  climbLock:kReverse=lock,kForward=unlock
-//  winchShift:kReverse=pull,kForward=freespin
-//  intakePistons:kReverse=in,kForward=out
-//  dSl:kReverse=low,kForward=high
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(0, 4, 5); 
   public static DoubleSolenoid intakePistons = new DoubleSolenoid(0, 2, 3);
   public static DoubleSolenoid hoodLock = new DoubleSolenoid(0, 6, 7);
 
-  // public static DigitalInput touchThree = new DigitalInput(1);
-
   // consider the turret side of robot front
   public static DigitalInput rightTurretLimit = new DigitalInput(2); 
   public static DigitalInput leftTurretLimit = new DigitalInput(3); 
-
-  // public static AnalogInput ani = new AnalogInput(70);
-  // public static LidarLitePWM lidarLite = new LidarLitePWM(new DigitalInput(70));
-
-  // public static AnalogInput hoodEncoder = new AnalogInput(0);
 
   // Joysticks and Buttons
   public static Joystick driver = new Joystick(0);
@@ -114,20 +102,6 @@ public class RobotContainer {
     hoodSub.setDefaultCommand(new HoodCommand());
     flywheelSub.setDefaultCommand(new FlywheelCommand());
     turretSub.setDefaultCommand(new TurretCommand());
-
-    configureButtonBindings();
-
-    //lift.setDefaultCommand(new RunCommand( () -> lift.lift(manipulator.getRawAxis(5)) , lift));
-    
-    // flywheelSub.setDefaultCommand(new RunCommand( () -> flywheelSub.spinFlywheel(driver.getRawAxis(1)), flywheelSub));
-    // hoodSub.setDefaultCommand(new RunCommand( () -> hoodSub.angleHood(driver.getRawAxis(5)), hoodSub));
-
-  }
-
-  private void configureButtonBindings() {
-
-    // ma.whileHeld(new PIDTurret());
-
   }
 
   public Command getAutonomousCommand() {

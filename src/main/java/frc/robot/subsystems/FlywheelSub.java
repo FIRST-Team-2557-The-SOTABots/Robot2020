@@ -10,7 +10,6 @@ public class FlywheelSub extends SubsystemBase {
   private static final double GEAR_RATIO = 3.0; // three flywheel rotations for 1 motor rotation
 
   public FlywheelSub() {
-
   }
 
   public void spinFlywheels(double speed) {
@@ -26,7 +25,6 @@ public class FlywheelSub extends SubsystemBase {
   // returns RPM of flywheel
   public double getFlywheelSpeed() {
     return (RobotContainer.flywheelMotor.getEncoder().getVelocity()*GEAR_RATIO);
-
   }
 
   @Override

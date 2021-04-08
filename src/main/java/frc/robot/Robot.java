@@ -75,12 +75,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-    // System.out.println(getRequiredRPM(20));
-
-    // RobotContainer.turretMotor.overrideLimitSwitchesEnable(false);
-    // RobotContainer.turretMotor.overrideSoftLimitsEnable(false);
-
     shooter();
     
     //hood lock

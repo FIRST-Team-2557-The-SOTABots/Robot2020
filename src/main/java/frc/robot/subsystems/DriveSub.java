@@ -45,7 +45,7 @@ public class DriveSub extends SubsystemBase {
   }
 
   public double getWheelVelocity() {
-    if(DriveConstants.reverse){
+    if(DriveConstants.REVERSE){
       return
         (((RobotContainer.r1.getEncoder().getVelocity()/60) / Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS // (RobotContainer.dsL.get() == Value.kForward ? Constants.TICKS_PER_REVOLUTION_LOW : Constants.TICKS_PER_REVOLUTION_HIGH) ) * Constants.WHEEL_CIRCUMFERENCE_METERS, 
         + ((-RobotContainer.l1.getEncoder().getVelocity()/60)/ Constants.TICKS_PER_REVOLUTION_LOW) * Constants.WHEEL_CIRCUMFERENCE_METERS)/2; //(RobotContainer.dsL.get() == Value.kForward ? Constants.TICKS_PER_REVOLUTION_LOW : Constants.TICKS_PER_REVOLUTION_HIGH)) * Constants.WHEEL_CIRCUMFERENCE_METERS);
