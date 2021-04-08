@@ -31,7 +31,8 @@ public class FlywheelCommand extends CommandBase {
     }
     
     if(RobotContainer.manipulator.getRawAxis(2) > 0.5){
-      RobotContainer.flywheelSub.delivery(0.5);
+      if(RobotContainer.my.get()) RobotContainer.flywheelSub.delivery(-0.5);
+      else RobotContainer.flywheelSub.delivery(0.5);
     }else{
       RobotContainer.flywheelSub.delivery(0);
     }
