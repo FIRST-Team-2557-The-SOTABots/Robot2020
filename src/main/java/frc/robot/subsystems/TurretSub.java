@@ -46,7 +46,7 @@ public class TurretSub extends SubsystemBase {
     // check whether either limit switch is activated
     // the turret may only move away from the limit switch if it's activated
     if (RobotContainer.leftTurretLimit.get()) speed = Math.min(speed, 0);
-    else if (RobotContainer.rightTurretLimit.get()) speed = Math.max(speed, 0);
+    if (RobotContainer.rightTurretLimit.get()) speed = Math.max(speed, 0);
     
     // plug the speed into a function that calculates the max value based on encoder value
     // function fit parameters
