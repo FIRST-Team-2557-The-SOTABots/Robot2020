@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.CallibrateTurretCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.LowerHood;
 import frc.robot.commands.PIDCenterTurret;
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot {
   public static PIDHood ph = new PIDHood(Constants.HOOD_NEAR);
   public static HoodCommand hc = new HoodCommand();
   public static LowerHood lh = new LowerHood(RobotContainer.hoodSub);
+  public static CallibrateTurretCommand callibrateTurret = new CallibrateTurretCommand();
 
   @Override
   public void robotInit() {
@@ -71,6 +73,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     lh.schedule();
+    callibrateTurret.schedule();
   }
 
   @Override
@@ -131,8 +134,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
 
-    SmartDashboard.putBoolean("Left Turret Limit", RobotContainer.leftTurretLimit.get());
-    SmartDashboard.putBoolean("Right Turret Limit", RobotContainer.rightTurretLimit.get());
+    SmartDashboard.putBoolean("Left Turret Limit", RobotContainer.turretSub.getLeftSwitch());
+    SmartDashboard.putBoolean("Right Turret Limit", RobotContainer.turretSub.getRightSwitch());
     SmartDashboard.putNumber("Turret Position", RobotContainer.turretSub.getEncoderValue());
   }
 

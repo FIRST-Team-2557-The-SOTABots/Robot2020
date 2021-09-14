@@ -23,7 +23,8 @@ public class FlywheelCommand extends CommandBase {
   @Override
   public void execute() {
     if(RobotContainer.manipulator.getRawAxis(3) > 0.5 && Robot.ph.getHoodSetpoint() != Constants.HOOD_LOW){
-      RobotContainer.flywheelSub.spinFlywheels(1);
+      // speed of 1 breaks wheels
+      RobotContainer.flywheelSub.spinFlywheels(0.45);
     }else if(RobotContainer.manipulator.getRawAxis(3) > 0.5 && Robot.ph.getHoodSetpoint() == Constants.HOOD_LOW){
       RobotContainer.flywheelSub.spinFlywheels(0.3);
     }else{

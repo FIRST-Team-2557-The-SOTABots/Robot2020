@@ -13,7 +13,6 @@ public class FlywheelSub extends SubsystemBase {
   }
 
   public void spinFlywheels(double speed) {
-    speed *= 0.9;
     RobotContainer.flywheelMotor.set(speed);
     RobotContainer.flywheelMotor2.set(speed);
   }
