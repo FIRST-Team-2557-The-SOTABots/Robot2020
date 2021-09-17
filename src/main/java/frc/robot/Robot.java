@@ -43,12 +43,12 @@ public class Robot extends TimedRobot {
     new SequentialCommandGroup(
       new WaitCommand(Constants.DSA_DELIVERY_WAIT_TIME),
       new RunCommand(
-        () -> RobotContainer.flywheelSub.delivery(0.8), // TODO: delivery needs to be separate subsystem so it isn't required at same time as flywheels
+        () -> RobotContainer.flywheelSub.delivery(Constants.DSA_DELIVERY_SPEED), // TODO: delivery needs to be separate subsystem so it isn't required at same time as flywheels
         RobotContainer.flywheelSub
       )
     ).deadlineWith(
       new RunCommand(
-        () -> RobotContainer.flywheelSub.spinFlywheels(0.45), 
+        () -> RobotContainer.flywheelSub.spinFlywheels(Constants.DSA_FLYWHEEL_SPEED), 
         RobotContainer.flywheelSub
       )
     )

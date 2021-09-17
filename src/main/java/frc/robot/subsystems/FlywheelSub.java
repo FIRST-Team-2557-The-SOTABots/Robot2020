@@ -14,7 +14,7 @@ public class FlywheelSub extends SubsystemBase {
   }
 
   public void spinFlywheels(double speed) {
-    speed = Math.min(MAX_FLYWHEEL_SPEED, speed);
+    speed = Math.max(-MAX_FLYWHEEL_SPEED, Math.min(MAX_FLYWHEEL_SPEED, speed));
     RobotContainer.flywheelMotor.set(speed);
     RobotContainer.flywheelMotor2.set(speed);
   }
