@@ -7,13 +7,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.CallibrateTurretCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.LowerHood;
 import frc.robot.commands.PIDCenterTurret;
 import frc.robot.commands.PIDHood;
 import frc.robot.commands.PIDTurret;
+import frc.robot.commands.TimedDriveCommand;
 import frc.robot.commands.TurretCommand;
+import frc.robot.Constants;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -27,7 +33,26 @@ public class Robot extends TimedRobot {
   public static PIDHood ph = new PIDHood(Constants.HOOD_NEAR);
   public static HoodCommand hc = new HoodCommand();
   public static LowerHood lh = new LowerHood(RobotContainer.hoodSub);
-  public static CallibrateTurretCommand callibrateTurret = new CallibrateTurretCommand();
+  public static TimedDriveCommand timedDrive = new TimedDriveCommand();
+
+  public static SequentialCommandGroup driveShootAuto = new SequentialCommandGroup(
+    new ParallelCommandGroup(
+      new TimedDriveCommand(),
+      new PIDTurret()
+    ),
+    new SequentialCommandGroup(
+      new WaitCommand(Constants.DSA_DELIVERY_WAIT_TIME),
+      new RunCommand(
+        () -> RobotContainer.flywheelSub.delivery(0.8), // TODO: delivery needs to be separate subsystem so it isn't required at same time as flywheels
+        RobotContainer.flywheelSub
+      )
+    ).deadlineWith(
+      new RunCommand(
+        () -> RobotContainer.flywheelSub.spinFlywheels(0.45), 
+        RobotContainer.flywheelSub
+      )
+    )
+  );
 
   @Override
   public void robotInit() {
@@ -35,6 +60,7 @@ public class Robot extends TimedRobot {
     configRobot();
 
     m_chooser = new SendableChooser<>();
+    m_chooser.addOption("Timed Drive", timedDrive);
     SmartDashboard.putData("Auto chooBchooser", m_chooser);
     
   }
@@ -73,7 +99,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     lh.schedule();
-    callibrateTurret.schedule();
   }
 
   @Override

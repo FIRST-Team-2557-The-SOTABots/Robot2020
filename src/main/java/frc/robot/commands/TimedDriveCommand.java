@@ -5,35 +5,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class CallibrateTurretCommand extends CommandBase {
-  // untested
-  /** Creates a new CallibrateTurretCommand. */
-  public CallibrateTurretCommand() {
-    addRequirements(RobotContainer.turretSub);
+public class TimedDriveCommand extends CommandBase {
+
+  /** Creates a new TimedDriveCommand. */
+  public TimedDriveCommand() {
+    addRequirements(RobotContainer.driveSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    RobotContainer.driveSub.resetEncoders();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.turretSub.rotate(0.1);
+    RobotContainer.driveSub.drive(Constants.TIMED_DRIVE_SPEED, 0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.turretSub.rotate(0);
+    RobotContainer.driveSub.drive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.turretSub.getLeftSwitch() || RobotContainer.turretSub.getRightSwitch();
+    return Math.abs(RobotContainer.l1.getEncoder().getPosition()) >= Constants.TIMED_DRIVE_ROTATIONS;
   }
 }

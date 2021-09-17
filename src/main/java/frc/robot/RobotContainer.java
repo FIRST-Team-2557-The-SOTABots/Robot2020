@@ -42,6 +42,7 @@ public class RobotContainer {
   public static WPI_TalonSRX hood = new WPI_TalonSRX(1);
   public static WPI_TalonSRX delivery = new WPI_TalonSRX(2);
   public static WPI_TalonSRX intake = new WPI_TalonSRX(3);
+  public static WPI_TalonSRX deliveryStar = new WPI_TalonSRX(4);
 
   public static Compressor compressor = new Compressor(1);
   public static DoubleSolenoid dsL = new DoubleSolenoid(0, 4, 5); 
