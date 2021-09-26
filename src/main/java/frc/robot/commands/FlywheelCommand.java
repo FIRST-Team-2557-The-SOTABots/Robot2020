@@ -30,19 +30,7 @@ public class FlywheelCommand extends CommandBase {
     }else{
       RobotContainer.flywheelSub.spinFlywheels(0);
     }
-    
-    if(RobotContainer.manipulator.getRawAxis(2) > 0.5){
-      if(RobotContainer.my.get()) RobotContainer.flywheelSub.delivery(-0.85);
-      else RobotContainer.flywheelSub.delivery(0.85);
-    }else{
-      RobotContainer.flywheelSub.delivery(0);
-    }
 
-    if (Math.abs(RobotContainer.manipulator.getRawAxis(1)) > 0.3) {
-      RobotContainer.flywheelSub.deliveryStar(0.4);
-    } else {
-
-    }
   }
 
   // Called once the command ends or is interrupted.

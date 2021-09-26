@@ -75,6 +75,7 @@ public class PIDTurret extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.turretSub.rotate(0);
+    SmartDashboard.putString("Turret Setpoint Reached", "");
   }
 
   @Override

@@ -19,15 +19,6 @@ public class FlywheelSub extends SubsystemBase {
     RobotContainer.flywheelMotor2.set(speed);
   }
 
-  public void delivery(double speed){
-      RobotContainer.delivery.set(-speed);
-      RobotContainer.deliveryStar.set(speed * 0.7);
-  }
-
-  public void deliveryStar(double speed) {
-    RobotContainer.deliveryStar.set(speed);
-  }
-
   // returns RPM of flywheel
   public double getFlywheelSpeed() {
     return (RobotContainer.flywheelMotor.getEncoder().getVelocity()*GEAR_RATIO);

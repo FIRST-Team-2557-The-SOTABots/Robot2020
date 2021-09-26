@@ -17,6 +17,7 @@ public class DriveSub extends SubsystemBase {
   public static final double RATIO_GEAR1 = 18.86;
   public static final double RATIO_GEAR2 = 6;
   public static final double E_TICKS_PER_REV = 42; //ticks of 
+  // forward channel of dsl is low gear
 
   public double reverseDrive = 1;
 

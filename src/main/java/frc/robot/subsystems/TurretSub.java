@@ -12,7 +12,7 @@ public class TurretSub extends SubsystemBase {
  // actual 
  //4825 tickers per revers
 
-  private static final int ENCODER_HIGH_LIMIT = -10125;
+  private static final int ENCODER_HIGH_LIMIT = -8471;
   private static final double MAX_SPEED = 0.6;
   private static final double END_SPEED = 0.2;
 
@@ -23,8 +23,8 @@ public class TurretSub extends SubsystemBase {
   public void rotate(double speed){
     // check whether either limit switch is activated
     // the turret may only move away from the limit switch if it's activated
-    if (this.getLeftSwitch()) speed = Math.min(speed, 0);
-    if (this.getRightSwitch()) speed = Math.max(speed, 0);
+    if (this.getLeftSwitch() || this.getEncoderValue() > -ENCODER_HIGH_LIMIT) speed = Math.min(speed, 0);
+    if (this.getRightSwitch() || this.getEncoderValue() < 0) speed = Math.max(speed, 0);
     // clamp speed to within the allowed speed range
     speed = Math.max(-END_SPEED, Math.min(END_SPEED, speed));
     // set the turret motor to the speed
@@ -45,8 +45,8 @@ public class TurretSub extends SubsystemBase {
   public void rotateMax(double speed) {
     // check whether either limit switch is activated
     // the turret may only move away from the limit switch if it's activated
-    if (this.getLeftSwitch()) speed = Math.min(speed, 0);
-    if (this.getRightSwitch()) speed = Math.max(speed, 0);
+    if (this.getLeftSwitch() || this.getEncoderValue() > -ENCODER_HIGH_LIMIT) speed = Math.min(speed, 0);
+    if (this.getRightSwitch() || this.getEncoderValue() < 0) speed = Math.max(speed, 0);
     
     // plug the speed into a function that calculates the max value based on encoder value
     // function fit parameters

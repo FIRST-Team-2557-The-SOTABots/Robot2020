@@ -33,19 +33,16 @@ public class Robot extends TimedRobot {
   public static PIDHood ph = new PIDHood(Constants.HOOD_NEAR);
   public static HoodCommand hc = new HoodCommand();
   public static LowerHood lh = new LowerHood(RobotContainer.hoodSub);
-  public static TimedDriveCommand timedDrive = new TimedDriveCommand();
 
   public static SequentialCommandGroup driveShootAuto = new SequentialCommandGroup(
-    new ParallelCommandGroup(
-      new TimedDriveCommand(),
-      new PIDTurret()
-    ),
+    new TimedDriveCommand(),
+    // new PIDTurret(), // turret broken
     new SequentialCommandGroup(
       new WaitCommand(Constants.DSA_DELIVERY_WAIT_TIME),
       new RunCommand(
-        () -> RobotContainer.flywheelSub.delivery(Constants.DSA_DELIVERY_SPEED), // TODO: delivery needs to be separate subsystem so it isn't required at same time as flywheels
-        RobotContainer.flywheelSub
-      )
+        () -> RobotContainer.deliverySub.runDelivery(Constants.DSA_DELIVERY_SPEED), // TODO: delivery needs to be separate subsystem so it isn't required at same time as flywheels
+        RobotContainer.deliverySub
+      ).withTimeout(Constants.DSA_DELIVERY_DURATION)
     ).deadlineWith(
       new RunCommand(
         () -> RobotContainer.flywheelSub.spinFlywheels(Constants.DSA_FLYWHEEL_SPEED), 
@@ -60,7 +57,7 @@ public class Robot extends TimedRobot {
     configRobot();
 
     m_chooser = new SendableChooser<>();
-    m_chooser.addOption("Timed Drive", timedDrive);
+    m_chooser.addOption("Drive Shoot", driveShootAuto);
     SmartDashboard.putData("Auto chooBchooser", m_chooser);
     
   }
@@ -84,6 +81,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_chooser.getSelected();
 
     // schedule the autonomous command (example)
+    RobotContainer.turret.getSensorCollection().setQuadraturePosition(-Constants.TURRET_CENTER_POSITION, 10);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -98,23 +96,21 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.turret.getSensorCollection().setQuadraturePosition(-Constants.TURRET_CENTER_POSITION, 10);
     lh.schedule();
   }
 
   @Override
   public void teleopPeriodic() {
     shooter();
-    
-    //hood lock
-    if(RobotContainer.mbumperLeft.get()) RobotContainer.hoodLock.set(Value.kForward);
-    if(RobotContainer.mbumperRight.get()) RobotContainer.hoodLock.set(Value.kReverse);
 
+    //hood lock
     if(RobotContainer.mback.get()){
-      RobotContainer.intakePistons.set(Value.kForward);
+      RobotContainer.hoodLock.set(Value.kReverse);
     }
 
     if(RobotContainer.mstart.get()){
-      RobotContainer.intakePistons.set(Value.kReverse);
+      RobotContainer.hoodLock.set(Value.kForward);
     }
 
     if(RobotContainer.mterribleRight.get()){
@@ -172,7 +168,11 @@ public class Robot extends TimedRobot {
     RobotContainer.intake.configPeakCurrentDuration(0,0);
     RobotContainer.intake.configPeakCurrentLimit(50,0);
 
-    RobotContainer.dsL.set(Value.kReverse);
+    // make robot start in low gear
+    RobotContainer.dsL.set(Value.kForward);
+
+    // unlock hood
+    RobotContainer.hoodLock.set(Value.kReverse);
 
     // RobotContainer.intake2.enableCurrentLimit(true);
     // RobotContainer.intake2.configPeakCurrentDuration(0,0);

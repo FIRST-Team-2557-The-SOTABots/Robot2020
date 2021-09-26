@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.commands.DeliveryCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.FlywheelCommand;
 import frc.robot.commands.HoodCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.TurretCommand;
+import frc.robot.subsystems.DeliverySub;
 import frc.robot.subsystems.DriveSub;
 import frc.robot.subsystems.FlywheelSub;
 import frc.robot.subsystems.HoodSub;
@@ -96,6 +98,7 @@ public class RobotContainer {
   public static final HoodSub hoodSub =new HoodSub();
   public static final FlywheelSub flywheelSub = new FlywheelSub();
   public static final IntakeSub intakeSub = new IntakeSub();
+  public static final DeliverySub deliverySub = new DeliverySub();
 
   public RobotContainer() {
     driveSub.setDefaultCommand(new DriveCommand());
@@ -103,6 +106,7 @@ public class RobotContainer {
     hoodSub.setDefaultCommand(new HoodCommand());
     flywheelSub.setDefaultCommand(new FlywheelCommand());
     turretSub.setDefaultCommand(new TurretCommand());
+    deliverySub.setDefaultCommand(new DeliveryCommand());
   }
 
   public Command getAutonomousCommand() {

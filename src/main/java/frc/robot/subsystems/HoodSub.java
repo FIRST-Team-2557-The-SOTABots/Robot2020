@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 
@@ -29,6 +30,6 @@ public class HoodSub extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+    SmartDashboard.putString("Hood Lock", RobotContainer.hoodLock.get().toString());
   }
 }
