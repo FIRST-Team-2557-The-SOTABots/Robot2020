@@ -24,6 +24,9 @@ public final class Constants {
     public static final double RATIO_GEAR_HIGH = 6.45;
     public static final double WHEEL_CIRCUMFERENCE_METERS = 6*Math.PI*0.0254;
 
+    // the RPM of the flywheel when it is ready to shoot
+    public static final double FLYWHEEL_SHOOT_RPM = 5000; 
+
     public static final double TIMED_DRIVE_ROTATIONS = 30;
     public static final double TIMED_DRIVE_SPEED = 0.5;
 

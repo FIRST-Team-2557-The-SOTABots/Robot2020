@@ -154,6 +154,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Wheel Vels", RobotContainer.driveSub.getWheelVelocity());
 
     SmartDashboard.putNumber("RPM of flywheel", RobotContainer.flywheelSub.getFlywheelSpeed());
+    SmartDashboard.putBoolean("Flywheel Ready", RobotContainer.flywheelSub.getFlywheelSpeed() > Constants.FLYWHEEL_SHOOT_RPM);
 
     SmartDashboard.putBoolean("Left Turret Limit", RobotContainer.turretSub.getLeftSwitch());
     SmartDashboard.putBoolean("Right Turret Limit", RobotContainer.turretSub.getRightSwitch());
