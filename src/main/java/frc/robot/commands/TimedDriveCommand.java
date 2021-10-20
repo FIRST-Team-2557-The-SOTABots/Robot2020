@@ -9,11 +9,13 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class TimedDriveCommand extends CommandBase {
+  private boolean forward;
 
   /** Creates a new TimedDriveCommand. */
-  public TimedDriveCommand() {
+  public TimedDriveCommand(boolean forward) {
     addRequirements(RobotContainer.driveSub);
     // Use addRequirements() here to declare subsystem dependencies.
+    this.forward = forward;
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +27,7 @@ public class TimedDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.driveSub.drive(Constants.TIMED_DRIVE_SPEED, 0);
+    RobotContainer.driveSub.drive(forward ? -1 * Constants.TIMED_DRIVE_SPEED : Constants.TIMED_DRIVE_SPEED, 0);
   }
 
   // Called once the command ends or is interrupted.

@@ -34,8 +34,8 @@ public class Robot extends TimedRobot {
   public static HoodCommand hc = new HoodCommand();
   public static LowerHood lh = new LowerHood(RobotContainer.hoodSub);
 
-  public static SequentialCommandGroup driveShootAuto = new SequentialCommandGroup(
-    new TimedDriveCommand(),
+  public static SequentialCommandGroup driveBackShootAuto = new SequentialCommandGroup(
+    new TimedDriveCommand(false),
     // new PIDTurret(), // turret broken
     new SequentialCommandGroup(
       new WaitCommand(Constants.DSA_DELIVERY_WAIT_TIME),
@@ -51,13 +51,30 @@ public class Robot extends TimedRobot {
     )
   );
 
+  public static SequentialCommandGroup shootDriveForwardAuto = new SequentialCommandGroup(
+    new SequentialCommandGroup(
+      new WaitCommand(Constants.DSA_DELIVERY_WAIT_TIME),
+      new RunCommand(
+        () -> RobotContainer.deliverySub.runDelivery(Constants.DSA_DELIVERY_SPEED), // TODO: delivery needs to be separate subsystem so it isn't required at same time as flywheels
+        RobotContainer.deliverySub
+      ).withTimeout(Constants.DSA_DELIVERY_DURATION)
+    ).deadlineWith(
+      new RunCommand(
+        () -> RobotContainer.flywheelSub.spinFlywheels(Constants.DSA_FLYWHEEL_SPEED), 
+        RobotContainer.flywheelSub
+      )
+    ),
+    new TimedDriveCommand(true)
+  );
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     configRobot();
 
     m_chooser = new SendableChooser<>();
-    m_chooser.addOption("Drive Shoot", driveShootAuto);
+    m_chooser.addOption("Drive Back Shoot", driveBackShootAuto);
+    m_chooser.addOption("Shoot Drive Forward", shootDriveForwardAuto);
     SmartDashboard.putData("Auto chooBchooser", m_chooser);
     
   }

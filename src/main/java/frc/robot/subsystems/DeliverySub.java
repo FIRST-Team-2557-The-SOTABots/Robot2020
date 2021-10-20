@@ -14,8 +14,13 @@ public class DeliverySub extends SubsystemBase {
 
   // runs both delivery systems
   public void runDelivery(double speed) {
-    RobotContainer.delivery.set(-speed);
-    RobotContainer.deliveryStar.set(speed * 0.3);
+    if (RobotContainer.flywheelSub.getFlywheelSpeed() > Constants.FLYWHEEL_SHOOT_RPM) {
+      RobotContainer.delivery.set(-speed);
+      RobotContainer.deliveryStar.set(speed * 0.3);
+    } else {
+      RobotContainer.delivery.set(0);
+      RobotContainer.deliveryStar.set(0);
+    }
   }
 
   // runs just star wheel delivery system

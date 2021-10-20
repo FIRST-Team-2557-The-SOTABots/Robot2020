@@ -26,6 +26,7 @@ public final class Constants {
 
     // the RPM of the flywheel when it is ready to shoot
     public static final double FLYWHEEL_SHOOT_RPM = 5000; 
+    public static final double FLYWHEEL_SHOOT_RPM_TOLERANCE = 500; 
 
     public static final double TIMED_DRIVE_ROTATIONS = 30;
     public static final double TIMED_DRIVE_SPEED = 0.5;
@@ -34,9 +35,9 @@ public final class Constants {
     public static final double STAR_WHEEL_SPEED = 0.3;
 
     // Drive Shoot Auto Constants
-    public static final double DSA_DELIVERY_WAIT_TIME = 4.0; // how long until delivery starts
-    public static final double DSA_DELIVERY_DURATION = 3.0;
-    public static final double DSA_DELIVERY_SPEED = 0.5;
+    public static final double DSA_DELIVERY_WAIT_TIME = 5.0; // how long until delivery starts
+    public static final double DSA_DELIVERY_DURATION = 5.0;
+    public static final double DSA_DELIVERY_SPEED = 0.85;
     public static final double DSA_FLYWHEEL_SPEED = 0.5;
     public static final class DriveConstants {
         public static final boolean REVERSE = false;

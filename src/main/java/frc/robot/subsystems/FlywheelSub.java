@@ -8,7 +8,7 @@ public class FlywheelSub extends SubsystemBase {
   public static final double FLY_WHEEL_RADIUS = .25;//feet
   public static final double FLY_WHEEL_SPEED = -1;
   private static final double GEAR_RATIO = 3.0; // three flywheel rotations for 1 motor rotation
-  private static final double MAX_FLYWHEEL_SPEED = 0.45;
+  private static final double MAX_FLYWHEEL_SPEED = 0.5;
 
   public FlywheelSub() {
   }
